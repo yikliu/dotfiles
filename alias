@@ -51,3 +51,12 @@ alias m_pf='m ~/.bash_profile'
 alias m_als='m ~/dotfiles/alias'
 alias m_amz='m ~/dotfiles/amazon'
 alias m_tmux='m ~/dotfiles/tmux'
+
+push_dotfiles() {
+	DIR=$(pwd)
+	cd ~/dotfiles
+	git add .
+	git commit -m "update"
+	git push origin master
+  	cd ${DIR}	
+}
