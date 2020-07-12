@@ -1,0 +1,53 @@
+# general shortcuts
+alias c='cd '
+alias mv='mv -i'
+alias md='mkdir -p'
+alias rm='rm -i'
+alias cp='cp -i'
+
+# listing files
+alias l='ls -lah'
+alias ltr='ls -ltr'
+alias lth='l -t|head'
+alias ls='ls -hF'
+alias lh='ls -Shl | less'
+alias ll='ls -alF'
+alias la='ls -Al'
+alias lx='ls -lXB'
+alias lk='ls -lSr'
+alias lc='ls -ltcr'
+alias ll="ls -al | less"
+
+alias tf='tail -f -n 100'
+alias t500='tail -n 500'
+alias t1000='tail -n 1000'
+alias t2000='tail -n 2000'
+
+# editing shortcuts
+alias m='vim'
+
+# grep for a process
+function psg {
+  FIRST=`echo $1 | sed -e 's/^\(.\).*/\1/'`
+  REST=`echo $1 | sed -e 's/^.\(.*\)/\1/'`
+  ps aux | grep "[$FIRST]$REST"
+}
+
+today() {
+    dt=$(date +%m-%d-%Y)
+    FILENAME="/Users/yikunliu/Google Drive/note/$dt.md"
+	m "$FILENAME"
+}
+
+blog() {
+	TITLE=`echo $1 | sed 's/ /-/g'`
+	DATE=$(date +%Y-%m-%d)
+	FILENAME="/Users/yikunliu/Google Drive/yikliu.github.io/_posts/$DATE-$TITLE.markdown"
+	m "$FILENAME"
+}
+
+alias m_vim='m ~/.vimrc'
+alias m_pf='m ~/.bash_profile'
+alias m_als='m ~/dotfiles/alias'
+alias m_amz='m ~/dotfiles/amazon'
+alias m_tmux='m ~/dotfiles/tmux'
