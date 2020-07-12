@@ -1,0 +1,72 @@
+# .zshrc — portable across Mac and Linux
+
+export MANPATH="/usr/local/man:$MANPATH"
+export LANG=en_US.UTF-8
+export TERM_EDITOR=nvim
+export EDITOR=nvim
+
+# History
+HISTCONTROL=ignoreboth
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Color
+export TERM=xterm-256color
+
+# ── PATH (platform-aware) ──────────────────────────────────────────
+# Common paths
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+
+case "$(uname -s)" in
+    Darwin)
+        # Homebrew
+        if [ -d "/opt/homebrew" ]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        elif [ -d "/usr/local/Homebrew" ]; then
+            eval "$(/usr/local/Homebrew/bin/brew shellenv)"
+        fi
+        export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+        export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+
+        # Ruby (Homebrew)
+        [ -d "/usr/local/opt/ruby/bin" ] && export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+        # Java (macOS)
+        if /usr/libexec/java_home -v 17 &>/dev/null; then
+            export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+        fi
+
+        # Yarn
+        [ -d "$HOME/.yarn/bin" ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+        # jdtls
+        [ -d "$HOME/jdtls/bin" ] && export PATH="$HOME/jdtls/bin:$PATH"
+
+        # XDG for homebrew
+        export XDG_DATA_DIRS="/opt/homebrew/share"
+        ;;
+    Linux)
+        # Java (Linux)
+        if [ -d "/usr/lib/jvm/java-17-openjdk-amd64" ]; then
+            export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+        fi
+        ;;
+esac
+
+export JAVA_TOOLS_OPTIONS="-Dlog4j2.formatMsgNoLookups=true"
+
+# ── FZF ─────────────────────────────────────────────────────────────
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='--color=bg+:#302D41,bg:#1E1E2E,spinner:#F8BD96,hl:#F28FAD --color=fg:#D9E0EE,header:#F28FAD,info:#DDB6F2,pointer:#F8BD96 --color=marker:#F8BD96,fg+:#F2CDCD,prompt:#DDB6F2,hl+:#F28FAD'
+
+fpath=($fpath "$HOME/.zfunctions")
+
+# ── Aliases & extras ────────────────────────────────────────────────
+source ~/dotfiles/zsh/myalias
+
+# Machine-specific overrides (not tracked in git)
+[ -f ~/dotfiles/zsh/local.zsh ] && source ~/dotfiles/zsh/local.zsh
+
+export GOPROXY="direct"
+export NOTES_DIR="$HOME/OneDrive/sync/notes"

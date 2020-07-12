@@ -1,0 +1,62 @@
+# Work-specific shell config
+# Copy to zsh/local.zsh and fill in your values:
+#   cp zsh/local.zsh.example zsh/local.zsh
+
+# Toolbox
+[ -d "$HOME/.toolbox/bin" ] && export PATH="$HOME/.toolbox/bin:$PATH"
+
+# AIM MCP servers
+[ -d "$HOME/.aim/mcp-servers" ] && export PATH="$HOME/.aim/mcp-servers:$PATH"
+
+# Amazon Corretto (Linux cloud desktops)
+if [ -d "/usr/lib/jvm/java-17-amazon-corretto" ]; then
+    export JAVA_HOME="/usr/lib/jvm/java-17-amazon-corretto"
+fi
+
+# Additional PATH entries
+[ -d "$HOME/Library/Android/sdk/tools/bin" ] && export PATH="$HOME/Library/Android/sdk/tools/bin:$PATH"
+[ -d "$HOME/Library/Android/sdk/platform-tools" ] && export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+[ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
+
+# Environment — fill in your values
+export DEVDSK_X86="yikunliu-x86.aka.corp.amazon.com"
+export DEVDSK_ARM="yikunliu-arm.aka.corp.amazon.com"
+
+# Brazil aliases
+alias bws="brazil ws"
+alias bb="brazil-build"
+alias bbr="brazil-build release"
+alias brb="brazil-recursive-cmd --allPackages brazil-build"
+alias bbc="brazil-build clean"
+alias bre="brazil-runtime-exec"
+alias mac_yubi="mwinit -s -f"
+alias dsk_yubi="mwinit -o"
+
+# Cloud desktop
+alias x86="ssh $DEVDSK_X86"
+alias arm="ssh $DEVDSK_ARM"
+alias rd_x86="dcv-cdd.py connect $DEVDSK_X86"
+alias rd_arm="dcv-cdd.py connect $DEVDSK_ARM"
+alias tm_x86="ssh $DEVDSK_X86 -t /apollo/env/envImprovement/bin/tmux a \;"
+alias tm_arm="ssh $DEVDSK_ARM -t /apollo/env/envImprovement/bin/tmux a \;"
+
+# Android
+alias flash='./flashimage.py --toolsdir=$HOME/Library/Android/sdk/platform-tools/'
+alias scrcpy='scrcpy --video-encoder OMX.google.h264.encoder'
+
+# Isengard credentials — fill in your account IDs
+alias refresh_ps="ada credentials update --provider isengard --account <PERSONAL_ACCOUNT_ID> --profile default --role Admin --once"
+
+# Daily notes
+alias daily="n ~/workplace/YikunliuFiles/src/YikunliuFiles/daily.md"
+
+# Kiro CLI shell integration
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+[[ -f "${HOME}/.local/share/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zshrc.pre.zsh"
+
+if [[ "$TERM_PROGRAM" == "kiro" ]] && command -v kiro &>/dev/null; then
+    . "$(kiro --locate-shell-integration-path zsh)"
+fi
+
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+[[ -f "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh"

@@ -1,0 +1,4 @@
+package-lock.json
+.nvim/
+.DS_Store
+zsh/local.zsh
