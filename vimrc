@@ -1,3 +1,4 @@
+
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 	      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -18,6 +19,15 @@ Plug 'arzg/vim-colors-xcode'
 " Initialize plugin system
 call plug#end()
 
+" Use , as LEADER
+let mapleader=","
+
 " Choose colorscheme
 colorscheme xcodedark
 
+" pull up CtrlPTag
+nnoremap <leader>. :CtrlPTag<cr>
+
+" add empty line
+nnoremap <F4> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <F5> :set paste<CR>m`O<Esc>``:set nopaste<CR>

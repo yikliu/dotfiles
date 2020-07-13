@@ -11,6 +11,8 @@ rm -f ~/.vimrc
 ln -s ${dir}/vimrc ~/.vimrc
 rm -f ~/.tmux.conf
 ln -s ${dir}/tmux ~/.tmux.conf
+rm -f ~/.ctags
+ln -s ${dir}/ctags ~/.ctags
 
 source ~/.bashrc
 
