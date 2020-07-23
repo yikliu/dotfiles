@@ -1,4 +1,3 @@
-
 if [ -d "/apollo/env/SDETools/bin" ] ; then
     PATH="/apollo/env/SDETools/bin:$PATH"
 fi

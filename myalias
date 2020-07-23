@@ -48,7 +48,7 @@ blog() {
 
 alias m_vim='m ~/.vimrc'
 alias m_pf='m ~/.bash_profile'
-alias m_als='m ~/dotfiles/alias'
+alias m_als='m ~/dotfiles/myalias'
 alias m_amz='m ~/dotfiles/amazon'
 alias m_tmux='m ~/dotfiles/tmux'
 

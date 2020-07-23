@@ -1,6 +1,7 @@
 #!/bin/bash
 
 dir="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
 rm -f ~/dotfiles
 ln -s ${dir} ~/dotfiles
 rm -f ~/.bashrc
@@ -13,6 +14,9 @@ rm -f ~/.tmux.conf
 ln -s ${dir}/tmux ~/.tmux.conf
 rm -f ~/.ctags
 ln -s ${dir}/ctags ~/.ctags
+rm -f ~/.trydactyle
+ln -s ${dir}/tridactylrc ~/.tridactylrc
 
 source ~/.bashrc
-
+source ${dir}/myalias
+source ${dir}/amazon
