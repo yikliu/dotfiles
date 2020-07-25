@@ -4,6 +4,7 @@ fi
 
 export PATH=$HOME/.toolbox/bin:$PATH
 export PATH="/Users/yikunliu/brazil/SpyDevTools/src/SpyDevTools/bin:$PATH"
+export PATH="/Users/yikunliu/brazil/NinjaUtilsClojure/src/NinjaUtilsClojure/bin:$PATH"
 
 alias mount="hdiutil attach $HOME/brazil.sparseimage -mountpoint /Volumes/brazil;"
 alias bws="brazil ws"
@@ -12,7 +13,7 @@ alias bbr="brazil-build release"
 alias bbc="brazil-build clean"
 alias bbb="brazil-build build"
 alias yubi="mwinit -o;ssh-add -K -t 72000"
-alias cloud="ssh dev-dsk-yikunliu-2a-a0d4e82b.us-west-2.amazon.com"
+alias cloud="ssh yikunliu.aka.corp.amazon.com"
 alias bbdu="brazil-build distribute -u"
 alias joe3='adb shell input text "tavaresj+vizzini3@amazon.com"'
 alias yikun_uk='adb shell input text "yikunliu+uk@amazon.com"'

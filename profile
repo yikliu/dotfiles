@@ -105,12 +105,10 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="/Users/yikunliu/brazil/NinjaUtilsClojure/src/NinjaUtilsClojure/bin:$PATH"
+
 #setting go path
 export GOPATH=$HOME/code/go
 
 source ~/dotfiles/myalias
 source ~/dotfiles/amazon
-
 source ~/.thisrc
-
