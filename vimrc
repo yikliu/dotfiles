@@ -1,4 +1,3 @@
-
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 	      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -19,7 +18,6 @@ Plug 'arzg/vim-colors-xcode'
 " code completion
 Plug 'neoclide/coc.nvim'
 Plug 'dense-analysis/ale'
-Plug 'puremourning/vimspector'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
@@ -30,6 +28,8 @@ Plug 'kana/vim-textobj-user'
 Plug 'janko/vim-test'
 Plug 'vim-scripts/vcscommand.vim'
 Plug 'mhinz/vim-signify'
+" Markdown
+Plug 'gabrielelana/vim-markdown'
 
 " Initialize plugin system
 call plug#end()

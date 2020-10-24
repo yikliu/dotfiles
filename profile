@@ -110,5 +110,8 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 export GOPATH=$HOME/code/go
 
 source ~/dotfiles/myalias
-source ~/dotfiles/amazon
+source ~/amazon
 source ~/.thisrc
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+

@@ -23,6 +23,11 @@ alias t500='tail -n 500'
 alias t1000='tail -n 1000'
 alias t2000='tail -n 2000'
 
+#tmux
+alias tmls="tmux ls"
+alias tmat="tmux a -t"
+alias tmkill="tmux kill-session -t"
+
 # editing shortcuts
 alias m='vim'
 
@@ -35,21 +40,20 @@ function psg {
 
 today() {
     dt=$(date +%m-%d-%Y)
-    FILENAME="/Users/yikunliu/Google Drive/note/$dt.md"
+    FILENAME="/Users/yikunliu/drive/note/$dt.md"
 	m "$FILENAME"
 }
 
 blog() {
 	TITLE=`echo $1 | sed 's/ /-/g'`
 	DATE=$(date +%Y-%m-%d)
-	FILENAME="/Users/yikunliu/Google Drive/yikliu.github.io/_posts/$DATE-$TITLE.markdown"
+	FILENAME="/Users/yikunliu/drive/yikliu.github.io/_posts/$DATE-$TITLE.markdown"
 	m "$FILENAME"
 }
 
 alias m_vim='m ~/.vimrc'
 alias m_pf='m ~/.bash_profile'
 alias m_als='m ~/dotfiles/myalias'
-alias m_amz='m ~/dotfiles/amazon'
 alias m_tmux='m ~/dotfiles/tmux'
 
 push_dotfiles() {

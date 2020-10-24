@@ -1,0 +1,4 @@
+colorscheme quake
+
+bind d composite tab #; tabclose #
+bind D tabclose

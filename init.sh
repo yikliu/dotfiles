@@ -14,9 +14,9 @@ rm -f ~/.tmux.conf
 ln -s ${dir}/tmux ~/.tmux.conf
 rm -f ~/.ctags
 ln -s ${dir}/ctags ~/.ctags
-rm -f ~/.trydactyle
+rm -f ~/.tridactylrc
 ln -s ${dir}/tridactylrc ~/.tridactylrc
 
 source ~/.bashrc
 source ${dir}/myalias
-source ${dir}/amazon
+source ~/amazon

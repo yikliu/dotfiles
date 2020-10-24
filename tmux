@@ -3,23 +3,47 @@ unbind C-b
 set-option -g prefix C-a
 bind-key C-a send-prefix
 
-# split panes using | and -
-bind | split-window -h
-bind - split-window -v
-unbind '"'
-unbind %
+# 0 is too far from ` ;)
+set -g base-index 1
 
-# reload config file (change file location to your the tmux.conf you want to use)
-bind r source-file ~/.tmux.conf
+# set bash
+set-option -g default-shell "/bin/bash"
 
-# switch panes using Alt-arrow without prefix
+# Enable mouse mode (tmux 2.1 and above)
+set -g mouse on
+
+# Automatically set window title
+set-window-option -g automatic-rename on
+set-option -g set-titles on
+
+set -g default-terminal screen-256color
+set -g status-keys vi
+set -g history-limit 10000
+
+setw -g mode-keys vi
+setw -g mode-mouse on
+setw -g monitor-activity on
+
+bind-key v split-window -h
+bind-key s split-window -v
+
+bind-key J resize-pane -D 5
+bind-key K resize-pane -U 5
+bind-key H resize-pane -L 5
+bind-key L resize-pane -R 5
+
+# Use Alt-arrow keys without prefix key to switch panes
 bind -n M-Left select-pane -L
 bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
 
-# Enable mouse mode (tmux 2.1 and above)
-set -g mouse on
+# Shift arrow to switch windows
+bind -n S-Left  previous-window
+bind -n S-Right next-window
 
-# set bash
-set-option -g default-shell "/bin/bash"
+# No delay for escape key press
+set -sg escape-time 0
+
+# Reload tmux config
+bind r source-file ~/.tmux.conf
