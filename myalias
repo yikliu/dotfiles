@@ -23,6 +23,11 @@ alias t500='tail -n 500'
 alias t1000='tail -n 1000'
 alias t2000='tail -n 2000'
 
+#git
+alias gs="git status"
+alias gb="git branch -vv"
+alias gp="git pull --rebase"
+
 #tmux
 alias tmls="tmux ls"
 alias tmat="tmux a -t"
