@@ -1,3 +1,5 @@
+set-option -g default-shell $SHELL
+
 # remap prefix from 'C-b' to 'C-a'
 unbind C-b
 set-option -g prefix C-a
@@ -6,27 +8,21 @@ bind-key C-a send-prefix
 # 0 is too far from ` ;)
 set -g base-index 1
 
-# set bash
-set-option -g default-shell "/bin/bash"
-
-# Enable mouse mode (tmux 2.1 and above)
-set -g mouse on
-
 # Automatically set window title
 set-window-option -g automatic-rename on
 set-option -g set-titles on
 
-set -g default-terminal screen-256color
+set -g default-terminal "tmux-256color"
 set -g status-keys vi
 set -g history-limit 10000
 
 setw -g mode-keys vi
-setw -g mode-mouse on
 setw -g monitor-activity on
 
 bind-key v split-window -h
 bind-key s split-window -v
 
+# resize pane
 bind-key J resize-pane -D 5
 bind-key K resize-pane -U 5
 bind-key H resize-pane -L 5

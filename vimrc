@@ -1,9 +1,3 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-	      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 " put vim-plugin first 
 call plug#begin('~/.vim/plugged')
 
@@ -30,15 +24,23 @@ Plug 'vim-scripts/vcscommand.vim'
 Plug 'mhinz/vim-signify'
 " Markdown
 Plug 'gabrielelana/vim-markdown'
-
+Plug 'junegunn/goyo.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 " Initialize plugin system
 call plug#end()
+
+" termsize
+set splitbelow
+set termwinsize=30x0
+
+" line number
+set number
 
 " Use , as LEADER
 let mapleader=","
 
 " Choose colorscheme
-colorscheme xcodedark
+" colorscheme xcodedarkhc
 
 " add empty line
 nnoremap <F4> :set paste<CR>m`o<Esc>``:set nopaste<CR>
@@ -56,6 +58,11 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 " If more than one window and previous buffer was NERDTree, go back to it.
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
 let g:plug_window = 'noautocmd vertical topleft new'
+
+" NERDTree on every tab
+autocmd VimEnter * NERDTree
+autocmd BufEnter * NERDTreeMirror
+autocmd VimEnter * wincmd w
 
 set shiftwidth=4
 set tabstop=4
@@ -131,3 +138,31 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
+
+" switch between panes
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" ctrlp
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
+
+if !exists('g:lasttab')
+  let g:lasttab = 1
+endif
+nmap <Leader>l :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+nnoremap H gT
+nnoremap L gt
+
+" yank/paste to clipboard
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
+
