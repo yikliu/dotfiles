@@ -18,8 +18,9 @@ set -g history-limit 10000
 
 setw -g mode-keys vi
 setw -g monitor-activity on
-
+# divide screen to left and right
 bind-key v split-window -h
+# divide screen to up and down
 bind-key s split-window -v
 
 # resize pane
@@ -43,3 +44,20 @@ set -sg escape-time 0
 
 # Reload tmux config
 bind r source-file ~/.tmux.conf
+
+#tpm
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'github_username/plugin_name#branch'
+# set -g @plugin 'git@github.com:user/plugin'
+# set -g @plugin 'git@bitbucket.com:user/plugin'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+

@@ -29,9 +29,9 @@ function psg {
   ps aux | grep "[$FIRST]$REST"
 }
 
-today() {
+ramble() {
     dt=$(date +%m-%d-%Y)
-    FILENAME="/Users/yikunliu/drive/note/$dt.md"
+    FILENAME="/Users/yikunliu/drive/writing/ramble/$dt.md"
 	m "$FILENAME"
 }
 
