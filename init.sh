@@ -12,11 +12,13 @@ rm -f ~/.vimrc
 ln -s ${dir}/vimrc ~/.vimrc
 rm -f ~/.tmux.conf
 ln -s ${dir}/tmux ~/.tmux.conf
-rm -f ~/.ctags
-ln -s ${dir}/ctags ~/.ctags
 rm -f ~/.tridactylrc
 ln -s ${dir}/tridactylrc ~/.tridactylrc
 
-source ~/.bashrc
+if [ -n "$ZSH_VERSION" ]; then
+	source ~/.zshrc
+elif [ -n "$BASH_VERSION" ]; then
+	source ~/.bashrc
+
 source ${dir}/myalias
 source ~/amazon

@@ -60,4 +60,3 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 run '~/.tmux/plugins/tpm/tpm'
 
 set -g @plugin 'tmux-plugins/tmux-resurrect'
-
