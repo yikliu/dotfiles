@@ -110,7 +110,7 @@ nnoremap <silent> <C-f> :Files<CR>
 " rg map
 nnoremap <silent> <Leader>f :Rg<CR>
 
-source ./vim/nerdtree.vim
-source ./vim/spelunker.vim
-source ./vim/coc.vim
-source ./vim/ctrlp.vim
+source ~/dotfiles/vim/nerdtree.vim
+source ~/dotfiles/vim/spelunker.vim
+source ~/dotfiles/vim/coc.vim
+source ~/dotfiles/vim/ctrlp.vim
