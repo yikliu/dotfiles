@@ -73,8 +73,9 @@ endif
 
 " Use , as LEADER
 let mapleader=","
+
 " Choose colorscheme
-" colorscheme xcodedarkhc
+colorscheme xcodedarkhc
 
 " Source Vim configuration file and install plugins
 nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
@@ -95,13 +96,18 @@ noremap <Leader>p "*p
 noremap <Leader>Y "+y
 noremap <Leader>P "+p
 
+" show terminal
+noremap <Leader>t :term<cr>
+" close terminal
+:tnoremap <Esc> <C-W>c
+
 " MarkdownPreview
 noremap <Leader>m :MarkdownPreview<cr>
-"Goyo
+" Goyo
 noremap <Leader>g :Goyo 85%x100%<cr>
 " fzf map
 nnoremap <silent> <C-f> :Files<CR>
-"rg map
+" rg map
 nnoremap <silent> <Leader>f :Rg<CR>
 
 source ./vim/nerdtree.vim
