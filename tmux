@@ -11,10 +11,12 @@ set -g base-index 1
 # Automatically set window title
 set-window-option -g automatic-rename on
 set-option -g set-titles on
-
 set -g default-terminal "tmux-256color"
 set -g status-keys vi
 set -g history-limit 10000
+
+set -g window-status-style bg=default,fg=colour244
+set -g window-status-current-style bg=default,fg=colour166,bold
 
 setw -g mode-keys vi
 setw -g monitor-activity on
