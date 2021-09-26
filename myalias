@@ -5,8 +5,7 @@ alias rm='rm -i'
 alias cp='cp -i'
 
 # listing files
-alias ls='lsd'
-alias l='lsd -lah'
+alias l='ls -lah'
 
 #git
 alias gs="git status"

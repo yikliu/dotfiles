@@ -1,0 +1,37 @@
+" put vim-plugin first 
+call plug#begin('~/.vim/plugged')
+
+" Make sure you use single quotes
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+" color schemes
+Plug 'arzg/vim-colors-xcode'
+
+" code completion
+Plug 'neoclide/coc.nvim'
+Plug 'dense-analysis/ale'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'sheerun/vim-polyglot'
+Plug 'yggdroot/indentline'
+Plug 'tpope/vim-surround'
+Plug 'kana/vim-textobj-user'
+  \| Plug 'glts/vim-textobj-comment'
+Plug 'janko/vim-test'
+Plug 'vim-scripts/vcscommand.vim'
+Plug 'mhinz/vim-signify'
+" Markdown
+Plug 'gabrielelana/vim-markdown'
+Plug 'junegunn/goyo.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'kamykn/spelunker.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-test/vim-test'
+" Initialize plugin system
+call plug#end()
+

@@ -10,7 +10,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " color schemes
 Plug 'arzg/vim-colors-xcode'
-
+Plug 'NLKNguyen/papercolor-theme'
 " code completion
 Plug 'neoclide/coc.nvim'
 Plug 'dense-analysis/ale'
@@ -20,30 +20,36 @@ Plug 'sheerun/vim-polyglot'
 Plug 'yggdroot/indentline'
 Plug 'tpope/vim-surround'
 Plug 'kana/vim-textobj-user'
-  \| Plug 'glts/vim-textobj-comment'
+\| Plug 'glts/vim-textobj-comment'
 Plug 'janko/vim-test'
 Plug 'vim-scripts/vcscommand.vim'
 Plug 'mhinz/vim-signify'
 " Markdown
 Plug 'gabrielelana/vim-markdown'
+
 Plug 'junegunn/goyo.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'kamykn/spelunker.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
+Plug 'vim-test/vim-test'
 " Initialize plugin system
 call plug#end()
 
 " termsize
 set splitbelow
+if !has('nvim')
 set termwinsize=30x0
+endif
 
 " line number
 set number
-
 " highlight cursor line
 set cursorline
+highlight CursorLine ctermbg=LightBlue
+" hightlight search result
+set hlsearch
+
 " add empty line
 nnoremap <F4> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <F5> :set paste<CR>m`O<Esc>``:set nopaste<CR>
@@ -65,17 +71,20 @@ set shortmess+=c
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
+" Recently vim can merge signcolumn and number column into one
+set signcolumn=number
 else
-  set signcolumn=yes
+set signcolumn=yes
 endif
 
 " Use , as LEADER
 let mapleader=","
 
 " Choose colorscheme
-colorscheme xcodedarkhc
+" colorscheme xcodedarkhc
+set t_Co=256   " This is may or may not needed.
+set background=light
+colorscheme PaperColor
 
 " Source Vim configuration file and install plugins
 nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
@@ -99,7 +108,7 @@ noremap <Leader>P "+p
 " show terminal
 noremap <Leader>t :term<cr>
 " close terminal
-:tnoremap <Esc> <C-W>c
+:tnoremap <Esc> <C-W>:q!<cr>
 
 " MarkdownPreview
 noremap <Leader>m :MarkdownPreview<cr>
@@ -109,6 +118,10 @@ noremap <Leader>g :Goyo 85%x100%<cr>
 nnoremap <silent> <C-f> :Files<CR>
 " rg map
 nnoremap <silent> <Leader>f :Rg<CR>
+
+" airline style
+let g:airline_theme='papercolor'
+let g:lightline = { 'colorscheme': 'PaperColor' } 
 
 source ~/dotfiles/vim/nerdtree.vim
 source ~/dotfiles/vim/spelunker.vim

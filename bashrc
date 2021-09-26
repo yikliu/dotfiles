@@ -9,3 +9,5 @@ fi
 # User specific aliases and functions
 . ~/dotfiles/profile
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
