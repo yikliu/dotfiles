@@ -1,4 +1,5 @@
 # general shortcuts
+
 alias c='cd '
 alias mv='mv -i'
 alias rm='rm -i'
@@ -40,4 +41,8 @@ alias m_vim='m ~/.vimrc'
 alias m_pf='m ~/.bash_profile'
 alias m_als='m ~/dotfiles/myalias'
 alias m_tmux='m ~/dotfiles/tmux'
+alias p_test='python -m unittest'
+alias mf='vim $(fzf)'
+
+alias g="googler -n 10"
 

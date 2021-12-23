@@ -1,38 +1,34 @@
 " put vim-plugin first 
 call plug#begin('~/.vim/plugged')
 
-" Make sure you use single quotes
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
-" color schemes
-Plug 'arzg/vim-colors-xcode'
-Plug 'NLKNguyen/papercolor-theme'
 " code completion
-Plug 'neoclide/coc.nvim'
 Plug 'dense-analysis/ale'
-Plug 'scrooloose/nerdtree'
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'yggdroot/indentline'
 Plug 'tpope/vim-surround'
 Plug 'kana/vim-textobj-user'
 \| Plug 'glts/vim-textobj-comment'
-Plug 'janko/vim-test'
 Plug 'vim-scripts/vcscommand.vim'
 Plug 'mhinz/vim-signify'
-" Markdown
 Plug 'gabrielelana/vim-markdown'
-
-Plug 'junegunn/goyo.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'kamykn/spelunker.vim'
+
+" color schemes
+" Plug 'arzg/vim-colors-xcode'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-test/vim-test'
+
 " Initialize plugin system
 call plug#end()
 
@@ -44,17 +40,26 @@ endif
 
 " line number
 set number
-" highlight cursor line
+
+" tabsize
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" Enable cursor line position tracking:
 set cursorline
-highlight CursorLine ctermbg=LightBlue
-" hightlight search result
-set hlsearch
+" Remove the underline from enabling cursorline:
+highlight clear CursorLine
+" Set line numbering to red background:
+highlight CursorLineNR ctermbg=red
 
 " add empty line
 nnoremap <F4> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <F5> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+
 set shiftwidth=4
 set tabstop=4
+
 " TextEdit might fail if hidden is not set.
 set hidden
 " Some servers have issues with backup files, see #649.
@@ -96,8 +101,12 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " navigate tabs easily
-nnoremap H gT
-nnoremap L gt
+nnoremap H :bp<CR>
+nnoremap L :bn<CR>
+
+" navigate buffers
+nnoremap <silent> <Leader>h gT
+nnoremap <silent> <Leader>l gt
 
 " yank/paste to clipboard
 noremap <Leader>y "*y
@@ -108,20 +117,28 @@ noremap <Leader>P "+p
 " show terminal
 noremap <Leader>t :term<cr>
 " close terminal
-:tnoremap <Esc> <C-W>:q!<cr>
+tnoremap <Leader>c : <C-W>:q!<cr>
+tnoremap <Esc> <C-W>N
+tnoremap <Esc><Esc> <C-W>N
+
+set timeout timeoutlen=1000  " Default
+set ttimeout ttimeoutlen=100  " Set by defaults.vim
 
 " MarkdownPreview
 noremap <Leader>m :MarkdownPreview<cr>
 " Goyo
 noremap <Leader>g :Goyo 85%x100%<cr>
+
 " fzf map
 nnoremap <silent> <C-f> :Files<CR>
 " rg map
 nnoremap <silent> <Leader>f :Rg<CR>
 
-" airline style
-let g:airline_theme='papercolor'
-let g:lightline = { 'colorscheme': 'PaperColor' } 
+" close buffer
+nnoremap <Leader>x :bp\|bd #<CR>
+
+"airline
+let g:airline#extensions#tabline#enabled = 1
 
 source ~/dotfiles/vim/nerdtree.vim
 source ~/dotfiles/vim/spelunker.vim

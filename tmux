@@ -15,7 +15,7 @@ set -g default-terminal "tmux-256color"
 set -g status-keys vi
 set -g history-limit 10000
 
-set -g window-status-style bg=colour70,fg=colour8
+set -g window-status-style bg=colour70,fg=colour160
 set -g window-status-current-style bg=colour75,fg=colour16,bold
 
 setw -g mode-keys vi

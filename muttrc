@@ -1,0 +1,59 @@
+set realname="Liu, Yikun"
+set from="yikunliu@amazon.com"
+set use_from=yes
+
+# Viewing prefs
+color sidebar_new yellow default
+set implicit_autoview
+auto_view text/html application/x-pgp-message
+set mailcap_path="/.mailcap"
+set mailcap_sanitize=yes
+set strict_threads="yes"
+set sort_browser="reverse-date"
+set sort_aux="reverse-last-date-received"
+
+set ssl_starttls=yes
+set ssl_force_tls=yes
+set net_inc=5
+set folder="imaps://yikliu@imap.mail.me.com/"
+set spoolfile="imaps://yikliu@imap.mail.me.com/INBOX"
+set mbox="/Users/yikunliu/Mail"
+set spoolfile=+INBOX
+set imap_check_subscribed=yes
+mailboxes +INBOX +issues +CR
+
+#Set trash folder
+set trash=+"Deleted Items"
+
+# ctrl-n, ctrl-p to select next, prev folder
+# ctrl-o to open selected folder
+bind index \CP sidebar-prev
+bind index \CN sidebar-next
+bind index \CO sidebar-open
+bind pager \CP sidebar-prev
+bind pager \CN sidebar-next
+bind pager \CO sidebar-open
+
+save-hook . /Mail/yikunliu
+
+set postpone=ask-no 
+set beep_new=yes
+set confirmappend=no
+set sort=threads
+set mail_check=60
+set timeout=10
+set net_inc=5
+set move=no
+set sort_alias=alias
+set reverse_alias=yes
+set editor='vim + -c "set textwidth=72" -c "set wrap"'
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+auto_view text/html application/pdf application/msword
+alternative_order text/plain text text/enriched text/html
+mime_lookup application/octet-stream
+set ssl_starttls=yes
+set sidebar_visible = yes
+set sidebar_format = "%B%*  %N" # Show number of unread messages
+push <first-entry>
