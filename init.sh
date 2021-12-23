@@ -1,7 +1,6 @@
 #!/bin/bash
 
-dir="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 rm -f ~/dotfiles
 ln -s ${dir} ~/dotfiles
 rm -f ~/.bashrc
