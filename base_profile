@@ -2,6 +2,11 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+if [ -h '/usr/local/bin/vim' ]; then
+    alias vim='/usr/local/bin/vim'
+fi
+
+
 # Path setting for Homebrew
 export TERM_EDITOR=vim
 export EDITOR=vim

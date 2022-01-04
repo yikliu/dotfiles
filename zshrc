@@ -4,7 +4,7 @@
 . ~/dotfiles/profile
 
 autoload -U promptinit; promptinit
-prompt default
+prompt pure
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
