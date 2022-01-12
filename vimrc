@@ -5,6 +5,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " code completion
@@ -28,6 +29,9 @@ Plug 'kamykn/spelunker.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" Pencil
+Plug 'reedes/vim-pencil'
 
 " Initialize plugin system
 call plug#end()
@@ -128,6 +132,13 @@ set ttimeout ttimeoutlen=100  " Set by defaults.vim
 noremap <Leader>m :MarkdownPreview<cr>
 " Goyo
 noremap <Leader>g :Goyo 85%x100%<cr>
+" Trigger Limelight with Goyo
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" Limelight
+nmap <Leader>l <Plug>(Limelight)
+xmap <Leader>l <Plug>(Limelight)
 
 " fzf map
 nnoremap <silent> <C-f> :Files<CR>
@@ -144,3 +155,4 @@ source ~/dotfiles/vim/nerdtree.vim
 source ~/dotfiles/vim/spelunker.vim
 source ~/dotfiles/vim/coc.vim
 source ~/dotfiles/vim/ctrlp.vim
+source ~/dotfiles/vim/pencil.vim

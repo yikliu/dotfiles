@@ -13,6 +13,8 @@ rm -f ~/.tmux.conf
 ln -s ${dir}/tmux ~/.tmux.conf
 rm -f ~/.tridactylrc
 ln -s ${dir}/tridactylrc ~/.tridactylrc
+rm -f ~/.zshrc
+ln -s ${dir}/zshrc ~/.zshrc
 
 if [ -n "$ZSH_VERSION" ]; then
 	source ~/.zshrc
