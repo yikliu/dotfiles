@@ -123,8 +123,8 @@ nnoremap ]m :action MethodDown<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
 " Tabs
-nnoremap [b :action PreviousTab<cr>
-nnoremap ]b :action NextTab<cr>
+nnoremap H :action PreviousTab<cr>
+nnoremap L :action NextTab<cr>
 
 " Search
 nmap <leader>/ :action Find<cr>
@@ -136,6 +136,10 @@ nmap ]e :action MoveLineDown<cr>
 " Moving statements
 nmap [s :action MoveStatementUp<cr>
 nmap ]s :action MoveStatementDown<cr>
+
+" open terminal
+nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
+nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
 
 " Building, Running and Debugging
 nmap ,c :action CompileDirty<cr>

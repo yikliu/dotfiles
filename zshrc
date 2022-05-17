@@ -3,8 +3,9 @@
 # User specific aliases and functions
 . ~/dotfiles/profile
 
-autoload -U promptinit; promptinit
-prompt pure
+autoload -Uz promptinit
+promptinit
+prompt adam1
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

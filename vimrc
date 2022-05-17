@@ -31,7 +31,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Pencil
-Plug 'reedes/vim-pencil'
+Plug 'preservim/vim-pencil'
 
 " Initialize plugin system
 call plug#end()
