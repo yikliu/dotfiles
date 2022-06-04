@@ -25,8 +25,11 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'kamykn/spelunker.vim'
 
 " color schemes
-" Plug 'arzg/vim-colors-xcode'
+Plug 'arzg/vim-colors-xcode'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+
+"airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -35,6 +38,13 @@ Plug 'preservim/vim-pencil'
 
 " Initialize plugin system
 call plug#end()
+
+" Choose colorscheme
+" colorscheme xcodedarkhc
+" set t_Co=256   " This is may or may not needed.
+set background=light
+colorscheme papercolor 
+
 
 " termsize
 set splitbelow
@@ -88,12 +98,6 @@ endif
 
 " Use , as LEADER
 let mapleader=","
-
-" Choose colorscheme
-" colorscheme xcodedarkhc
-set t_Co=256   " This is may or may not needed.
-set background=light
-colorscheme PaperColor
 
 " Source Vim configuration file and install plugins
 nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>

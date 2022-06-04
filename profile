@@ -22,4 +22,4 @@ export JAVA_HOME;
 
 source ~/dotfiles/myalias
 source ~/amazon
-export JAVA_TOOLS_OPTIONS="-Dlog4j2.formatMsgNoLookups=true"
+

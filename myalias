@@ -6,6 +6,9 @@ alias rm='rm -i'
 alias cp='cp -i'
 
 # listing files
+
+# on mac use GNU ls so that vivid generated LS_COLORS can be applied
+alias ls="gls --color"
 alias l='ls -lah'
 
 #git
