@@ -10,10 +10,10 @@ let g:enable_spelunker_vim = 1
 let g:enable_spelunker_vim_on_readonly = 0
 
 " Check spelling for words longer than set characters. (default: 4)
-let g:spelunker_target_min_char_len = 4
+let g:spelunker_target_min_char_len = 2
 
 " Max amount of word suggestions. (default: 15)
-let g:spelunker_max_suggest_words = 30
+let g:spelunker_max_suggest_words = 60
 
 " Max amount of highlighted words in buffer. (default: 100)
 let g:spelunker_max_hi_words_each_buf = 100
@@ -70,6 +70,6 @@ let g:spelunker_spell_bad_group = 'SpelunkerSpellBad'
 let g:spelunker_complex_or_compound_word_group = 'SpelunkerComplexOrCompoundWord'
 
 " Override highlight setting.
-highlight SpelunkerSpellBad cterm=underline ctermfg=247 gui=underline guifg=#9e9e9e
+highlight SpelunkerSpellBad cterm=underline ctermfg=93 gui=underline guifg=#f54e65
 highlight SpelunkerComplexOrCompoundWord cterm=underline ctermfg=NONE gui=underline guifg=NONE
 

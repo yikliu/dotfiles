@@ -1,5 +1,4 @@
-set ignorecase
-set smartcase
+set ignorecase set smartcase
 set scrolloff=3 " 3 lines above/below cursor when scrolling
 
 " Emulated Plugins
@@ -17,8 +16,6 @@ set multiple-cursors
 " These settings are from - https://github.com/Valloric/dotfiles/blob/master/intellij/ideavimrc
 
 let mapleader = ","
-" let mapleader = " "
-" let maplocalleader = ","
 
 " Use Q for formatting the current paragraph (or visual selection)
 vmap Q gq
@@ -36,8 +33,8 @@ nmap zk O<Esc>j
 " nmap <leader>j <c-w>j
 
 " Closing tabs
-nmap <leader>q :action CloseContent<cr>
-nmap <leader>Q :action ReopenClosedTab<cr>
+nmap <leader>x :action CloseContent<cr>
+nmap <leader>X :action ReopenClosedTab<cr>
 
 " To navigate between split panes
 nmap <leader>wo :action NextSplitter<cr>
@@ -62,7 +59,6 @@ nmap <leader>u :action FindUsages<cr>
 nmap <leader>f :action GotoFile<cr>
 nmap <leader>c :action GotoClass<cr>
 nmap <leader>s :action GotoSymbol<cr>
-" nmap <leader>m :action FileStructurePopup<cr>
 nmap <leader>; :action FileStructurePopup<cr>
 nmap <leader>M :action ActivateStructureToolWindow<cr>
 nmap <leader>d :action ShowErrorDescription<cr>
@@ -77,8 +73,8 @@ nmap <leader>b :action ShowBookmarks<cr>
 nmap <leader>a :action RecentChangedFiles<cr>
 
 " Errors
-nmap <leader>x :action GotoNextError<cr>
-nmap <leader>X :action GotoPreviousError<cr>
+" nmap <leader>x :action GotoNextError<cr>
+" nmap <leader>X :action GotoPreviousError<cr>
 
 " Refactorings
 vmap T :action Refactorings.QuickListPopupAction<cr>
@@ -91,7 +87,7 @@ nmap <leader>rc :action InspectCode<cr>
 " VCS operations
 " nmap <leader>yy :action Vcs.Show.Local.Changes<cr>
 " nmap <leader>yp :action Vcs.QuickListPopupAction<cr>
-" nmap <leader>ya :action Annotate<cr>
+nmap <leader>ya :action Annotate<cr>
 " nmap <leader>yl :action Vcs.Show.Log<cr>
 " nmap <leader>yd :action Compare.LastVersion<cr>
 " nmap <leader>yr :action Git.ResolveConflicts<cr>
@@ -106,6 +102,7 @@ nmap <leader>E :action Tool_External Tools_emacsclient<cr>
 nmap <leader>S :action Tool_External Tools_sublime_text<cr>
 
 " IdeaVim uses 'a' for alt instead of Vim's 'm'
+" Move N lines up and down
 nmap <a-j> 15gj
 nmap <a-k> 15gk
 

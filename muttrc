@@ -1,6 +1,3 @@
-set realname="Liu, Yikun"
-set from="yikunliu@amazon.com"
-set use_from=yes
 
 # Viewing prefs
 color sidebar_new yellow default
@@ -12,18 +9,31 @@ set strict_threads="yes"
 set sort_browser="reverse-date"
 set sort_aux="reverse-last-date-received"
 
-set ssl_starttls=yes
-set ssl_force_tls=yes
-set net_inc=5
-set folder="imaps://yikliu@imap.mail.me.com/"
-set spoolfile="imaps://yikliu@imap.mail.me.com/INBOX"
-set mbox="/Users/yikunliu/Mail"
-set spoolfile=+INBOX
-set imap_check_subscribed=yes
-mailboxes +INBOX +issues +CR
+# INBOX and connetion settings.
+# iCloud conf
 
-#Set trash folder
-set trash=+"Deleted Items"
+unmailboxes *
+set hostname = icloud.com
+set imap_user = "yikliu"
+set imap_pass = "lkwz-ukap-bsge-jngm"
+set smtp_url = "smtp://$imap_user:$smtp_pass@smtp.mail.me.com:587/"
+set smtp_pass = "lkwz-ukap-bsge-jngm"
+set from = "yikliu@me.com"
+set realname = "Arthur Liu"
+set folder = "imaps://$imap_user:$imap_pass@imap.mail.me.com:993/"
+set spoolfile = "+INBOX"
+set trash = "+Deleted Messages"
+set postponed = "+Drafts"
+set record = "+Sent Messages"
+set mbox = "+Archive"
+set imap_pipeline_depth = 10
+set header_cache = ~/.config/neomutt/com.icloud/cache/headers
+set message_cachedir = ~/.config/neomutt/com.icloud/cache/bodies/
+set certificate_file = ~/.config/neomutt/com.icloud/certificates
+set ssl_starttls = yes
+set ssl_force_tls = yes
+set status_format = "$from -%r-Mutt: %f [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?]---(%s/%S)-%>-(%P)---"
+mailboxes = "+INBOX" "+Deleted Messages" "+Sent Messages" "+Archive" "+Junk" "+Drafts"
 
 # ctrl-n, ctrl-p to select next, prev folder
 # ctrl-o to open selected folder
@@ -41,7 +51,7 @@ set beep_new=yes
 set confirmappend=no
 set sort=threads
 set mail_check=60
-set timeout=10
+set timeout=30
 set net_inc=5
 set move=no
 set sort_alias=alias

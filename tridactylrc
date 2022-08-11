@@ -16,6 +16,14 @@ set newtab about:blank
 " Ctrl-F should use the browser's native 'find' functionality.
 unbind <C-f>
 
+" bind H/L to nav tab
+bind H tabprev
+bind L tabnext_gt
+
+" bind J/K back/forward
+bind J back
+bind K forward
+
 " But also support Tridactyl search too.
 bind / fillcmdline find
 bind ? fillcmdline find -?

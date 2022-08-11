@@ -23,6 +23,12 @@ ln -s ${dir}/zshrc ~/.zshrc
 rm -f ~/.tridactylrc
 ln -s ${dir}/tridactylrc ~/.tridactylrc
 
+rm -f ~/.sf.js
+ln -s ${dir}/sf.js ~/.sf.js
+
+rm -f ~/.pylintrc
+ln -s ${dir}/pylintrc ~/.pylintrc
+
 if [ -n "$ZSH_VERSION" ]; then
 	source ~/.zshrc
 elif [ -n "$BASH_VERSION" ]; then

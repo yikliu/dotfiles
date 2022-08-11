@@ -9,7 +9,6 @@ Plug 'junegunn/limelight.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " code completion
-Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -23,6 +22,7 @@ Plug 'mhinz/vim-signify'
 Plug 'gabrielelana/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'kamykn/spelunker.vim'
+Plug 'easymotion/vim-easymotion'
 
 " color schemes
 Plug 'arzg/vim-colors-xcode'
@@ -44,7 +44,6 @@ call plug#end()
 " set t_Co=256   " This is may or may not needed.
 set background=light
 colorscheme papercolor 
-
 
 " termsize
 set splitbelow
@@ -68,8 +67,8 @@ highlight clear CursorLine
 highlight CursorLineNR ctermbg=red
 
 " add empty line
-nnoremap <F4> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <F5> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap zj o<Esc>k
+nnoremap zk O<Esc>j
 
 set shiftwidth=4
 set tabstop=4
