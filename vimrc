@@ -40,10 +40,10 @@ Plug 'preservim/vim-pencil'
 call plug#end()
 
 " Choose colorscheme
-" colorscheme xcodedarkhc
-" set t_Co=256   " This is may or may not needed.
-set background=light
-colorscheme papercolor 
+colorscheme xcodedarkhc
+set t_Co=256   " This is may or may not needed.
+" set background=light
+" colorscheme papercolor 
 
 " termsize
 set splitbelow

@@ -8,7 +8,7 @@ settings.focusFirstCandidate = false;
 //focus on last visited tab after this tab is closed.
 settings.focusAfterClosed = "right";
 //show omnibar at bottom
-settings.omnibarPosition = "bottom";
+settings.omnibarPosition = "top";
 
 //SurfingKeys settings
 // H, L for left / right tab
@@ -36,13 +36,37 @@ api.map('H', 'S');
 api.map('L', 'D');
 
 //Space to open omnibar with tabs
-api.mapkey('<Space>', 'Choose a tab with omnibar', function() {
+api.mapkey('b', 'Choose a tab with omnibar', function() {
     api.Front.openOmnibar({type: "Tabs"});
 });
 
 //q to open at current tab
 api.mapkey('q','Open an URL in current tab', function() {
     api.Front.openOmnibar({type: "URLs", extra: "getTopSites", tabbed: false});
+});
+
+const regex = new RegExp('^([0-9]+([a-zA-Z]+[0-9]+)+)$');
+
+api.mapkey(',i', 'Open MX payment-int', function(){
+    api.Clipboard.read(function(response) {
+        var id = response.data;
+        if (regex.test(id)) {
+            api.tabOpenLink("https://payment-int.one-device-dashboard.bids.physical-stores.amazon.dev/#/devices/" + id);
+        } else {
+            api.tabOpenLink("https://payment-int.one-device-dashboard.bids.physical-stores.amazon.dev/#/devices/search");
+        }
+    });
+});
+
+api.mapkey(',x', 'Open MX payment-ext', function(){
+    api.Clipboard.read(function(response) {
+        var id = response.data;
+        if (regex.test(id)){
+            api.tabOpenLink("https://payment-ext.mx-internal.bids.physical-stores.amazon.dev/#/devices/" + id);
+        } else {
+            api.tabOpenLink("https://payment-ext.mx-internal.bids.physical-stores.amazon.dev/#/devices/search");
+        }
+    });
 });
 
 //S to switch to scrollable items. 
