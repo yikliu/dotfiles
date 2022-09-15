@@ -45,8 +45,8 @@ api.mapkey('q','Open an URL in current tab', function() {
     api.Front.openOmnibar({type: "URLs", extra: "getTopSites", tabbed: false});
 });
 
+//regex for thingid
 const regex = new RegExp('^([0-9]+([a-zA-Z]+[0-9]+)+)$');
-
 api.mapkey(',i', 'Open MX payment-int', function(){
     api.Clipboard.read(function(response) {
         var id = response.data;

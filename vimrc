@@ -40,10 +40,10 @@ Plug 'preservim/vim-pencil'
 call plug#end()
 
 " Choose colorscheme
-colorscheme xcodedarkhc
-set t_Co=256   " This is may or may not needed.
-" set background=light
 " colorscheme papercolor 
+set t_Co=256   " This is may or may not needed.
+set background=light
+colorscheme papercolor 
 
 " termsize
 set splitbelow
@@ -85,7 +85,6 @@ set cmdheight=2
 set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
@@ -94,6 +93,12 @@ set signcolumn=number
 else
 set signcolumn=yes
 endif
+
+set mouse=a               " tell vim to recognize mouse commands in "all" modes
+set ttymouse=xterm2       " tell vim you're using xterm, this isn't necessary but I believe improves performance
+set ttyfast               " improve fluidity of mouse commands, this isn't necessary but I believe improves performance
+set paste                 " don't mess up the indenting of pasted text
+vmap <C-C> "+y            " map ctrl-c to copy a block of text selected by the mouse
 
 " Use , as LEADER
 let mapleader=","
@@ -133,8 +138,10 @@ set ttimeout ttimeoutlen=100  " Set by defaults.vim
 
 " MarkdownPreview
 noremap <Leader>m :MarkdownPreview<cr>
+
 " Goyo
 noremap <Leader>g :Goyo 85%x100%<cr>
+
 " Trigger Limelight with Goyo
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
