@@ -8,9 +8,10 @@ bind-key C-a send-prefix
 # 0 is too far from ` ;)
 set -g base-index 1
 
-set-window-option -g automatic-rename off
+set-option -g status-interval 1
+set-option -g automatic-rename on
+set-option -g automatic-rename-format '#{b:pane_current_path}'
 
-set-option -g set-titles on
 set -g default-terminal "tmux-256color"
 set -g status-keys vi
 set -g history-limit 10000
@@ -24,20 +25,21 @@ set-window-option -ga window-status-activity-style fg=colour16,bg=colour15
 setw -g mode-keys vi
 
 setw -g monitor-activity on
+
 # divide screen to left and right
 bind-key | split-window -h
 # divide screen to up and down
 bind-key - split-window -v
-
-# Shift arrow to switch windows
-bind -n S-Left  previous-window
-bind -n S-Right next-window
 
 # resize pane
 bind-key J resize-pane -D 15
 bind-key K resize-pane -U 15
 bind-key H resize-pane -L 15
 bind-key L resize-pane -R 15
+
+# Shift arrow to switch windows
+bind -n S-Left  previous-window
+bind -n S-Right next-window
 
 # Use Alt-arrow keys without prefix key to switch panes
 bind -n M-Left select-pane -L 
@@ -58,17 +60,13 @@ set -sg escape-time 0
 # Reload tmux config
 bind r source-file ~/.tmux.conf
 
-# tmux-resurrect
-# prefix + Ctrl-s - save
-# prefix + Ctrl-r - restore
-set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @plugin 'tmux-plugins/tmux-open'
-
-#tpm
+# tpm plugins, need prefix + I to install
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-open'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'

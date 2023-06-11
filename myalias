@@ -26,13 +26,6 @@ alias tmkill="tmux kill-session -t"
 alias m='vim'
 alias n='nvim'
 
-# grep for a process
-function psg {
-  FIRST=`echo $1 | sed -e 's/^\(.\).*/\1/'`
-  REST=`echo $1 | sed -e 's/^.\(.*\)/\1/'`
-  ps aux | grep "[$FIRST]$REST"
-}
-
 alias jekyll_post='bundle exec jekyll post'
 
 alias m_vim='m ~/.vimrc'
