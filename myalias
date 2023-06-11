@@ -24,18 +24,13 @@ alias tmkill="tmux kill-session -t"
 
 # editing shortcuts
 alias m='vim'
+alias n='nvim'
 
 # grep for a process
 function psg {
   FIRST=`echo $1 | sed -e 's/^\(.\).*/\1/'`
   REST=`echo $1 | sed -e 's/^.\(.*\)/\1/'`
   ps aux | grep "[$FIRST]$REST"
-}
-
-ramble() {
-    dt=$(date +%m-%d-%Y)
-    FILENAME="/Users/yikunliu/drive/writing/ramble/$dt.md"
-	m "$FILENAME"
 }
 
 alias jekyll_post='bundle exec jekyll post'
@@ -45,7 +40,12 @@ alias m_pf='m ~/.bash_profile'
 alias m_als='m ~/dotfiles/myalias'
 alias m_tmux='m ~/dotfiles/tmux'
 alias p_test='python -m unittest'
-alias mf='vim $(fzf)'
+alias mf='m $(fzf)'
+alias nf='n $(fzf)'
 
-alias g="googler -n 10"
+# make python3 default
+alias python='python3'
+alias pip='pip3'
 
+# cd into a dir by using fzf
+alias cdf='cd $(find . -type d -print | fzf)'

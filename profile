@@ -9,17 +9,13 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="$HOME/.gem/ruby/X.X.0/bin:$PATH"
 
 export GOPATH=$HOME/code/go
-export PYTHONPATH="/Library/Python/3.8/site-packages"
-export ML_PATH="/Users/yikunliu/code/ml"
 
 if type rg &> /dev/null; then
   export FZF_DEFAULT_COMMAND='rg --files'
   export FZF_DEFAULT_OPTS='-m --height 50% --border'
 fi
 
-JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home
-export JAVA_HOME;
-
+export JAVA_HOME=$(/usr/libexec/java_home)
 source ~/dotfiles/myalias
 source ~/amazon
 

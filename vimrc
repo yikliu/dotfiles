@@ -13,7 +13,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lock
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
-Plug 'yggdroot/indentline'
 Plug 'tpope/vim-surround'
 Plug 'kana/vim-textobj-user'
 \| Plug 'glts/vim-textobj-comment'
@@ -28,6 +27,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'arzg/vim-colors-xcode'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'junegunn/seoul256.vim'
+Plug 'Rigellute/rigel'
 
 "airline
 Plug 'vim-airline/vim-airline'
@@ -36,23 +37,39 @@ Plug 'vim-airline/vim-airline-themes'
 " Pencil
 Plug 'preservim/vim-pencil'
 
+" coc-jedi
+Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
+
+"jedi-vim
+Plug 'davidhalter/jedi-vim'
+
+"javscript and jsx syntax
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+
 " Initialize plugin system
 call plug#end()
 
 " Choose colorscheme
-" colorscheme papercolor 
 set t_Co=256   " This is may or may not needed.
-set background=light
+set background=dark
 colorscheme papercolor 
+" colorscheme catppuccin_latte 
+" colo seoul256
+set termguicolors
+
+" syntax enable
+" colorscheme rigel
 
 " termsize
 set splitbelow
-if !has('nvim')
 set termwinsize=30x0
-endif
 
 " line number
-set number
+" set number
+" turn hybrid line numbers on
+set number relativenumber
+set nu rnu
 
 " tabsize
 set tabstop=4
@@ -95,9 +112,15 @@ set signcolumn=yes
 endif
 
 set mouse=a               " tell vim to recognize mouse commands in "all" modes
-set ttymouse=xterm2       " tell vim you're using xterm, this isn't necessary but I believe improves performance
+if !has('nvim')
+    set ttymouse=xterm2       " tell vim you're using xterm, this isn't necessary but I believe improves performance
+endif
 set ttyfast               " improve fluidity of mouse commands, this isn't necessary but I believe improves performance
-set paste                 " don't mess up the indenting of pasted text
+
+set autoindent
+set smartindent
+
+" set paste                 " don't mess up the indenting of pasted text
 vmap <C-C> "+y            " map ctrl-c to copy a block of text selected by the mouse
 
 " Use , as LEADER
@@ -140,11 +163,11 @@ set ttimeout ttimeoutlen=100  " Set by defaults.vim
 noremap <Leader>m :MarkdownPreview<cr>
 
 " Goyo
-noremap <Leader>g :Goyo 85%x100%<cr>
+noremap <Leader>g :Goyo 80%x100%<cr>
 
 " Trigger Limelight with Goyo
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+" autocmd! User GoyoEnter Limelight
+" autocmd! User GoyoLeave Limelight!
 
 " Limelight
 nmap <Leader>l <Plug>(Limelight)
@@ -160,9 +183,15 @@ nnoremap <Leader>x :bp\|bd #<CR>
 
 "airline
 let g:airline#extensions#tabline#enabled = 1
+let g:rigel_airline = 1
+let g:airline_theme = 'rigel'
+
+" vim-javascript
+let g:javascript_plugin_flow = 1
 
 source ~/dotfiles/vim/nerdtree.vim
 source ~/dotfiles/vim/spelunker.vim
 source ~/dotfiles/vim/coc.vim
 source ~/dotfiles/vim/ctrlp.vim
 source ~/dotfiles/vim/pencil.vim
+source ~/dotfiles/vim/limelight.vim

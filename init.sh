@@ -1,4 +1,8 @@
-#!/bin/bash
+R!/bin/bash
+
+brew install coreutils
+brew install vivid
+brew install typewritten
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -20,14 +24,8 @@ ln -s ${dir}/tmux ~/.tmux.conf
 rm -f ~/.zshrc
 ln -s ${dir}/zshrc ~/.zshrc
 
-rm -f ~/.tridactylrc
-ln -s ${dir}/tridactylrc ~/.tridactylrc
-
 rm -f ~/.sf.js
 ln -s ${dir}/sf.js ~/.sf.js
-
-rm -f ~/.pylintrc
-ln -s ${dir}/pylintrc ~/.pylintrc
 
 if [ -n "$ZSH_VERSION" ]; then
 	source ~/.zshrc
@@ -37,6 +35,4 @@ else
     echo 'unknown shell'
 fi
 
-source ${dir}/myalias
-source ~/amazon
 

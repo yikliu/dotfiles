@@ -8,8 +8,7 @@ bind-key C-a send-prefix
 # 0 is too far from ` ;)
 set -g base-index 1
 
-# Automatically set window title
-set-window-option -g automatic-rename on
+set-window-option -g automatic-rename off
 
 set-option -g set-titles on
 set -g default-terminal "tmux-256color"
@@ -35,16 +34,23 @@ bind -n S-Left  previous-window
 bind -n S-Right next-window
 
 # resize pane
-bind-key J resize-pane -D 5
-bind-key K resize-pane -U 5
-bind-key H resize-pane -L 5
-bind-key L resize-pane -R 5
+bind-key J resize-pane -D 15
+bind-key K resize-pane -U 15
+bind-key H resize-pane -L 15
+bind-key L resize-pane -R 15
 
 # Use Alt-arrow keys without prefix key to switch panes
-bind -n M-Left select-pane -L
+bind -n M-Left select-pane -L 
 bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
+
+# greater and lesser than keys  to move windows
+bind-key -r < swap-window -t -
+bind-key -r > swap-window -t +
+
+set -g @open 'x'
+set -g mouse on
 
 # No delay for escape key press
 set -sg escape-time 0
@@ -57,10 +63,9 @@ bind r source-file ~/.tmux.conf
 # prefix + Ctrl-r - restore
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'tmux-plugins/tmux-open'
+
 #tpm
-# List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'

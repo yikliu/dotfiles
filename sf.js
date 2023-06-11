@@ -10,6 +10,8 @@ settings.focusAfterClosed = "right";
 //show omnibar at bottom
 settings.omnibarPosition = "top";
 
+api.Hints.setCharacters('jklnmyuioph');
+
 //SurfingKeys settings
 // H, L for left / right tab
 //api.map('H', 'h');
