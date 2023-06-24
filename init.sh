@@ -1,8 +1,6 @@
 R!/bin/bash
 
 brew install coreutils
-brew install vivid
-brew install typewritten
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -26,6 +24,9 @@ ln -s ${dir}/zshrc ~/.zshrc
 
 rm -f ~/.sf.js
 ln -s ${dir}/sf.js ~/.sf.js
+
+rm -rf ~/.config/nvim
+ln -s ${dir}/nvim ~/.config/nvim
 
 if [ -n "$ZSH_VERSION" ]; then
 	source ~/.zshrc
