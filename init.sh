@@ -1,11 +1,6 @@
-R!/bin/bash
-
-brew install coreutils
+!/bin/zsh
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-rm -f ~/dotfiles
-ln -s ${dir} ~/dotfiles
 
 rm -f ~/.bashrc
 ln -s ${dir}/bashrc ~/.bashrc
