@@ -42,3 +42,8 @@ alias pip='pip3'
 
 # cd into a dir by using fzf
 alias cdf='cd $(find . -type d -print | fzf)'
+
+#zettelkasten
+alias td='nvim -c "Telekasten goto_today"'
+alias tn='nvim -c "Telekasten new_note"'
+alias tp='nvim -c "Telekasten panel"'

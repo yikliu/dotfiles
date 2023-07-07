@@ -112,3 +112,20 @@ require('telekasten').setup({
     -- should all links be updated when a file is renamed
     rename_update_links = true,
 })
+
+-- Launch panel if nothing is typed after <leader>z
+vim.keymap.set("n", "<leader>tp", "<cmd>Telekasten panel<CR>")
+
+-- Most used functions
+vim.keymap.set("n", "<leader>tf", "<cmd>Telekasten find_notes<CR>")
+vim.keymap.set("n", "<leader>tg", "<cmd>Telekasten search_notes<CR>")
+vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
+vim.keymap.set("n", "<leader>tz", "<cmd>Telekasten follow_link<CR>")
+vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
+vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
+vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
+vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
+
+-- Call insert link automatically when we start typing a link
+vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
+vim.keymap.set("i", "<leader>td", "<cmd>Telekasten toggle_todo<CR>")
