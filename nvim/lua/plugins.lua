@@ -136,7 +136,6 @@ packer.startup {
 
     use {
       "nvim-telescope/telescope.nvim",
-      cmd = "Telescope",
       requires = { { "nvim-lua/plenary.nvim" } },
     }
 
@@ -157,6 +156,16 @@ packer.startup {
       branch = "main",
       keys = { { "n", "*" }, { "n", "#" }, { "n", "n" }, { "n", "N" } },
       config = [[require('config.hlslens')]],
+    }
+
+    use {
+        'renerocksai/telekasten.nvim',
+        requires = {
+          'nvim-telescope/telescope.nvim',
+          'nvim-lua/plenary.nvim'
+        },
+        config = [[require('config.telekasten')]]
+
     }
 
     -- A list of colorscheme plugin you may want to try. Find what suits you.
