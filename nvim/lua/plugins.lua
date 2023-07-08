@@ -239,6 +239,10 @@ packer.startup {
     -- Another markdown plugin
     use { "preservim/vim-markdown", ft = { "markdown" } }
 
+    use { "vim-pandoc/vim-pandoc", ft= { "markdown" } }
+
+    use { "conornewton/vim-pandoc-markdown-preview", ft={ "markdown" } }
+
     -- Faster footnote generation
     use { "vim-pandoc/vim-markdownfootnotes", ft = { "markdown" } }
 
