@@ -139,6 +139,9 @@ packer.startup {
       requires = { { "nvim-lua/plenary.nvim" } },
     }
 
+    use { "renerocksai/calendar-vim" } 
+    
+
     -- hop 
     use {
       "phaazon/hop.nvim",
@@ -178,7 +181,6 @@ packer.startup {
     use { "EdenEast/nightfox.nvim", opt = true }
     use { "rebelot/kanagawa.nvim", opt = true }
     use { "catppuccin/nvim", as = "catppuccin", opt = true }
-    use({ "rose-pine/neovim", as = 'rose-pine', opt = true })
     use { "tanvirtin/monokai.nvim", opt = true }
     use { "marko-cerovac/material.nvim", opt = true }
     use { "NLKNguyen/papercolor-theme", opt = true }

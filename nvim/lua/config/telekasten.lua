@@ -123,9 +123,7 @@ vim.keymap.set("n", "<leader>tt", "<cmd>Telekasten goto_today<CR>")
 vim.keymap.set("n", "<leader>tz", "<cmd>Telekasten follow_link<CR>")
 vim.keymap.set("n", "<leader>tn", "<cmd>Telekasten new_note<CR>")
 vim.keymap.set("n", "<leader>tc", "<cmd>Telekasten show_calendar<CR>")
+vim.keymap.set("n", "<leader>tC", "<cmd>CalendarT<CR>")
+vim.keymap.set("n", "<leader>td", "<cmd>Telekasten toggle_todo<CR>")
 vim.keymap.set("n", "<leader>tb", "<cmd>Telekasten show_backlinks<CR>")
 vim.keymap.set("n", "<leader>tI", "<cmd>Telekasten insert_img_link<CR>")
-
--- Call insert link automatically when we start typing a link
-vim.keymap.set("i", "[[", "<cmd>Telekasten insert_link<CR>")
-vim.keymap.set("i", "<leader>td", "<cmd>Telekasten toggle_todo<CR>")

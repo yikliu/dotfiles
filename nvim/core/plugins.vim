@@ -93,7 +93,7 @@ let g:Lf_CommandMap = {'<C-J>': ['<C-N>'], '<C-K>': ['<C-P>']}
 let g:vim_markdown_folding_disabled = 1
 
 " Whether to use conceal feature in markdown
-let g:vim_markdown_conceal = 1
+let g:vim_markdown_conceal = 0
 
 " Disable math tex conceal and syntax highlight
 let g:tex_conceal = ''
