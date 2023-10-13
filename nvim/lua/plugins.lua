@@ -73,7 +73,7 @@ packer.startup {
                 -- Width of the terminal
                 width = 50,
                 -- Height of the terminal
-                height = 20,
+                height = 40,
             },
 
             -- keymap to disable all the default keymaps
@@ -185,6 +185,7 @@ packer.startup {
     use { "marko-cerovac/material.nvim", opt = true }
     use { "NLKNguyen/papercolor-theme", opt = true }
     use { "nvim-tree/nvim-web-devicons", event = "VimEnter" }
+    use { "letorbi/vim-colors-modern-borland", opt = true }
 
     use {
       "nvim-lualine/lualine.nvim",

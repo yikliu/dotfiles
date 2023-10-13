@@ -16,11 +16,11 @@ M.colorscheme2dir = {
   nightfox = "nightfox.nvim",
   kanagawa = "kanagawa.nvim",
   catppuccin = "catppuccin",
-  rose_pine = "rose-pine",
   monokai = "monokai.nvim",
   material = "material.nvim",
   paper_light = "papercolor-theme",
   paper_dark = "papercolor-theme",
+  borland = "borland",
 }
 
 M.gruvbox8 = function()
@@ -104,16 +104,6 @@ M.catppuccin = function()
   vim.cmd([[colorscheme catppuccin]])
 end
 
-M.rose_pine = function()
-  require('rose-pine').setup({
-    --- @usage 'main' | 'moon'
-    dark_variant = 'moon',
-  })
-
-  -- set colorscheme after options
-  vim.cmd('colorscheme rose-pine')
-end
-
 M.monokai = function()
   vim.cmd('colorscheme monokai_pro')
 end
@@ -121,6 +111,16 @@ end
 M.material = function ()
   vim.g.material_style = "oceanic"
   vim.cmd('colorscheme material')
+end
+
+M.borland_modern = function ()
+  vim.g.BorlandStyle = "modern"
+  vim.cmd('colorscheme Borland')
+end
+
+M.borland_classic = function ()
+  vim.g.BorlandStyle = "classic"
+  vim.cmd('colorscheme Borland')
 end
 
 --- Use a random colorscheme from the pre-defined list of colorschemes.
@@ -153,3 +153,5 @@ end
 
 -- Load a random colorscheme
 M.rand_colorscheme()
+-- M.borland_modern()
+
