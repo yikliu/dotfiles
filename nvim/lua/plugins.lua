@@ -204,12 +204,6 @@ packer.startup {
       config = [[require('config.dashboard-nvim')]]
     }
 
-    use {
-      "lukas-reineke/indent-blankline.nvim",
-      event = "VimEnter",
-      config = [[require('config.indent-blankline')]],
-    }
-
     -- Highlight URLs inside vim
     use { "itchyny/vim-highlighturl", event = "VimEnter" }
 

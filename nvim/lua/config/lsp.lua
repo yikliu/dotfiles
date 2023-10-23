@@ -122,14 +122,14 @@ else
   vim.notify("pylsp not found!", vim.log.levels.WARN, { title = "Nvim-config" })
 end
 
--- if utils.executable('pyright') then
---   lspconfig.pyright.setup{
---     on_attach = custom_attach,
---     capabilities = capabilities
---   }
--- else
---   vim.notify("pyright not found!", vim.log.levels.WARN, {title = 'Nvim-config'})
--- end
+if utils.executable('pyright') then
+  lspconfig.pyright.setup{
+    on_attach = custom_attach,
+    capabilities = capabilities
+  } 
+else
+  vim.notify("pyright not found!", vim.log.levels.WARN, {title = 'Nvim-config'})
+end
 
 if utils.executable("ltex-ls") then
   lspconfig.ltex.setup {
