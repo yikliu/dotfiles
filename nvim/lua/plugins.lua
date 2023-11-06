@@ -55,6 +55,12 @@ packer.startup {
     use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
     use { "hrsh7th/cmp-omni", after = "nvim-cmp" }
 
+    -- ultisnips 
+    use { "SirVer/ultisnips" }
+    
+    -- vim-snippets
+    use { "honza/vim-snippets" }
+
     if vim.g.is_mac then
       use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
     end
