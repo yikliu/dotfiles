@@ -51,6 +51,11 @@ bind -n M-Down select-pane -D
 bind-key -r < swap-window -t -
 bind-key -r > swap-window -t +
 
+bind -T copy-mode-vi v send -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+bind P paste-buffer
+bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
+
 set -g @open 'x'
 set -g mouse on
 
