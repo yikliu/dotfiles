@@ -61,6 +61,9 @@ packer.startup {
     -- vim-snippets
     use { "honza/vim-snippets" }
 
+    -- vim-react-=snippets
+    use { "mlaursen/vim-react-snippets" }
+
     if vim.g.is_mac then
       use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
     end
