@@ -189,9 +189,9 @@ let g:airline_theme = 'rigel'
 " vim-javascript
 let g:javascript_plugin_flow = 1
 
-source ~/dotfiles/vim/nerdtree.vim
-source ~/dotfiles/vim/spelunker.vim
-source ~/dotfiles/vim/coc.vim
-source ~/dotfiles/vim/ctrlp.vim
-source ~/dotfiles/vim/pencil.vim
-source ~/dotfiles/vim/limelight.vim
+source ~/dotfiles/vim/plugins/nerdtree.vim
+source ~/dotfiles/vim/plugins/spelunker.vim
+source ~/dotfiles/vim/plugins/coc.vim
+source ~/dotfiles/vim/plugins/ctrlp.vim
+source ~/dotfiles/vim/plugins/pencil.vim
+source ~/dotfiles/vim/plugins/limelight.vim

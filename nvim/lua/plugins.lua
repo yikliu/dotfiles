@@ -177,7 +177,6 @@ packer.startup {
           'nvim-lua/plenary.nvim'
         },
         config = [[require('config.telekasten')]]
-
     }
 
     -- A list of colorscheme plugin you may want to try. Find what suits you.

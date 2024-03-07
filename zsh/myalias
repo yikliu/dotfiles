@@ -8,7 +8,7 @@ alias cp='cp -i'
 # listing files
 
 # on mac use GNU ls so that vivid generated LS_COLORS can be applied
-alias ls="gls --color"
+# alias ls="gls --color"
 alias l='ls -lah'
 
 #git
@@ -26,13 +26,6 @@ alias tmkill="tmux kill-session -t"
 alias m='vim'
 alias n='nvim'
 
-alias jekyll_post='bundle exec jekyll post'
-
-alias m_vim='m ~/.vimrc'
-alias m_pf='m ~/.bash_profile'
-alias m_als='m ~/dotfiles/myalias'
-alias m_tmux='m ~/dotfiles/tmux'
-alias p_test='python -m unittest'
 alias mf='m $(fzf)'
 alias nf='n $(fzf)'
 
@@ -42,8 +35,3 @@ alias pip='pip3'
 
 # cd into a dir by using fzf
 alias cdf='cd $(find . -type d -print | fzf)'
-
-#zettelkasten
-alias td='nvim -c "Telekasten goto_today"'
-alias tn='nvim -c "Telekasten new_note"'
-alias tp='nvim -c "Telekasten panel"'

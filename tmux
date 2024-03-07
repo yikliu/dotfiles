@@ -37,6 +37,10 @@ bind-key K resize-pane -U 15
 bind-key H resize-pane -L 15
 bind-key L resize-pane -R 15
 
+# shift + alt to move sessions
+bind -n M-S-Left switch-client -n 
+bind -n M-S-Right switch-client -p
+
 # Shift arrow to switch windows
 bind -n S-Left  previous-window
 bind -n S-Right next-window
@@ -62,7 +66,7 @@ set -g mouse on
 # No delay for escape key press
 set -sg escape-time 0
 
-# Reload tmux config
+# reload tmux config
 bind r source-file ~/.tmux.conf
 
 # tpm plugins, need prefix + I to install
