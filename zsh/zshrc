@@ -58,14 +58,6 @@ export FZF_DEFAULT_OPTS='--color=bg+:#302D41,bg:#1E1E2E,spinner:#F8BD96,hl:#F28F
 
 fpath=($fpath "$HOME/.zfunctions")
 
-<<<<<<< HEAD
-source "$HOME/.cargo/env"
-=======
-<<<<<<< HEAD
-source "$HOME/.cargo/env"
-=======
->>>>>>> 4dc6869 (update)
->>>>>>> 184a9c4 (update)
 source ~/dotfiles/zsh/myalias
 source ~/amazon
 
