@@ -22,6 +22,12 @@ conf.header = {
 conf.center = {
   {
     icon = "  ",
+    desc = "Open Workspaces ",
+    action = "Telescope Workspaces",
+    key = "<Leader> f w",
+  },
+  {
+    icon = "  ",
     desc = "Find  File                              ",
     action = "Leaderf file --popup",
     key = "<Leader> f f",

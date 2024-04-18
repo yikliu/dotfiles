@@ -71,6 +71,9 @@ packer.startup {
     -- vim-react-=snippets
     use { "mlaursen/vim-react-snippets" }
 
+    -- workspace
+    use { "natecraddock/workspaces.nvim", config = [[require('config.workspaces')]] }
+
     -- nvim-terminal
     use { 's1n7ax/nvim-terminal', config = [[require('config.nvim-terminal')]] } 
 
@@ -100,6 +103,7 @@ packer.startup {
 
     use {
       "nvim-telescope/telescope.nvim",
+      config = [[require('config.telescope')]],
       requires = { { "nvim-lua/plenary.nvim" } },
     }
 
