@@ -20,7 +20,8 @@ M.colorscheme2dir = {
   material = "material.nvim",
   paper_light = "papercolor-theme",
   paper_dark = "papercolor-theme",
-  borland = "borland",
+  borland_modern = "borland_modern",
+  borland_classic= "borland_classic",
 }
 
 M.gruvbox8 = function()
@@ -153,5 +154,4 @@ end
 
 -- Load a random colorscheme
 M.rand_colorscheme()
--- M.borland_modern()
 

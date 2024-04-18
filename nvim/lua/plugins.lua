@@ -46,14 +46,21 @@ packer.startup {
     use { "wbthomason/packer.nvim", opt = true }
 
     use { "onsails/lspkind-nvim", event = "VimEnter" }
+
     -- auto-completion engine
     use { "hrsh7th/nvim-cmp", after = "lspkind-nvim", config = [[require('config.nvim-cmp')]] }
 
+    -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
+    use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] }
+   
     -- nvim-cmp completion sources
     use { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" }
     use { "hrsh7th/cmp-path", after = "nvim-cmp" }
     use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
     use { "hrsh7th/cmp-omni", after = "nvim-cmp" }
+    if vim.g.is_mac then
+      use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
+    end
 
     -- ultisnips 
     use { "SirVer/ultisnips" }
@@ -64,60 +71,8 @@ packer.startup {
     -- vim-react-=snippets
     use { "mlaursen/vim-react-snippets" }
 
-    if vim.g.is_mac then
-      use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
-    end
-
-    use {
-      's1n7ax/nvim-terminal',
-      config = function()
-          vim.o.hidden = true
-          require('nvim-terminal').setup({
-            window = {
-                -- Do `:h :botright` for more information
-                -- NOTE: width or height may not be applied in some "pos"
-                position = 'botright',
-                -- Do `:h split` for more information
-                split = 'sp',
-                -- Width of the terminal
-                width = 50,
-                -- Height of the terminal
-                height = 40,
-            },
-
-            -- keymap to disable all the default keymaps
-            disable_default_keymaps = false,
-            -- keymap to toggle open and close terminal window
-            toggle_keymap = '<leader>;',
-            -- increase the window height by when you hit the keymap
-            window_height_change_amount = 2,
-            -- increase the window width by when you hit the keymap
-            window_width_change_amount = 2,
-            -- keymap to increase the window width
-            increase_width_keymap = '<leader><leader>+',
-            -- keymap to decrease the window width
-            decrease_width_keymap = '<leader><leader>-',
-            -- keymap to increase the window height
-            increase_height_keymap = '<leader>+',
-            -- keymap to decrease the window height
-            decrease_height_keymap = '<leader>-',
-            terminals = {
-                -- keymaps to open nth terminal
-                {keymap = '<leader>1'},
-                {keymap = '<leader>2'},
-                {keymap = '<leader>3'},
-                {keymap = '<leader>4'},
-                {keymap = '<leader>5'},
-            },
-          })
-      end,
-    }
-
-    -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
-    use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] }
-
-    -- nvim-jdtls --
-    use 'mfussenegger/nvim-jdtls'
+    -- nvim-terminal
+    use { 's1n7ax/nvim-terminal', config = [[require('config.nvim-terminal')]] } 
 
     if vim.g.is_mac then
       use {
@@ -149,7 +104,6 @@ packer.startup {
     }
 
     use { "renerocksai/calendar-vim" } 
-    
 
     -- hop 
     use {

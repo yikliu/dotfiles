@@ -16,6 +16,7 @@ if version.cmp(ev, actual_ver) ~= 0 then
 end
 
 local core_conf_files = {
+  "neovide.lua", -- neovide configs 
   "globals.lua", -- some global settings
   "options.vim", -- setting options in nvim
   "mappings.lua", -- all the user-defined mappings
