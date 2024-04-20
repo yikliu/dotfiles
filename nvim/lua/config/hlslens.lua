@@ -40,6 +40,7 @@ keymap.set("n", "*", "", {
     hlslens.start()
   end,
 })
+
 keymap.set("n", "#", "", {
   callback = function()
     vim.fn.execute("normal! #N")

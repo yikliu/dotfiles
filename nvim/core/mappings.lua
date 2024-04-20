@@ -33,7 +33,8 @@ keymap.set("n", "<leader>P", "m`O<ESC>p``", { desc = "paste above current line" 
 keymap.set("n", "<leader>/", "<cmd>noh<cr>", {silent = true, desc = "clear highlights" })
 
 -- Shortcut for faster save and quit
-keymap.set("n", "<leader>w", "<cmd>update<cr>", { silent = true, desc = "save buffer" })
+keymap.set("n", "<leader>ww", "<cmd>Telescope workspaces<cr>", { silent = true, desc = "Select workspaces" })
+keymap.set("n", "<leader>wa", "<cmd>WorkspacesAdd<cr>", { silent = true, desc = "Add workspaces" })
 
 -- Saves the file if modified and quit
 keymap.set("n", "<leader>q", "<cmd>x<cr>", { silent = true, desc = "quit current window" })

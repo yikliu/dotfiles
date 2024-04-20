@@ -23,8 +23,8 @@ conf.center = {
   {
     icon = "  ",
     desc = "Open Workspaces ",
-    action = "Telescope Workspaces",
-    key = "<Leader> f w",
+    action = "Telescope workspaces",
+    key = "<Leader> w w",
   },
   {
     icon = "  ",

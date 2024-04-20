@@ -81,8 +81,6 @@ nnoremap <silent> <leader>fb :<C-U>Leaderf buffer --popup<CR>
 " Search recent files
 nnoremap <silent> <leader>fr :<C-U>Leaderf mru --popup --absolute-path<CR>
 
-nnoremap <silent> <leader>fw :<C-U>Telescope workspaces<CR>
-
 let g:Lf_PopupColorscheme = 'gruvbox_material'
 
 " Change keybinding in LeaderF prompt mode, use ctrl-n and ctrl-p to navigate

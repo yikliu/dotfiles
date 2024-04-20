@@ -85,29 +85,18 @@ packer.startup {
         config = [[require('config.treesitter')]],
       }
     end
-
-    -- Python indent (follows the PEP8 style)
-    use { "Vimjas/vim-python-pep8-indent", ft = { "python" } }
-
-    -- Python-related text object
-    use { "jeetsukumaran/vim-pythonsense", ft = { "python" } }
-
-    use { "machakann/vim-swap", event = "VimEnter" }
-
+   
     -- File search, tag search and more
     if vim.g.is_win then
         use { "Yggdroot/LeaderF", cmd = "Leaderf" }
     else
-      use { "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" }
+        use { "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" }
     end
 
     use {
       "nvim-telescope/telescope.nvim",
-      config = [[require('config.telescope')]],
       requires = { { "nvim-lua/plenary.nvim" } },
     }
-
-    use { "renerocksai/calendar-vim" } 
 
     -- hop 
     use {
@@ -126,15 +115,6 @@ packer.startup {
       branch = "main",
       keys = { { "n", "*" }, { "n", "#" }, { "n", "n" }, { "n", "N" } },
       config = [[require('config.hlslens')]],
-    }
-
-    use {
-        'renerocksai/telekasten.nvim',
-        requires = {
-          'nvim-telescope/telescope.nvim',
-          'nvim-lua/plenary.nvim'
-        },
-        config = [[require('config.telekasten')]]
     }
 
     -- A list of colorscheme plugin you may want to try. Find what suits you.
@@ -199,9 +179,7 @@ packer.startup {
 
     -- Another markdown plugin
     use { "preservim/vim-markdown", ft = { "markdown" } }
-
     use { "vim-pandoc/vim-pandoc", ft= { "markdown" } }
-
     use { "conornewton/vim-pandoc-markdown-preview", ft={ "markdown" } }
 
     -- Faster footnote generation

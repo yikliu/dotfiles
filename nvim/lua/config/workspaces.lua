@@ -32,7 +32,7 @@ require("workspaces").setup {
         remove = {},
         rename = {},
         open_pre = {},
-        open = { "NvimTreeOpen", "Telescope find_files" },
+        open = { "NvimTreeOpen" },
     },
 }
 

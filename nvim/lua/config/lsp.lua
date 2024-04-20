@@ -93,21 +93,7 @@ local custom_attach = function(client, bufnr)
     vim.notify(msg, vim.log.levels.DEBUG, { title = "Nvim-config" })
   end
 end
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-local lspconfig = require("lspconfig")
-
-if utils.executable("pylsp") then
-  lspconfig.pylsp.setup {
-    on_attach = custom_attach,
-    settings = {
-      pylsp = {
-        plugins = {
-          pylint = { enabled = true, executable = "pylint" },
-          pyflakes = { enabled = false },
-          pycodestyle = { enabled = false },
-          jedi_completion = { fuzzy = true },
+local capabilities = require('cmp_nvim_lsp').default_capabilities() local lspconfig = require("lspconfig") if utils.executable("pylsp") then lspconfig.pylsp.setup { on_attach = custom_attach, settings = { pylsp = { plugins = { pylint = { enabled = true, executable = "pylint" }, pyflakes = { enabled = false }, pycodestyle = { enabled = false }, jedi_completion = { fuzzy = true },
           pyls_isort = { enabled = true },
           pylsp_mypy = { enabled = true },
         },
