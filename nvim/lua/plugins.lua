@@ -86,12 +86,7 @@ packer.startup {
       }
     end
    
-    -- File search, tag search and more
-    if vim.g.is_win then
-        use { "Yggdroot/LeaderF", cmd = "Leaderf" }
-    else
-        use { "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" }
-    end
+    use { "Yggdroot/LeaderF", cmd = "Leaderf", run = ":LeaderfInstallCExtension" }
 
     use {
       "nvim-telescope/telescope.nvim",
@@ -130,9 +125,9 @@ packer.startup {
     use { "tanvirtin/monokai.nvim", opt = true }
     use { "marko-cerovac/material.nvim", opt = true }
     use { "NLKNguyen/papercolor-theme", opt = true }
-    use { "nvim-tree/nvim-web-devicons", event = "VimEnter" }
     use { "letorbi/vim-colors-modern-borland", opt = true }
-
+    use { "nvim-tree/nvim-web-devicons", event = "VimEnter" }
+    
     use {
       "nvim-lualine/lualine.nvim",
       event = "VimEnter",
