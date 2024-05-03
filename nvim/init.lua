@@ -1,7 +1,7 @@
 vim.loader.enable()
 
 local core_conf_files = {
-	"neovide.lua", -- neovide configs 
+	"neovide.lua", -- neovide configs
 	"globals.lua", -- some global settings
 	"options.vim", -- setting options in nvim
 	"mappings.lua", -- all the user-defined mappings

@@ -491,7 +491,7 @@ local plugin_specs = {
   },
 
   { "ii14/emmylua-nvim", ft = "lua" },
-  
+
 
 }
 

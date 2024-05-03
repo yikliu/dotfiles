@@ -17,7 +17,7 @@ local function packer_ensure_install()
   if fn.glob(packer_dir) ~= "" then
     return false
   end
-  
+
   -- Auto-install packer in case it hasn't been installed.
   vim.api.nvim_echo({ { "Installing packer.nvim", "Type" } }, true, {})
 
@@ -52,7 +52,7 @@ packer.startup {
 
     -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
     use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] }
-   
+
     -- nvim-cmp completion sources
     use { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" }
     use { "hrsh7th/cmp-path", after = "nvim-cmp" }
@@ -62,9 +62,9 @@ packer.startup {
       use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
     end
 
-    -- ultisnips 
+    -- ultisnips
     use { "SirVer/ultisnips" }
-    
+
     -- vim-snippets
     use { "honza/vim-snippets" }
 
@@ -75,7 +75,7 @@ packer.startup {
     use { "natecraddock/workspaces.nvim", config = [[require('config.workspaces')]] }
 
     -- nvim-terminal
-    use { 's1n7ax/nvim-terminal', config = [[require('config.nvim-terminal')]] } 
+    use { 's1n7ax/nvim-terminal', config = [[require('config.nvim-terminal')]] }, 
 
     if vim.g.is_mac then
       use {
