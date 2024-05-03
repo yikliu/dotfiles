@@ -43,7 +43,7 @@ set tabstop=2       " number of visual spaces per TAB
 set softtabstop=2   " number of spaces in tab when editing
 set shiftwidth=2    " number of spaces to use for autoindent
 set expandtab       " expand tab to spaces so that tabs are spaces
-
+set showtabline=2   " always show tab bar
 " Set matching pairs of characters and highlight matching brackets
 set matchpairs+=<:>,「:」,『:』,【:】,“:”,‘:’,《:》
 
