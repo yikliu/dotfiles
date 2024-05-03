@@ -94,19 +94,6 @@ local custom_attach = function(client, bufnr)
 		vim.notify(msg, vim.log.levels.DEBUG, { title = "Nvim-config" })
 	end
 end
-<<<<<<< HEAD
-local capabilities = require('cmp_nvim_lsp').default_capabilities() local lspconfig = require("lspconfig") if utils.executable("pylsp") then lspconfig.pylsp.setup { on_attach = custom_attach, settings = { pylsp = { plugins = { pylint = { enabled = true, executable = "pylint" }, pyflakes = { enabled = false }, pycodestyle = { enabled = false }, jedi_completion = { fuzzy = true },
-          pyls_isort = { enabled = true },
-          pylsp_mypy = { enabled = true },
-        },
-      },
-    },
-    flags = {
-      debounce_text_changes = 200,
-    },
-    capabilities = capabilities,
-  }
-=======
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -132,7 +119,6 @@ if utils.executable("pylsp") then
 		},
 		capabilities = capabilities,
 	})
->>>>>>> ada8ccf (add lazyvim)
 else
 	vim.notify("pylsp not found!", vim.log.levels.WARN, { title = "Nvim-config" })
 end

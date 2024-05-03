@@ -1,16 +1,15 @@
 scriptencoding utf-8
 
-lua require('plugins')
+lua require('lazy_specs')
 
 " Use short names for common plugin manager commands to simplify typing.
 " To use these shortcuts: first activate command line with `:`, then input the
 " short alias, e.g., `pi`, then press <space>, the alias will be expanded to
 " the full command automatically.
-call utils#Cabbrev('pi', 'PackerInstall')
-call utils#Cabbrev('pud', 'PackerUpdate')
-call utils#Cabbrev('pc', 'PackerClean')
-call utils#Cabbrev('ps', 'PackerSync')
-
+call utils#Cabbrev('pi', 'Lazy install')
+call utils#Cabbrev('pud', 'Lazy update')
+call utils#Cabbrev('pc', 'Lazy clean')
+call utils#Cabbrev('ps', 'Lazy sync')
 
 """""""""""""""""""""""""""""LeaderF settings"""""""""""""""""""""
 " Do not use cache file

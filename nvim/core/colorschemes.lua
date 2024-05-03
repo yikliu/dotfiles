@@ -6,152 +6,99 @@ local M = {}
 
 -- Colorscheme to its directory name mapping, because colorscheme repo name is not necessarily
 -- the same as the colorscheme name itself.
-M.colorscheme2dir = {
-  onedark = "onedark.nvim",
-  edge = "edge",
-  sonokai = "sonokai",
-  gruvbox_material = "gruvbox-material",
-  nord = "nord.nvim",
-  everforest = "everforest",
-  nightfox = "nightfox.nvim",
-  kanagawa = "kanagawa.nvim",
-  catppuccin = "catppuccin",
-  monokai = "monokai.nvim",
-  material = "material.nvim",
-  paper_light = "papercolor-theme",
-  paper_dark = "papercolor-theme",
-  borland_modern = "borland_modern",
-  borland_classic= "borland_classic",
+M.colorscheme_conf = {
+  onedark = function()
+    vim.cmd([[colorscheme onedark]])
+  end,
+  edge = function()
+    vim.g.edge_enable_italic = 1
+    vim.g.edge_better_performance = 1
+
+    vim.cmd([[colorscheme edge]])
+  end,
+  sonokai = function()
+    vim.g.sonokai_enable_italic = 1
+    vim.g.sonokai_better_performance = 1
+
+    vim.cmd([[colorscheme sonokai]])
+  end,
+  gruvbox_material = function()
+    -- foreground option can be material, mix, or original
+    vim.g.gruvbox_material_foreground = "material"
+    --background option can be hard, medium, soft
+    vim.g.gruvbox_material_background = "soft"
+    vim.g.gruvbox_material_enable_italic = 1
+    vim.g.gruvbox_material_better_performance = 1
+
+    vim.cmd([[colorscheme gruvbox-material]])
+  end,
+  everforest = function()
+    vim.g.everforest_enable_italic = 1
+    vim.g.everforest_better_performance = 1
+
+    vim.cmd([[colorscheme everforest]])
+  end,
+  nightfox = function()
+    vim.cmd([[colorscheme nordfox]])
+  end,
+  catppuccin = function()
+    -- available option: latte, frappe, macchiato, mocha
+    vim.g.catppuccin_flavour = "frappe"
+    require("catppuccin").setup()
+
+    vim.cmd([[colorscheme catppuccin]])
+  end,
+  material = function()
+    vim.g.material_style = "oceanic"
+    vim.cmd('colorscheme material')
+  end,
+  borland_modern = function()
+    vim.g.BorlandStyle = "modern"
+    vim.cmd('colorscheme Borland')
+  end,
+  borland_classic = function()
+    vim.g.BorlandStyle = "classic"
+    vim.cmd('colorscheme Borland')
+  end,
+  monokai = function()
+    vim.cmd('colorscheme monokai_pro')
+  end,
+  kanagawa = function()
+    vim.cmd([[colorscheme kanagawa]])
+  end,
+  doom_one = function()
+    vim.cmd([[colorscheme doom-one]])
+  end,
+  paper_light = function()
+    vim.cmd([[set t_Co=256]])
+    vim.cmd([[set background=light]])
+    vim.cmd([[colorscheme PaperColor]])
+  end,
+  paper_dark = function()
+    vim.cmd([[set background=dark]])
+    vim.cmd([[colorscheme PaperColor]])
+  end,
 }
-
-M.gruvbox8 = function()
-  -- Italic options should be put before colorscheme setting,
-  -- see https://github.com/morhetz/gruvbox/wiki/Terminal-specific#1-italics-is-disabled
-  vim.g.gruvbox_italics = 1
-  vim.g.gruvbox_italicize_strings = 1
-  vim.g.gruvbox_filetype_hi_groups = 1
-  vim.g.gruvbox_plugin_hi_groups = 1
-
-  vim.cmd([[colorscheme gruvbox8_hard]])
-end
-
-M.paper_light = function()
-  vim.cmd([[set t_Co=256]])
-  vim.cmd([[set background=light]])
-  vim.cmd([[colorscheme PaperColor]])
-end
-
-M.paper_dark = function()
-  vim.cmd([[set background=dark]])
-  vim.cmd([[colorscheme PaperColor]])
-end
-
-M.onedark = function()
-  vim.cmd([[colorscheme onedark]])
-end
-
-M.edge = function()
-  vim.g.edge_enable_italic = 1
-  vim.g.edge_better_performance = 1
-  vim.cmd([[colorscheme edge]])
-end
-
-M.sonokai = function()
-  vim.g.sonokai_enable_italic = 1
-  vim.g.sonokai_better_performance = 1
-  vim.cmd([[colorscheme sonokai]])
-end
-
-M.gruvbox_material = function()
-  -- foreground option can be material, mix, or original
-  vim.g.gruvbox_material_foreground = "material"
-  --background option can be hard, medium, soft
-  vim.g.gruvbox_material_background = "soft"
-  vim.g.gruvbox_material_enable_italic = 1
-  vim.g.gruvbox_material_better_performance = 1
-
-  vim.cmd([[colorscheme gruvbox-material]])
-end
-
-M.nord = function()
-  vim.cmd([[colorscheme nord]])
-end
-
-M.doom_one = function()
-  vim.cmd([[colorscheme doom-one]])
-end
-
-M.everforest = function()
-  vim.g.everforest_enable_italic = 1
-  vim.g.everforest_better_performance = 1
-
-  vim.cmd([[colorscheme everforest]])
-end
-
-M.nightfox = function()
-  vim.cmd([[colorscheme nordfox]])
-end
-
-M.kanagawa = function()
-  vim.cmd([[colorscheme kanagawa]])
-end
-
-M.catppuccin = function()
-  -- available option: latte, frappe, macchiato, mocha
-  vim.g.catppuccin_flavour = "mocha"
-
-  require("catppuccin").setup()
-
-  vim.cmd([[colorscheme catppuccin]])
-end
-
-M.monokai = function()
-  vim.cmd('colorscheme monokai_pro')
-end
-
-M.material = function ()
-  vim.g.material_style = "oceanic"
-  vim.cmd('colorscheme material')
-end
-
-M.borland_modern = function ()
-  vim.g.BorlandStyle = "modern"
-  vim.cmd('colorscheme Borland')
-end
-
-M.borland_classic = function ()
-  vim.g.BorlandStyle = "classic"
-  vim.cmd('colorscheme Borland')
-end
 
 --- Use a random colorscheme from the pre-defined list of colorschemes.
 M.rand_colorscheme = function()
-  local colorscheme = utils.rand_element(vim.tbl_keys(M.colorscheme2dir))
+  local colorscheme = utils.rand_element(vim.tbl_keys(M.colorscheme_conf))
 
-  if not vim.tbl_contains(vim.tbl_keys(M), colorscheme) then
+  if not vim.tbl_contains(vim.tbl_keys(M.colorscheme_conf), colorscheme) then
     local msg = "Invalid colorscheme: " .. colorscheme
     vim.notify(msg, vim.log.levels.ERROR, { title = "nvim-config" })
 
     return
   end
 
-  -- Load the colorscheme, because all the colorschemes are declared as opt plugins, so the colorscheme isn't loaded yet.
-  local status = utils.add_pack(M.colorscheme2dir[colorscheme])
-
-  if not status then
-    local msg = string.format("Colorscheme %s is not installed. Run PackerSync to install.", colorscheme)
-    vim.notify(msg, vim.log.levels.ERROR, { title = "nvim-config" })
-
-    return
-  end
-
   -- Load the colorscheme and its settings
-  M[colorscheme]()
+  M.colorscheme_conf[colorscheme]()
 
   local msg = "Colorscheme: " .. colorscheme
-  vim.notify(msg, vim.log.levels.info, { title = "nvim-config" })
+  vim.notify(msg, vim.log.levels.INFO, { title = "nvim-config" })
 end
 
 -- Load a random colorscheme
-M.rand_colorscheme()
+-- M.rand_colorscheme()
+M.colorscheme_conf['doom_one']()
 
