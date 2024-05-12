@@ -52,6 +52,14 @@ local plugin_specs = {
     end,
   },
 
+  -- Session
+  {
+    "natecraddock/sessions.nvim",
+    config = function()
+      require("config.sessions")
+    end,
+  },
+
   -- nvim-terminal
   { 's1n7ax/nvim-terminal',
     config = function()
@@ -491,7 +499,6 @@ local plugin_specs = {
   },
 
   { "ii14/emmylua-nvim", ft = "lua" },
-
 
 }
 
