@@ -50,7 +50,7 @@ export PATH="$HOME/jdtls/bin:$PATH"
 export PATH=$PATH:/Users/yikunliu/.toolbox/bin
 
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.17)
 export JAVA_TOOLS_OPTIONS="-Dlog4j2.formatMsgNoLookups=true"
 
 export PYTHONIOENCODING=utf-8
