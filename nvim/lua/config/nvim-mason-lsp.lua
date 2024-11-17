@@ -7,6 +7,7 @@ require("mason-lspconfig").setup {
                          "tsserver",
                          "lua_ls",
                          "jsonls",
+                         "kotlin_language_server",
                          "html"
                        },
 }
