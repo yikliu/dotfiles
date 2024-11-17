@@ -18,6 +18,29 @@ vim.opt.rtp:prepend(lazypath)
 local plugin_specs = {
 
   -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
+
+  -- for renaming wiht LSP
+  {
+    "smjonas/inc-rename.nvim",
+    config = function()
+      require("inc_rename").setup()
+    end,
+  },
+
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("config.mason")
+    end
+  },
+
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("config.nvim-mason-lsp")
+    end,
+  },
+
   {
     "neovim/nvim-lspconfig",
     event = { "BufRead", "BufNewFile" },
@@ -95,13 +118,6 @@ local plugin_specs = {
     "natecraddock/sessions.nvim",
     config = function()
       require("config.sessions")
-    end,
-  },
-
-  -- nvim-terminal
-  { 's1n7ax/nvim-terminal',
-    config = function()
-      require('config.nvim-terminal')
     end,
   },
 
@@ -537,14 +553,6 @@ local plugin_specs = {
   },
 
   { "ii14/emmylua-nvim", ft = "lua" },
-
-  -- for renaming wiht LSP
-  {
-    "smjonas/inc-rename.nvim",
-    config = function()
-      require("inc_rename").setup()
-    end,
-  }
 }
 
 -- configuration for lazy itself.

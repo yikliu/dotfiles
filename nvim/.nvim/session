@@ -13,20 +13,18 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +62 ~/Sync/dotfiles/nvim/core/globals.lua
-badd +1 ~/Sync/dotfiles/nvim/core/mappings.lua
-badd +13 ~/Sync/dotfiles/nvim/core/neovide.lua
-badd +8 ~/Sync/dotfiles/nvim/core/options.vim
-badd +1 ~/Sync/dotfiles/nvim/autoload/utils.vim
-badd +8 ~/Sync/dotfiles/nvim/core/plugins.vim
-badd +11 ~/Sync/dotfiles/nvim/init.lua
+badd +1 core/mappings.lua
+badd +62 core/globals.lua
+badd +13 core/neovide.lua
+badd +8 core/options.vim
+badd +1 autoload/utils.vim
+badd +8 core/plugins.vim
+badd +11 init.lua
+badd +0 \[Command\ Line]
 badd +0 health://
-badd +159 \[Command\ Line]
 argglobal
 %argdel
-tabnew +setlocal\ bufhidden=wipe
-tabrewind
-edit ~/Sync/dotfiles/nvim/core/globals.lua
+edit core/neovide.lua
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -48,7 +46,7 @@ exe 'vert 2resize ' . ((&columns * 212 + 121) / 243)
 argglobal
 enew
 file NvimTree_1
-balt ~/Sync/dotfiles/nvim/core/neovide.lua
+balt core/neovide.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -57,9 +55,10 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal nofen
+lcd ~
 wincmd w
 argglobal
-balt ~/Sync/dotfiles/nvim/init.lua
+balt ~/Sync/dotfiles/nvim/core/globals.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -70,61 +69,17 @@ setlocal fdn=20
 setlocal nofen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 62 - ((57 * winheight(0) + 30) / 60)
+let s:l = 13 - ((12 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 62
+keepjumps 13
 normal! 0
 wincmd w
+2wincmd w
 exe 'vert 1resize ' . ((&columns * 30 + 121) / 243)
 exe 'vert 2resize ' . ((&columns * 212 + 121) / 243)
-tabnext
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-wincmd =
-argglobal
-enew
-file health://
-balt ~/Sync/dotfiles/nvim/core/globals.lua
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-wincmd w
-argglobal
-enew
-file \[Command\ Line]
-balt health://
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-wincmd w
-wincmd =
-tabnext 2
+tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
@@ -139,7 +94,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
