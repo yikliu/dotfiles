@@ -1,5 +1,8 @@
 # .zshrc
 
+# allows edit using vi
+set -o vi
+
 # Source global definitions
 if [ -f /etc/zshrc ]; then
     . /etc/zshrc
@@ -61,3 +64,7 @@ fpath=($fpath "$HOME/.zfunctions")
 source ~/dotfiles/zsh/myalias
 source ~/amazon
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

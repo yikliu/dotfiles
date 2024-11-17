@@ -57,6 +57,9 @@ set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 
 " Break line at predefined characters
+set wrap
+set breakindent
+set breakindentopt=shift:2
 set linebreak
 " Character to show before the lines that have been soft-wrapped
 set showbreak=↪
@@ -160,6 +163,13 @@ set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor
 
 set signcolumn=yes:1
 
+" Enable cursor line position tracking:
+set cursorline
+" Remove the underline from enabling cursorline:
+highlight clear CursorLine
+" Set line numbering to red background:
+highlight CursorLineNR ctermbg=red
+
 " Remove certain character from file name pattern matching
 set isfname-==
 set isfname-=,
@@ -173,6 +183,6 @@ set diffopt+=context:3  " context for diff
 set diffopt+=internal,indent-heuristic,algorithm:histogram
 set diffopt+=linematch:60
 
-set nowrap  " do no wrap
-set noruler
+" set nowrap  " do no wrap
+" set noruler
 set nofoldenable "do no foldset nofoldenable

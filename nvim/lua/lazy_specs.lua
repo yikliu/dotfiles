@@ -24,9 +24,6 @@ local plugin_specs = {
     config = function()
       require("config.lsp")
     end,
-  },
-
-  {
     "mikavilpas/yazi.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -35,7 +32,7 @@ local plugin_specs = {
     keys = {
       -- 👇 in this section, choose your own keymappings!
       {
-        "<leader><SPACE>",
+        "<leader>-",
         function()
           require("yazi").yazi()
         end,
@@ -58,6 +55,13 @@ local plugin_specs = {
 
   {
     "mfussenegger/nvim-jdtls"
+  },
+
+  {
+    "voldikss/vim-floaterm",
+    config = function()
+      require("config.float-term")
+    end
   },
 
   -- auto-completion engine
@@ -534,6 +538,19 @@ local plugin_specs = {
 
   { "ii14/emmylua-nvim", ft = "lua" },
 
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1000,
+    config = true,
+  },
+
+  {
+    "nvim-neorg/neorg",
+    dependencies = { "luarocks.nvim" },
+    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    version = "*", -- Pin Neorg to the latest stable release
+    config = true,
+  }
 }
 
 -- configuration for lazy itself.
