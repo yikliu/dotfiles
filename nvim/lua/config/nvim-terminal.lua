@@ -8,13 +8,13 @@ require('nvim-terminal').setup({
       -- Width of the terminal
       width = 50,
       -- Height of the terminal
-      height = 40,
+      height = 30,
   },
 
   -- keymap to disable all the default keymaps
   disable_default_keymaps = false,
   -- keymap to toggle open and close terminal window
-  -- toggle_keymap = '<leader>;',
+  toggle_keymap = '<leader>;',
   -- increase the window height by when you hit the keymap
   window_height_change_amount = 2,
   -- increase the window width by when you hit the keymap

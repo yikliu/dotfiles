@@ -6,6 +6,25 @@ local diagnostic = vim.diagnostic
 
 local utils = require("utils")
 
+local function bemol()
+ local bemol_dir = vim.fs.find({ '.bemol' }, { upward = true, type = 'directory'})[1]
+ local ws_folders_lsp = {}
+ if bemol_dir then
+  local file = io.open(bemol_dir .. '/ws_root_folders', 'r')
+  if file then
+
+   for line in file:lines() do
+    table.insert(ws_folders_lsp, line)
+   end
+   file:close()
+  end
+ end
+
+ for _, line in ipairs(ws_folders_lsp) do
+  vim.lsp.buf.add_workspace_folder(line)
+ end
+end
+
 local custom_attach = function(client, bufnr)
 	-- Mappings.
 	local map = function(mode, l, r, opts)
@@ -93,69 +112,12 @@ local custom_attach = function(client, bufnr)
 		local msg = string.format("Language server %s started!", client.name)
 		vim.notify(msg, vim.log.levels.DEBUG, { title = "Nvim-config" })
 	end
+
+  bemol()
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 local lspconfig = require("lspconfig")
-
-if utils.executable("pylsp") then
-	lspconfig.pylsp.setup({
-		on_attach = custom_attach,
-		settings = {
-			pylsp = {
-				plugins = {
-					pylint = { enabled = true, executable = "pylint" },
-					pyflakes = { enabled = false },
-					pycodestyle = { enabled = false },
-					jedi_completion = { fuzzy = true },
-					pyls_isort = { enabled = true },
-					pylsp_mypy = { enabled = true },
-				},
-			},
-		},
-		flags = {
-			debounce_text_changes = 200,
-		},
-		capabilities = capabilities,
-	})
-else
-	vim.notify("pylsp not found!", vim.log.levels.WARN, { title = "Nvim-config" })
-end
-
-if utils.executable("pyright") then
-	lspconfig.pyright.setup({
-		on_attach = custom_attach,
-		capabilities = capabilities,
-	})
-else
-	vim.notify("pyright not found!", vim.log.levels.WARN, { title = "Nvim-config" })
-end
-
-if utils.executable("ltex-ls") then
-	lspconfig.ltex.setup({
-		on_attach = custom_attach,
-		cmd = { "ltex-ls" },
-		filetypes = { "text", "plaintex", "tex", "markdown" },
-		settings = {
-			ltex = {
-				language = "en",
-			},
-		},
-		flags = { debounce_text_changes = 300 },
-	})
-end
-
-if utils.executable("clangd") then
-	lspconfig.clangd.setup({
-		on_attach = custom_attach,
-		capabilities = capabilities,
-		filetypes = { "c", "cpp", "cc" },
-		flags = {
-			debounce_text_changes = 500,
-		},
-	})
-end
 
 -- set up vim-language-server
 if utils.executable("vim-language-server") then
@@ -217,18 +179,18 @@ fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHin
 
 -- global config for diagnostic
 diagnostic.config({
-	underline = false,
-	virtual_text = false,
+	underline = true,
+	virtual_text = true,
 	signs = true,
 	severity_sort = true,
 })
 
--- lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
---   underline = false,
---   virtual_text = false,
---   signs = true,
---   update_in_insert = false,
--- })
+lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
+  underline = true,
+  virtual_text = true,
+  signs = true,
+  update_in_insert = false,
+})
 
 -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
 lsp.handlers["textDocument/hover"] = lsp.with(vim.lsp.handlers.hover, {

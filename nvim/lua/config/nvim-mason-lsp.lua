@@ -1,7 +1,6 @@
 require("mason-lspconfig").setup {
     ensure_installed = {
                          "rust_analyzer",
-                         "jdtls",
                          "pyright",
                          "ts_ls",
                          "lua_ls",
@@ -10,3 +9,11 @@ require("mason-lspconfig").setup {
                          "html"
                        },
 }
+
+require("lspconfig").kotlin_language_server.setup({
+    cmd = { "kotlin-language-server" },
+    filetypes = { "kotlin" }
+})
+
+
+

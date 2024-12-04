@@ -17,14 +17,13 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugin_specs = {
 
-  -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
 
   -- for renaming wiht LSP
   {
     "smjonas/inc-rename.nvim",
     config = function()
-      require("inc_rename").setup()
-    end,
+      require("config.inc-rename")
+    end
   },
 
   {
@@ -38,7 +37,7 @@ local plugin_specs = {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("config.nvim-mason-lsp")
-    end,
+    end
   },
 
   {
@@ -46,44 +45,32 @@ local plugin_specs = {
     event = { "BufRead", "BufNewFile" },
     config = function()
       require("config.lsp")
-    end,
+    end
+  },
+
+  {
+    "mfussenegger/nvim-jdtls",
+    config = function()
+      require("config.jdtls")
+    end
+  },
+
+  {
     "mikavilpas/yazi.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
     event = "VeryLazy",
-    keys = {
-      -- 👇 in this section, choose your own keymappings!
-      {
-        "<leader>-",
-        function()
-          require("yazi").yazi()
-        end,
-        desc = "Open the file manager",
-      },
-      {
-        -- Open in the current working directory
-        "<leader>cw",
-        function()
-          require("yazi").yazi(nil, vim.fn.getcwd())
-        end,
-        desc = "Open the file manager in nvim's working directory" ,
-      },
-    },
-    ---@type YaziConfig
-    opts = {
-      open_for_directories = false,
-    },
-  },
-
-  {
-    "mfussenegger/nvim-jdtls"
-  },
-
-  {
-    "voldikss/vim-floaterm",
     config = function()
-      require("config.float-term")
+      require("config.yazi")
+    end
+  },
+
+  {
+    's1n7ax/nvim-terminal',
+    config = function()
+        vim.o.hidden = true
+        require('config.nvim-terminal')
     end
   },
 
@@ -174,7 +161,7 @@ local plugin_specs = {
     "smoka7/hop.nvim",
     event = "VeryLazy",
     config = function()
-      require("config.nvim_hop")
+      require("config.nvim-hop")
     end,
   },
 
@@ -241,7 +228,6 @@ local plugin_specs = {
   -- fancy start screen
   {
     "nvimdev/dashboard-nvim",
-    cond = firenvim_not_active,
     config = function()
       require("config.dashboard-nvim")
     end,
@@ -449,18 +435,6 @@ local plugin_specs = {
   -- Add indent object for vim (useful for languages like Python)
   { "michaeljsmith/vim-indent-object", event = "VeryLazy" },
 
-  -- Only use these plugin on Windows and Mac and when LaTeX is installed
-  {
-    "lervag/vimtex",
-    enabled = function()
-      if utils.executable("latex") then
-        return true
-      end
-      return false
-    end,
-    ft = { "tex" },
-  },
-
   -- Since tmux is only available on Linux and Mac, we only enable these plugins
   -- for Linux and Mac
   -- .tmux.conf syntax highlighting and setting check
@@ -553,6 +527,26 @@ local plugin_specs = {
   },
 
   { "ii14/emmylua-nvim", ft = "lua" },
+
+  {
+    "sontungexpt/url-open",
+    event = "VeryLazy",
+    cmd = "URLOpenUnderCursor",
+    config = function()
+        local status_ok, url_open = pcall(require, "url-open")
+        if not status_ok then
+            return
+        end
+        url_open.setup ({})
+    end,
+  },
+
+  {
+    "sphamba/smear-cursor.nvim",
+    config = function()
+      require("config.smear-cursor")
+    end
+  },
 }
 
 -- configuration for lazy itself.

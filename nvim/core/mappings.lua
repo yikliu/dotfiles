@@ -7,8 +7,9 @@ keymap.set("n", "<c-h>", "<c-w>h")
 keymap.set("n", "<c-l>", "<c-w>l")
 keymap.set("n", "<c-k>", "<c-w>k")
 keymap.set("n", "<c-j>", "<c-w>j")
+keymap.set("n", "<c-]>", "<c-w>w")
 
-  -- navigate tabs
+-- navigate tabs
 keymap.set("n", "H", "<cmd>bp<cr>")
 keymap.set("n", "L", "<cmd>bn<cr>")
 
@@ -239,6 +240,8 @@ keymap.set("c", "<C-A>", "<HOME>")
 -- Delete the character to the right of the cursor
 keymap.set("i", "<C-D>", "<DEL>")
 
+keymap.set("n", "gx", "<esc>:URLOpenUnderCursor<cr>")
+
 keymap.set("n", "<leader>cb", function()
   local cnt = 0
   local blink_times = 7
@@ -257,3 +260,4 @@ keymap.set("n", "<leader>cb", function()
     cnt = cnt + 1
   end))
 end)
+
