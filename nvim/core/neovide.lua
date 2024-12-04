@@ -15,6 +15,7 @@ if vim.g.neovide then
     vim.g.neovide_cursor_trail_size = 0.5
     vim.g.neovide_cursor_antialiasing = true
     vim.g.neovide_cursor_vfx_mode = "ripple"
+
     vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true})
     vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true})
     vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true})

@@ -16,8 +16,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugin_specs = {
-
-
   -- for renaming wiht LSP
   {
     "smjonas/inc-rename.nvim",
@@ -539,13 +537,6 @@ local plugin_specs = {
         end
         url_open.setup ({})
     end,
-  },
-
-  {
-    "sphamba/smear-cursor.nvim",
-    config = function()
-      require("config.smear-cursor")
-    end
   },
 }
 
