@@ -366,7 +366,7 @@ font_size 17.0
 #: The color and style for highlighting URLs on mouse-over. url_style
 #: can be one of: none, straight, double, curly, dotted, dashed.
 
-# open_url_with default
+open_url_with default
 
 #: The program to open clicked URLs. The special value default with
 #: first look for any URL handlers defined via the open_actions
@@ -2345,6 +2345,6 @@ include papercolor-kitty/papercolor-light.conf
 
 
 # BEGIN_KITTY_THEME
-# Vibrant Ink
+# Adwaita light
 include current-theme.conf
 # END_KITTY_THEME

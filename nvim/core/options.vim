@@ -39,9 +39,10 @@ set backup  " create backup for files
 set backupcopy=yes  " copy the original file to backupdir and overwrite it
 
 " General tab settings
-set tabstop=2       " number of visual spaces per TAB
-set softtabstop=2   " number of spaces in tab when editing
-set shiftwidth=2    " number of spaces to use for autoindent
+set autoindent
+set tabstop=4       " number of visual spaces per TAB
+set softtabstop=4   " number of spaces in tab when editing
+set shiftwidth=4    " number of spaces to use for autoindent
 set expandtab       " expand tab to spaces so that tabs are spaces
 set showtabline=2   " always show tab bar
 " Set matching pairs of characters and highlight matching brackets
@@ -59,7 +60,7 @@ set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 " Break line at predefined characters
 set wrap
 set breakindent
-set breakindentopt=shift:2
+set breakindentopt=shift:4
 set linebreak
 " Character to show before the lines that have been soft-wrapped
 set showbreak=↪

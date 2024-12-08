@@ -99,6 +99,6 @@ M.rand_colorscheme = function()
 end
 
 -- Load a random colorscheme
--- M.rand_colorscheme()
-M.colorscheme_conf['everforest']()
+M.rand_colorscheme()
+-- M.colorscheme_conf['everforest']()
 

@@ -1,5 +1,4 @@
 # general shortcuts
-
 alias c='cd '
 alias mv='mv -i'
 alias rm='rm -i'
@@ -7,9 +6,10 @@ alias cp='cp -i'
 
 # listing files
 
-# on mac use GNU ls so that vivid generated LS_COLORS can be applied
-# alias ls="gls --color"
-alias l='ls -lah'
+alias ls="gls --color"
+export LS_COLORS="$(vivid generate catppuccin-mocha)"
+#    alias l='ls -lah'
+
 
 #git
 alias gs="git status"
@@ -17,8 +17,8 @@ alias gb="git branch -vv"
 alias gp="git pull --rebase"
 
 #tmux
-alias tmls="tmux ls"
 alias tm="tmux"
+alias tmls="tmux ls"
 alias tmat="tmux a -t"
 alias tmkill="tmux kill-session -t"
 

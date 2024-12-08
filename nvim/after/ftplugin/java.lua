@@ -6,25 +6,25 @@ local eclipse_workspace = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify
 
 local ws_folders_jdtls = {}
 if root_dir then
- local file = io.open(root_dir .. "/.bemol/ws_root_folders")
- if file then
-  for line in file:lines() do
-   table.insert(ws_folders_jdtls, "file://" .. line)
+  local file = io.open(root_dir .. "/.bemol/ws_root_folders")
+  if file then
+    for line in file:lines() do
+      table.insert(ws_folders_jdtls, "file://" .. line)
+    end
+    file:close()
   end
-  file:close()
- end
 end
 
 local config = {
- cmd = {
-  "jdtls", -- need to be on your PATH
-  "-data",
-  eclipse_workspace,
- },
- root_dir = root_dir,
- init_options = {
-  workspaceFolders = ws_folders_jdtls,
- },
+  cmd = {
+    "jdtls", -- need to be on your PATH
+    "-data",
+    eclipse_workspace,
+  },
+  root_dir = root_dir,
+  init_options = {
+    workspaceFolders = ws_folders_jdtls,
+  },
 }
 
 require('jdtls').start_or_attach(config)

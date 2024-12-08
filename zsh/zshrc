@@ -1,23 +1,15 @@
 # .zshrc
 
-# allows edit using vi
-set -o vi
+export MANPATH="/usr/local/man:$MANPATH"
 
-# Source global definitions
-if [ -f /etc/zshrc ]; then
-    . /etc/zshrc
-fi
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
 
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
+# Compilation flags
+export ARCHFLAGS="-arch $(uname -m)"
 
-if [ -h '/usr/local/bin/vim' ]; then
-    alias vim='/usr/local/bin/vim'
-fi
-
-export TERM_EDITOR=vim
-export EDITOR=vim
+export TERM_EDITOR=nvim
+export EDITOR=nvim
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -27,14 +19,8 @@ HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-  xterm-color) color_prompt=yes;;
-esac
-
 #set color to 256
 export TERM=xterm-256color
-force_color_prompt=yes
 
 # PATH
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
@@ -49,11 +35,9 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/jdtls/bin:$PATH"
 export PATH=$PATH:/Users/yikunliu/.toolbox/bin
 
-
+# Java
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.17)
 export JAVA_TOOLS_OPTIONS="-Dlog4j2.formatMsgNoLookups=true"
-
-export PYTHONIOENCODING=utf-8
 
 #fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -61,10 +45,9 @@ export FZF_DEFAULT_OPTS='--color=bg+:#302D41,bg:#1E1E2E,spinner:#F8BD96,hl:#F28F
 
 fpath=($fpath "$HOME/.zfunctions")
 
+# python venv
+source ~/home-venv/bin/activate
+
 source ~/dotfiles/zsh/myalias
 source ~/amazon
 
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
