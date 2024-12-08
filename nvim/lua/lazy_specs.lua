@@ -175,7 +175,6 @@ local plugin_specs = {
     { "tanvirtin/monokai.nvim", lazy = true },
     { "marko-cerovac/material.nvim", lazy = true },
     { "NLKNguyen/papercolor-theme", lazy = true },
-    { "letorbi/vim-colors-modern-borland", lazy = true },
     { "romgrk/doom-one.vim", lazy = true },
 
     { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
@@ -183,7 +182,6 @@ local plugin_specs = {
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
-        cond = firenvim_not_active,
         config = function()
             require("config.statusline")
         end,
@@ -192,7 +190,6 @@ local plugin_specs = {
     {
         "akinsho/bufferline.nvim",
         event = { "BufEnter" },
-        cond = firenvim_not_active,
         config = function()
             require("config.bufferline")
         end,
@@ -510,6 +507,8 @@ local plugin_specs = {
     },
 
     { "ii14/emmylua-nvim", ft = "lua" },
+
+    { "nvim-tree/nvim-web-devicons", event = "VeryLazy"},
 
     {
         "sontungexpt/url-open",

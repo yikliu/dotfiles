@@ -52,14 +52,6 @@ M.colorscheme_conf = {
     vim.g.material_style = "oceanic"
     vim.cmd('colorscheme material')
   end,
-  borland_modern = function()
-    vim.g.BorlandStyle = "modern"
-    vim.cmd('colorscheme Borland')
-  end,
-  borland_classic = function()
-    vim.g.BorlandStyle = "classic"
-    vim.cmd('colorscheme Borland')
-  end,
   monokai = function()
     vim.cmd('colorscheme monokai_pro')
   end,
