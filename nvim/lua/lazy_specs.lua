@@ -1,7 +1,5 @@
 local utils = require("utils")
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system {
         "git",
@@ -15,13 +13,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugin_specs = {
-    -- for renaming wiht LSP
-    {
-        "smjonas/inc-rename.nvim",
-        config = function()
-            require("config.inc-rename")
-        end
-    },
 
     {
         "williamboman/mason.nvim",
@@ -36,7 +27,6 @@ local plugin_specs = {
         config = function()
             require("config.nvim-lspconfig")
         end
-
     },
 
     {
@@ -133,7 +123,7 @@ local plugin_specs = {
         end,
     },
 
-    { 
+    {
         "nvim-lua/plenary.nvim" 
     },
 
@@ -151,20 +141,14 @@ local plugin_specs = {
         config = true, -- or `opts = {}`
     },
 
-    -- Python indent (follows the PEP8 style)
-    { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
-
-    -- Python-related text object
-    { "jeetsukumaran/vim-pythonsense", ft = { "python" } },
-
     { "machakann/vim-swap", event = "VeryLazy" },
 
     -- Super fast buffer jump
     {
-        "smoka7/hop.nvim",
+        "rlane/pounce.nvim",
         event = "VeryLazy",
         config = function()
-            require("config.nvim-hop")
+            require("config.nvim-pounce")
         end,
     },
 
@@ -225,320 +209,320 @@ local plugin_specs = {
             vim.defer_fn(function()
                 require("config.nvim-notify")
             end, 2000)
-    end,
-},
+        end,
+    },
 
--- fancy start screen
-{
-    "nvimdev/dashboard-nvim",
-    config = function()
-        require("config.dashboard-nvim")
-    end,
-},
+    -- fancy start screen
+    {
+        "nvimdev/dashboard-nvim",
+        config = function()
+            require("config.dashboard-nvim")
+        end,
+    },
 
-{
-    "lukas-reineke/indent-blankline.nvim",
-    event = "VeryLazy",
-    main = 'ibl',
-    config = function()
-        require("config.indent-blankline")
-    end,
-},
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        event = "VeryLazy",
+        main = 'ibl',
+        config = function()
+            require("config.indent-blankline")
+        end,
+    },
 
--- Highlight URLs inside vim
-{ "itchyny/vim-highlighturl", event = "VeryLazy" },
+    -- Highlight URLs inside vim
+    { "itchyny/vim-highlighturl", event = "VeryLazy" },
 
--- notification plugin
-{
-    "rcarriga/nvim-notify",
-    event = "VeryLazy",
-    config = function()
-        require("config.nvim-notify")
-    end,
-},
+    -- notification plugin
+    {
+        "rcarriga/nvim-notify",
+        event = "VeryLazy",
+        config = function()
+            require("config.nvim-notify")
+        end,
+    },
 
--- For Windows and Mac, we can open an URL in the browser. For Linux, it may
--- not be possible since we maybe in a server which disables GUI.
-{
-    "tyru/open-browser.vim",
-    enabled = function()
-        if vim.g.is_win or vim.g.is_mac then
-            return true
-        else
+    -- For Windows and Mac, we can open an URL in the browser. For Linux, it may
+    -- not be possible since we maybe in a server which disables GUI.
+    {
+        "tyru/open-browser.vim",
+        enabled = function()
+            if vim.g.is_win or vim.g.is_mac then
+                return true
+            else
+                return false
+            end
+        end,
+        event = "VeryLazy",
+    },
+
+    -- Only install these plugins if ctags are installed on the system
+    -- show file tags in vim window
+    {
+        "liuchengxu/vista.vim",
+        enabled = function()
+            if utils.executable("ctags") then
+                return true
+            else
+                return false
+            end
+        end,
+        cmd = "Vista",
+    },
+
+
+    -- Automatic insertion and deletion of a pair of characters
+    { "Raimondi/delimitMate", event = "InsertEnter" },
+
+    -- Comment plugin
+    { "tpope/vim-commentary", event = "VeryLazy" },
+
+    -- Multiple cursor plugin like Sublime Text?
+    -- 'mg979/vim-visual-multi'
+
+    -- Autosave files on certain events
+    { "907th/vim-auto-save", event = "InsertEnter" },
+
+    -- Show undo history visually
+    { "simnalamburt/vim-mundo", cmd = { "MundoToggle", "MundoShow" } },
+
+    -- better UI for some nvim actions
+    { "stevearc/dressing.nvim" },
+
+    -- Manage your yank history
+    {
+        "gbprod/yanky.nvim",
+        cmd = { "YankyRingHistory" },
+        config = function()
+            require("config.yanky")
+        end,
+    },
+
+    -- Handy unix command inside Vim (Rename, Move etc.)
+    { "tpope/vim-eunuch", cmd = { "Rename", "Delete" } },
+
+    -- Repeat vim motions
+    { "tpope/vim-repeat", event = "VeryLazy" },
+
+    { "nvim-zh/better-escape.vim", event = { "InsertEnter" } },
+
+    {
+        "lyokha/vim-xkbswitch",
+        enabled = function()
+            if vim.g.is_mac and utils.executable("xkbswitch") then
+                return true
+            end
             return false
-        end
-    end,
-    event = "VeryLazy",
-},
+        end,
+        event = { "InsertEnter" },
+    },
 
--- Only install these plugins if ctags are installed on the system
--- show file tags in vim window
-{
-    "liuchengxu/vista.vim",
-    enabled = function()
-        if utils.executable("ctags") then
-            return true
-        else
+    {
+        "Neur1n/neuims",
+        enabled = function()
+            if vim.g.is_win then
+                return true
+            end
             return false
-        end
-    end,
-    cmd = "Vista",
-},
+        end,
+        event = { "InsertEnter" },
+    },
 
+    -- Auto format tools
+    { "sbdchd/neoformat", cmd = { "Neoformat" } },
 
--- Automatic insertion and deletion of a pair of characters
-{ "Raimondi/delimitMate", event = "InsertEnter" },
+    -- Git command inside vim
+    {
+        "tpope/vim-fugitive",
+        event = "User InGitRepo",
+        config = function()
+            require("config.fugitive")
+        end,
+    },
 
--- Comment plugin
-{ "tpope/vim-commentary", event = "VeryLazy" },
+    -- Better git log display
+    { "rbong/vim-flog", cmd = { "Flog" } },
+    { "akinsho/git-conflict.nvim", version = "*", config = true },
+    {
+        "ruifm/gitlinker.nvim",
+        event = "User InGitRepo",
+        config = function()
+            require("config.git-linker")
+        end,
+    },
 
--- Multiple cursor plugin like Sublime Text?
--- 'mg979/vim-visual-multi'
+    -- Better git commit experience
+    { "rhysd/committia.vim", lazy = true },
 
--- Autosave files on certain events
-{ "907th/vim-auto-save", event = "InsertEnter" },
+    {
+        "sindrets/diffview.nvim"
+    },
 
--- Show undo history visually
-{ "simnalamburt/vim-mundo", cmd = { "MundoToggle", "MundoShow" } },
+    {
+        "kevinhwang91/nvim-bqf",
+        ft = "qf",
+        config = function()
+            require("config.bqf")
+        end,
+    },
 
--- better UI for some nvim actions
-{ "stevearc/dressing.nvim" },
+    -- Another markdown plugin
+    { "preservim/vim-markdown", ft = { "markdown" } },
 
--- Manage your yank history
-{
-    "gbprod/yanky.nvim",
-    cmd = { "YankyRingHistory" },
-    config = function()
-        require("config.yanky")
-    end,
-},
+    -- Faster footnote generation
+    { "vim-pandoc/vim-markdownfootnotes", ft = { "markdown" } },
 
--- Handy unix command inside Vim (Rename, Move etc.)
-{ "tpope/vim-eunuch", cmd = { "Rename", "Delete" } },
+    -- Vim tabular plugin for manipulate tabular, required by markdown plugins
+    { "godlygeek/tabular", cmd = { "Tabularize" } },
 
--- Repeat vim motions
-{ "tpope/vim-repeat", event = "VeryLazy" },
+    -- Markdown previewing (only for Mac and Windows)
+    {
+        "iamcco/markdown-preview.nvim",
+        enabled = function()
+            if vim.g.is_win or vim.g.is_mac then
+                return true
+            end
+            return false
+        end,
+        build = "cd app && npm install",
+        ft = { "markdown" },
+    },
 
-{ "nvim-zh/better-escape.vim", event = { "InsertEnter" } },
+    {
+        "folke/zen-mode.nvim",
+        cmd = "ZenMode",
+        config = function()
+            require("config.zen-mode")
+        end,
+    },
 
-{
-    "lyokha/vim-xkbswitch",
-    enabled = function()
-        if vim.g.is_mac and utils.executable("xkbswitch") then
-            return true
-        end
-        return false
-    end,
-    event = { "InsertEnter" },
-},
+    {
+        "rhysd/vim-grammarous",
+        enabled = function()
+            if vim.g.is_mac then
+                return true
+            end
+            return false
+        end,
+        ft = { "markdown" },
+    },
 
-{
-    "Neur1n/neuims",
-    enabled = function()
-        if vim.g.is_win then
-            return true
-        end
-        return false
-    end,
-    event = { "InsertEnter" },
-},
+    { "chrisbra/unicode.vim", event = "VeryLazy" },
 
--- Auto format tools
-{ "sbdchd/neoformat", cmd = { "Neoformat" } },
+    -- Additional powerful text object for vim, this plugin should be studied
+    -- carefully to use its full power
+    { "wellle/targets.vim", event = "VeryLazy" },
 
--- Git command inside vim
-{
-    "tpope/vim-fugitive",
-    event = "User InGitRepo",
-    config = function()
-        require("config.fugitive")
-    end,
-},
+    -- Plugin to manipulate character pairs quickly
+    { "machakann/vim-sandwich", event = "VeryLazy" },
 
--- Better git log display
-{ "rbong/vim-flog", cmd = { "Flog" } },
-{ "akinsho/git-conflict.nvim", version = "*", config = true },
-{
-    "ruifm/gitlinker.nvim",
-    event = "User InGitRepo",
-    config = function()
-        require("config.git-linker")
-    end,
-},
+    -- Add indent object for vim (useful for languages like Python)
+    { "michaeljsmith/vim-indent-object", event = "VeryLazy" },
 
--- Better git commit experience
-{ "rhysd/committia.vim", lazy = true },
+    -- Since tmux is only available on Linux and Mac, we only enable these plugins
+    -- for Linux and Mac
+    -- .tmux.conf syntax highlighting and setting check
+    {
+        "tmux-plugins/vim-tmux",
+        enabled = function()
+            if utils.executable("tmux") then
+                return true
+            end
+            return false
+        end,
+        ft = { "tmux" },
+    },
 
-{
-    "sindrets/diffview.nvim"
-},
+    -- Modern matchit implementation
+    { "andymass/vim-matchup", event = "BufRead" },
+    { "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } },
 
-{
-    "kevinhwang91/nvim-bqf",
-    ft = "qf",
-    config = function()
-        require("config.bqf")
-    end,
-},
+    -- Asynchronous command execution
+    { "skywind3000/asyncrun.vim", lazy = true, cmd = { "AsyncRun" } },
+    { "cespare/vim-toml", ft = { "toml" }, branch = "main" },
 
--- Another markdown plugin
-{ "preservim/vim-markdown", ft = { "markdown" } },
+    -- Edit text area in browser using nvim
+    {
+        "glacambre/firenvim",
+        enabled = function()
+            if vim.g.is_win or vim.g.is_mac then
+                return true
+            end
+            return false
+        end,
+        build = function()
+            vim.fn["firenvim#install"](0)
+        end,
+        lazy = true,
+    },
 
--- Faster footnote generation
-{ "vim-pandoc/vim-markdownfootnotes", ft = { "markdown" } },
+    -- Debugger plugin
+    {
+        "sakhnik/nvim-gdb",
+        enabled = function()
+            if vim.g.is_win or vim.g.is_linux then
+                return true
+            end
+            return false
+        end,
+        build = { "bash install.sh" },
+        lazy = true,
+    },
 
--- Vim tabular plugin for manipulate tabular, required by markdown plugins
-{ "godlygeek/tabular", cmd = { "Tabularize" } },
+    -- Session management plugin
+    { "tpope/vim-obsession", cmd = "Obsession" },
 
--- Markdown previewing (only for Mac and Windows)
-{
-    "iamcco/markdown-preview.nvim",
-    enabled = function()
-        if vim.g.is_win or vim.g.is_mac then
-            return true
-        end
-        return false
-    end,
-    build = "cd app && npm install",
-    ft = { "markdown" },
-},
+    {
+        "ojroques/vim-oscyank",
+        enabled = function()
+            if vim.g.is_linux then
+                return true
+            end
+            return false
+        end,
+        cmd = { "OSCYank", "OSCYankReg" },
+    },
 
-{
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    config = function()
-        require("config.zen-mode")
-    end,
-},
+    -- The missing auto-completion for cmdline!
+    {
+        "gelguy/wilder.nvim",
+        build = ":UpdateRemotePlugins",
+    },
 
-{
-    "rhysd/vim-grammarous",
-    enabled = function()
-        if vim.g.is_mac then
-            return true
-        end
-        return false
-    end,
-    ft = { "markdown" },
-},
+    -- showing keybindings
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("config.which-key")
+        end,
+    },
 
-{ "chrisbra/unicode.vim", event = "VeryLazy" },
+    -- show and trim trailing whitespaces
+    { "jdhao/whitespace.nvim", event = "VeryLazy" },
 
--- Additional powerful text object for vim, this plugin should be studied
--- carefully to use its full power
-{ "wellle/targets.vim", event = "VeryLazy" },
+    -- file explorer
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+            require("config.nvim-tree")
+        end,
+    },
 
--- Plugin to manipulate character pairs quickly
-{ "machakann/vim-sandwich", event = "VeryLazy" },
+    { "ii14/emmylua-nvim", ft = "lua" },
 
--- Add indent object for vim (useful for languages like Python)
-{ "michaeljsmith/vim-indent-object", event = "VeryLazy" },
-
--- Since tmux is only available on Linux and Mac, we only enable these plugins
--- for Linux and Mac
--- .tmux.conf syntax highlighting and setting check
-{
-    "tmux-plugins/vim-tmux",
-    enabled = function()
-        if utils.executable("tmux") then
-            return true
-        end
-        return false
-    end,
-    ft = { "tmux" },
-},
-
--- Modern matchit implementation
-{ "andymass/vim-matchup", event = "BufRead" },
-{ "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } },
-
--- Asynchronous command execution
-{ "skywind3000/asyncrun.vim", lazy = true, cmd = { "AsyncRun" } },
-{ "cespare/vim-toml", ft = { "toml" }, branch = "main" },
-
--- Edit text area in browser using nvim
-{
-    "glacambre/firenvim",
-    enabled = function()
-        if vim.g.is_win or vim.g.is_mac then
-            return true
-        end
-        return false
-    end,
-    build = function()
-        vim.fn["firenvim#install"](0)
-    end,
-    lazy = true,
-},
-
--- Debugger plugin
-{
-    "sakhnik/nvim-gdb",
-    enabled = function()
-        if vim.g.is_win or vim.g.is_linux then
-            return true
-        end
-        return false
-    end,
-    build = { "bash install.sh" },
-    lazy = true,
-},
-
--- Session management plugin
-{ "tpope/vim-obsession", cmd = "Obsession" },
-
-{
-    "ojroques/vim-oscyank",
-    enabled = function()
-        if vim.g.is_linux then
-            return true
-        end
-        return false
-    end,
-    cmd = { "OSCYank", "OSCYankReg" },
-},
-
--- The missing auto-completion for cmdline!
-{
-    "gelguy/wilder.nvim",
-    build = ":UpdateRemotePlugins",
-},
-
--- showing keybindings
-{
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    config = function()
-        require("config.which-key")
-    end,
-},
-
--- show and trim trailing whitespaces
-{ "jdhao/whitespace.nvim", event = "VeryLazy" },
-
--- file explorer
-{
-    "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-        require("config.nvim-tree")
-    end,
-},
-
-{ "ii14/emmylua-nvim", ft = "lua" },
-
-{
-    "sontungexpt/url-open",
-    event = "VeryLazy",
-    cmd = "URLOpenUnderCursor",
-    config = function()
-        local status_ok, url_open = pcall(require, "url-open")
-        if not status_ok then
-            return
-        end
-        url_open.setup ({})
-    end,
-},
+    {
+        "sontungexpt/url-open",
+        event = "VeryLazy",
+        cmd = "URLOpenUnderCursor",
+        config = function()
+            local status_ok, url_open = pcall(require, "url-open")
+            if not status_ok then
+                return
+            end
+            url_open.setup ({})
+        end,
+    },
 }
 
 -- configuration for lazy itself.
