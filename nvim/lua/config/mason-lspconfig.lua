@@ -3,6 +3,7 @@ local api = vim.api
 local keymap = vim.keymap
 local lsp = vim.lsp
 local diagnostic = vim.diagnostic
+local home = os.getenv("HOME")
 
 local function bemol()
     local bemol_dir = vim.fs.find({ '.bemol' }, { upward = true, type = 'directory'})[1]
@@ -43,6 +44,7 @@ local custom_attach = function(client, bufnr)
     map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
     map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, { desc = "add workspace folder" })
     map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, { desc = "remove workspace folder" })
+    map("n", "<space>f", vim.lsp.buf.format, { desc = "format buffer" })
     map("n", "<space>wl", function()
         inspect(vim.lsp.buf.list_workspace_folders())
     end, { desc = "list workspace folder" })
@@ -130,7 +132,11 @@ local lspconfig = require("lspconfig")
 
 lspconfig.kotlin_language_server.setup({
     on_attach = custom_attach,
-    cmd = { "kotlin-language-server" },
+    cmd = {
+        -- not using the mason installed language server here, instead this is locally built kotlin language server
+        -- see details here: https://github.com/fwcd/kotlin-language-server/issues/600
+        home ..  "/kotlin/kotlin-language-server/server/build/install/server/bin/kotlin-language-server",
+    },
     filetypes = { "kotlin" },
     capabilities = capabilities
 })

@@ -22,16 +22,6 @@ M.colorscheme_conf = {
 
     vim.cmd([[colorscheme sonokai]])
   end,
-  gruvbox_material = function()
-    -- foreground option can be material, mix, or original
-    vim.g.gruvbox_material_foreground = "material"
-    --background option can be hard, medium, soft
-    vim.g.gruvbox_material_background = "soft"
-    vim.g.gruvbox_material_enable_italic = 1
-    vim.g.gruvbox_material_better_performance = 1
-
-    vim.cmd([[colorscheme gruvbox-material]])
-  end,
   everforest = function()
     vim.g.everforest_enable_italic = 1
     vim.g.everforest_better_performance = 1
@@ -92,5 +82,5 @@ end
 
 -- Load a random colorscheme
 M.rand_colorscheme()
--- M.colorscheme_conf['everforest']()
+-- M.colorscheme_conf['onehalflight']()
 

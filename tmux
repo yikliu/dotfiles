@@ -37,13 +37,13 @@ bind-key K resize-pane -U 15
 bind-key H resize-pane -L 15
 bind-key L resize-pane -R 15
 
-# shift + alt to move sessions
-bind -n M-S-Left switch-client -n
-bind -n M-S-Right switch-client -p
-
 # Shift arrow to switch windows
 bind -n S-Left  previous-window
 bind -n S-Right next-window
+
+# shift + alt to move sessions
+bind -n M-S-Left switch-client -n
+bind -n M-S-Right switch-client -p
 
 # Use Alt-arrow keys without prefix key to switch panes
 bind -n M-Left select-pane -L
@@ -51,7 +51,7 @@ bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
 
-# greater and lesser than keys  to move windows
+# greater and lesser than keys to move windows
 bind-key -r < swap-window -t -
 bind-key -r > swap-window -t +
 

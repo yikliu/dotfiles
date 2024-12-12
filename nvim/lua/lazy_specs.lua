@@ -38,6 +38,24 @@ local plugin_specs = {
     },
 
     {
+        "mfussenegger/nvim-lint",
+        event = { "BufRead", "BufNewFile" },
+        config = function()
+            require("config.nvim-lint")
+        end
+    },
+
+    {
+        "rshkarin/mason-nvim-lint",
+        event = { "BufRead", "BufNewFile" },
+        config = function()
+            require("config.mason-nvim-lint")
+        end
+    },
+
+    { "vijaymarupudi/nvim-fzf" },
+
+    {
         "mfussenegger/nvim-jdtls",
         config = function()
             require("config.jdtls")
@@ -99,21 +117,6 @@ local plugin_specs = {
     },
 
     {
-        "nvim-treesitter/nvim-treesitter",
-        enabled = function()
-            if vim.g.is_mac then
-                return true
-            end
-            return false
-        end,
-        event = "VeryLazy",
-        build = ":TSUpdate",
-        config = function()
-            require("config.treesitter")
-        end,
-    },
-
-    {
         "Yggdroot/LeaderF",
         cmd = "Leaderf",
         build = function()
@@ -124,7 +127,7 @@ local plugin_specs = {
     },
 
     {
-        "nvim-lua/plenary.nvim" 
+        "nvim-lua/plenary.nvim"
     },
 
     {
@@ -166,7 +169,6 @@ local plugin_specs = {
     { "navarasu/onedark.nvim", lazy = true },
     { "sainnhe/edge", lazy = true },
     { "sainnhe/sonokai", lazy = true },
-    { "sainnhe/gruvbox-material", lazy = true },
     { "shaunsingh/nord.nvim", lazy = true },
     { "sainnhe/everforest", lazy = true },
     { "EdenEast/nightfox.nvim", lazy = true },
@@ -176,6 +178,7 @@ local plugin_specs = {
     { "marko-cerovac/material.nvim", lazy = true },
     { "NLKNguyen/papercolor-theme", lazy = true },
     { "romgrk/doom-one.vim", lazy = true },
+    { "sonph/onehalf", lazy = true},
 
     { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
 
@@ -327,18 +330,11 @@ local plugin_specs = {
     -- Auto format tools
     { "sbdchd/neoformat", cmd = { "Neoformat" } },
 
-    -- Git command inside vim
-    {
-        "tpope/vim-fugitive",
-        event = "User InGitRepo",
-        config = function()
-            require("config.fugitive")
-        end,
-    },
-
     -- Better git log display
     { "rbong/vim-flog", cmd = { "Flog" } },
+
     { "akinsho/git-conflict.nvim", version = "*", config = true },
+
     {
         "ruifm/gitlinker.nvim",
         event = "User InGitRepo",
@@ -521,6 +517,22 @@ local plugin_specs = {
             end
             url_open.setup ({})
         end,
+    },
+
+    {
+        "chipsenkbeil/org-roam.nvim",
+        tag = "0.1.1",
+        dependencies = {
+            {
+                "nvim-orgmode/orgmode",
+                tag = "0.3.7",
+            },
+        },
+        config = function()
+            require("org-roam").setup({
+                directory = "~/dotfiles/orgroam",
+            })
+        end
     },
 }
 

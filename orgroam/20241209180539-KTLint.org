@@ -1,0 +1,8 @@
+:PROPERTIES:
+:ID: 85400746-A252-42E0-8963-F17AF6899ADC
+:END:
+#+TITLE: KTLint
+
+* Use Android Studio to run KT lint
+  * Install KTLint plugin on AS.
+  * Run `cmd + option + L`

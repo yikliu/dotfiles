@@ -115,3 +115,8 @@ if g:is_win || g:is_mac
   " Shortcuts to start and stop markdown previewing
   nnoremap <silent> <leader>m :<C-U>MarkdownPreviewToggle<CR>
 endif
+
+" vim-import-kotlin
+let g:learn_path = $HOME . "/workplace/IgtHeliosApp-Android/src/AmazonOneAndroidAppTelemetry/"
+nnoremap <space>il :KotlinImport<cr>
+

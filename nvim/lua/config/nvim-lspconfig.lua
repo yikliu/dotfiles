@@ -10,20 +10,20 @@ fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHin
 
 -- global config for diagnostic
 diagnostic.config({
-	underline = true,
-	virtual_text = true,
-	signs = true,
-	severity_sort = true,
+    underline = true,
+    virtual_text = true,
+    signs = true,
+    severity_sort = true,
 })
 
 lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
-  underline = true,
-  virtual_text = true,
-  signs = true,
-  update_in_insert = false,
+    underline = true,
+    virtual_text = true,
+    signs = true,
+    update_in_insert = false,
 })
 
 -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
 lsp.handlers["textDocument/hover"] = lsp.with(vim.lsp.handlers.hover, {
-	border = "rounded",
+    border = "rounded",
 })
