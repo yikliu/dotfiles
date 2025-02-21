@@ -92,9 +92,9 @@ local plugin_specs = {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-omni",
             "hrsh7th/cmp-emoji",
-            "honza/vim-snippets",
-            "SirVer/ultisnips",
-            "quangnguyen30192/cmp-nvim-ultisnips",
+            --"honza/vim-snippets",
+            --"SirVer/ultisnips",
+            --"quangnguyen30192/cmp-nvim-ultisnips",
         },
         config = function()
             require("config.nvim-cmp")
@@ -517,22 +517,6 @@ local plugin_specs = {
             end
             url_open.setup ({})
         end,
-    },
-
-    {
-        "chipsenkbeil/org-roam.nvim",
-        tag = "0.1.1",
-        dependencies = {
-            {
-                "nvim-orgmode/orgmode",
-                tag = "0.3.7",
-            },
-        },
-        config = function()
-            require("org-roam").setup({
-                directory = "~/dotfiles/orgroam",
-            })
-        end
     },
 }
 
