@@ -87,22 +87,32 @@ local plugin_specs = {
         event = "InsertEnter",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
-            "onsails/lspkind-nvim",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-omni",
             "hrsh7th/cmp-emoji",
-            --"honza/vim-snippets",
-            --"SirVer/ultisnips",
-            --"quangnguyen30192/cmp-nvim-ultisnips",
+            "hrsh7th/cmp-buffer",           -- source for text in buffer
+            "hrsh7th/cmp-path",             -- source for file system paths
+            "L3MON4D3/LuaSnip",             -- snippet engine
+            "saadparwaiz1/cmp_luasnip",     -- for autocompletion
+            "rafamadriz/friendly-snippets", -- useful snippets
+            "onsails/lspkind.nvim",         -- vs-code like pictograms
         },
         config = function()
             require("config.nvim-cmp")
         end,
     },
 
+    -- swift format
+    {
+        "stevearc/conform.nvim",
+        event = { "BufNewFile" },
+        config = function()
+            require("config.conform")
+        end,
+    },
+
     -- workspace
-    { "natecraddock/workspaces.nvim",
+    {
+        "natecraddock/workspaces.nvim",
         config = function()
             require("config.workspaces")
         end,
@@ -144,7 +154,7 @@ local plugin_specs = {
         config = true, -- or `opts = {}`
     },
 
-    { "machakann/vim-swap", event = "VeryLazy" },
+    { "machakann/vim-swap",    event = "VeryLazy" },
 
     -- Super fast buffer jump
     {
@@ -166,19 +176,19 @@ local plugin_specs = {
     },
 
     -- A list of colorscheme plugin you may want to try. Find what suits you.
-    { "navarasu/onedark.nvim", lazy = true },
-    { "sainnhe/edge", lazy = true },
-    { "sainnhe/sonokai", lazy = true },
-    { "shaunsingh/nord.nvim", lazy = true },
-    { "sainnhe/everforest", lazy = true },
-    { "EdenEast/nightfox.nvim", lazy = true },
-    { "rebelot/kanagawa.nvim", lazy = true },
-    { "catppuccin/nvim", as = "catppuccin", lazy = true },
-    { "tanvirtin/monokai.nvim", lazy = true },
+    { "navarasu/onedark.nvim",       lazy = true },
+    { "sainnhe/edge",                lazy = true },
+    { "sainnhe/sonokai",             lazy = true },
+    { "shaunsingh/nord.nvim",        lazy = true },
+    { "sainnhe/everforest",          lazy = true },
+    { "EdenEast/nightfox.nvim",      lazy = true },
+    { "rebelot/kanagawa.nvim",       lazy = true },
+    { "catppuccin/nvim",             as = "catppuccin", lazy = true },
+    { "tanvirtin/monokai.nvim",      lazy = true },
     { "marko-cerovac/material.nvim", lazy = true },
-    { "NLKNguyen/papercolor-theme", lazy = true },
-    { "romgrk/doom-one.vim", lazy = true },
-    { "sonph/onehalf", lazy = true},
+    { "NLKNguyen/papercolor-theme",  lazy = true },
+    { "romgrk/doom-one.vim",         lazy = true },
+    { "sonph/onehalf",               lazy = true },
 
     { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
 
@@ -271,16 +281,16 @@ local plugin_specs = {
 
 
     -- Automatic insertion and deletion of a pair of characters
-    { "Raimondi/delimitMate", event = "InsertEnter" },
+    { "Raimondi/delimitMate",   event = "InsertEnter" },
 
     -- Comment plugin
-    { "tpope/vim-commentary", event = "VeryLazy" },
+    { "tpope/vim-commentary",   event = "VeryLazy" },
 
     -- Multiple cursor plugin like Sublime Text?
     -- 'mg979/vim-visual-multi'
 
     -- Autosave files on certain events
-    { "907th/vim-auto-save", event = "InsertEnter" },
+    { "907th/vim-auto-save",    event = "InsertEnter" },
 
     -- Show undo history visually
     { "simnalamburt/vim-mundo", cmd = { "MundoToggle", "MundoShow" } },
@@ -298,10 +308,10 @@ local plugin_specs = {
     },
 
     -- Handy unix command inside Vim (Rename, Move etc.)
-    { "tpope/vim-eunuch", cmd = { "Rename", "Delete" } },
+    { "tpope/vim-eunuch",          cmd = { "Rename", "Delete" } },
 
     -- Repeat vim motions
-    { "tpope/vim-repeat", event = "VeryLazy" },
+    { "tpope/vim-repeat",          event = "VeryLazy" },
 
     { "nvim-zh/better-escape.vim", event = { "InsertEnter" } },
 
@@ -328,12 +338,12 @@ local plugin_specs = {
     },
 
     -- Auto format tools
-    { "sbdchd/neoformat", cmd = { "Neoformat" } },
+    { "sbdchd/neoformat",          cmd = { "Neoformat" } },
 
     -- Better git log display
-    { "rbong/vim-flog", cmd = { "Flog" } },
+    { "rbong/vim-flog",            cmd = { "Flog" } },
 
-    { "akinsho/git-conflict.nvim", version = "*", config = true },
+    { "akinsho/git-conflict.nvim", version = "*",        config = true },
 
     {
         "ruifm/gitlinker.nvim",
@@ -344,7 +354,7 @@ local plugin_specs = {
     },
 
     -- Better git commit experience
-    { "rhysd/committia.vim", lazy = true },
+    { "rhysd/committia.vim",              lazy = true },
 
     {
         "sindrets/diffview.nvim"
@@ -359,13 +369,13 @@ local plugin_specs = {
     },
 
     -- Another markdown plugin
-    { "preservim/vim-markdown", ft = { "markdown" } },
+    { "preservim/vim-markdown",           ft = { "markdown" } },
 
     -- Faster footnote generation
     { "vim-pandoc/vim-markdownfootnotes", ft = { "markdown" } },
 
     -- Vim tabular plugin for manipulate tabular, required by markdown plugins
-    { "godlygeek/tabular", cmd = { "Tabularize" } },
+    { "godlygeek/tabular",                cmd = { "Tabularize" } },
 
     -- Markdown previewing (only for Mac and Windows)
     {
@@ -399,14 +409,14 @@ local plugin_specs = {
         ft = { "markdown" },
     },
 
-    { "chrisbra/unicode.vim", event = "VeryLazy" },
+    { "chrisbra/unicode.vim",            event = "VeryLazy" },
 
     -- Additional powerful text object for vim, this plugin should be studied
     -- carefully to use its full power
-    { "wellle/targets.vim", event = "VeryLazy" },
+    { "wellle/targets.vim",              event = "VeryLazy" },
 
     -- Plugin to manipulate character pairs quickly
-    { "machakann/vim-sandwich", event = "VeryLazy" },
+    { "machakann/vim-sandwich",          event = "VeryLazy" },
 
     -- Add indent object for vim (useful for languages like Python)
     { "michaeljsmith/vim-indent-object", event = "VeryLazy" },
@@ -426,12 +436,12 @@ local plugin_specs = {
     },
 
     -- Modern matchit implementation
-    { "andymass/vim-matchup", event = "BufRead" },
-    { "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } },
+    { "andymass/vim-matchup",     event = "BufRead" },
+    { "tpope/vim-scriptease",     cmd = { "Scriptnames", "Message", "Verbose" } },
 
     -- Asynchronous command execution
-    { "skywind3000/asyncrun.vim", lazy = true, cmd = { "AsyncRun" } },
-    { "cespare/vim-toml", ft = { "toml" }, branch = "main" },
+    { "skywind3000/asyncrun.vim", lazy = true,                                  cmd = { "AsyncRun" } },
+    { "cespare/vim-toml",         ft = { "toml" },                              branch = "main" },
 
     -- Edit text area in browser using nvim
     {
@@ -462,7 +472,7 @@ local plugin_specs = {
     },
 
     -- Session management plugin
-    { "tpope/vim-obsession", cmd = "Obsession" },
+    { "tpope/vim-obsession",   cmd = "Obsession" },
 
     {
         "ojroques/vim-oscyank",
@@ -502,9 +512,9 @@ local plugin_specs = {
         end,
     },
 
-    { "ii14/emmylua-nvim", ft = "lua" },
+    { "ii14/emmylua-nvim",           ft = "lua" },
 
-    { "nvim-tree/nvim-web-devicons", event = "VeryLazy"},
+    { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
 
     {
         "sontungexpt/url-open",
@@ -515,9 +525,25 @@ local plugin_specs = {
             if not status_ok then
                 return
             end
-            url_open.setup ({})
+            url_open.setup({})
         end,
     },
+
+    -- xcodebuild for swift
+    {
+        "wojciech-kulik/xcodebuild.nvim",
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+            "MunifTanjim/nui.nvim",
+            "folke/snacks.nvim",               -- (optional) to show previews
+            "nvim-tree/nvim-tree.lua",         -- (optional) to manage project files
+            "stevearc/oil.nvim",               -- (optional) to manage project files
+            "nvim-treesitter/nvim-treesitter", -- (optional) for Quick tests support (required Swift parser)
+        },
+        config = function()
+            require("config.xcodebuild")
+        end,
+    }
 }
 
 -- configuration for lazy itself.

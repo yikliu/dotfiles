@@ -5,11 +5,26 @@ local lspkind = require("lspkind")
 cmp.setup {
     snippet = {
         expand = function(args)
-            -- For `ultisnips` user.
-            vim.fn["UltiSnips#Anon"](args.body)
+          luasnip.lsp_expand(args.body)
         end,
     },
     mapping = cmp.mapping.preset.insert {
+        ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+        ["<C-b>"] = cmp.mapping(function(fallback)
+          if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+        ["<C-f>"] = cmp.mapping(function(fallback)
+          if luasnip.jumpable(1) then
+            luasnip.jump(1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
         ["<Tab>"] = function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -31,21 +46,22 @@ cmp.setup {
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
     },
     sources = {
+        { name = "luasnip" }, -- snippets
         { name = "nvim_lsp" }, -- For nvim-lsp
-        { name = "ultisnips" }, -- For ultisnips user.
         { name = "path" }, -- for path completion
         { name = "buffer", keyword_length = 2 }, -- for buffer word completion
         { name = "emoji", insert = true }, -- emoji completion
     },
     completion = {
+        completeopt = "menu,menuone,preview",
         keyword_length = 1,
-        completeopt = "menu,noselect",
     },
     view = {
         entries = "custom",
     },
     formatting = {
         format = lspkind.cmp_format {
+            maxwidth = 50,
             mode = "symbol_text",
             menu = {
                 nvim_lsp = "[LSP]",

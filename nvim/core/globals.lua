@@ -59,3 +59,6 @@ vim.g.loaded_sql_completion = 1
 -- Disable markdown folding
 vim.g.vim_markdown_folding_disabled = 1
 vim.g.markdown_folding = 0
+
+-- python support
+vim.g.python3_host_prog = '~/.venv/bin/python'

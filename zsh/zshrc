@@ -45,9 +45,7 @@ export FZF_DEFAULT_OPTS='--color=bg+:#302D41,bg:#1E1E2E,spinner:#F8BD96,hl:#F28F
 
 fpath=($fpath "$HOME/.zfunctions")
 
-# python venv
-source ~/.venv/bin/activate
-
 source ~/dotfiles/zsh/myalias
 source ~/amazon
 
+export GOPROXY="direct"
