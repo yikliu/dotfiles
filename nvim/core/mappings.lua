@@ -63,7 +63,7 @@ desc = "close qf and location list",
 })
 
 -- Delete a buffer, without closing the window, see https://stackoverflow.com/q/4465095/6064933
-keymap.set("n", "<leader>x", "<cmd>bprevious <bar> bdelete #<cr>", {
+keymap.set("n", "<leader>tx", "<cmd>bprevious <bar> bdelete #<cr>", {
 silent = true,
   desc = "delete buffer",
 })
