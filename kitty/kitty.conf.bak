@@ -2345,6 +2345,6 @@ include papercolor-kitty/papercolor-light.conf
 
 
 # BEGIN_KITTY_THEME
-# Adwaita light
+# Tokyo Night Day
 include current-theme.conf
 # END_KITTY_THEME

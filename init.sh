@@ -19,4 +19,3 @@ ln -s ${dir}/nvim ~/.config/nvim
 
 source ~/.zshrc
 
-

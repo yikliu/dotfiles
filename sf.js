@@ -2,7 +2,7 @@
 settings.hintAlign = "left";
 //return to N mode after yank
 settings.modeAfterYank = "Normal";
-//omnibar focus on first 
+//omnibar focus on first
 settings.omnibarSuggestion = true;
 settings.focusFirstCandidate = false;
 //focus on last visited tab after this tab is closed.
@@ -16,7 +16,7 @@ api.Hints.setCharacters('jklnmyuioph');
 // H, L for left / right tab
 //api.map('H', 'h');
 //api.map('L', 'l');
-api.map('h', 'E'); 
+api.map('h', 'E');
 api.map('l', 'R');
 
 api.map('<Ctrl-k>', 'e');

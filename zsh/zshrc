@@ -49,3 +49,4 @@ source ~/dotfiles/zsh/myalias
 source ~/amazon
 
 export GOPROXY="direct"
+export NOTES_DIR="~/OneDrive/sync/notes"
