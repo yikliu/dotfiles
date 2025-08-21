@@ -127,24 +127,18 @@ local plugin_specs = {
     },
 
     {
-        "Yggdroot/LeaderF",
-        cmd = "Leaderf",
-        build = function()
-            if not vim.g.is_win then
-                vim.cmd(":LeaderfInstallCExtension")
-            end
-        end,
-    },
-
-    {
         "nvim-lua/plenary.nvim"
     },
 
     {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
+        config = function()
+            require("config.telescope")
+        end,
         dependencies = {
             "nvim-telescope/telescope-symbols.nvim",
+            "nvim-lua/plenary.nvim",
         },
     },
 
@@ -190,7 +184,7 @@ local plugin_specs = {
     { "romgrk/doom-one.vim",         lazy = true },
     { "sonph/onehalf",               lazy = true },
 
-    { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
+    { "nvim-tree/nvim-web-devicons", opts = {} },
 
     {
         "nvim-lualine/lualine.nvim",
@@ -228,6 +222,7 @@ local plugin_specs = {
         config = function()
             require("config.dashboard-nvim")
         end,
+        dependencies = {{'nvim-tree/nvim-web-devicons'}}
     },
 
     {
@@ -513,8 +508,6 @@ local plugin_specs = {
     },
 
     { "ii14/emmylua-nvim",           ft = "lua" },
-
-    { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
 
     {
         "sontungexpt/url-open",

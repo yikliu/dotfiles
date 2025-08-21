@@ -1,4 +1,5 @@
 local telescope = require("telescope")
+local keymap = vim.keymap
 telescope.load_extension("workspaces")
 telescope.setup{
   defaults = {
@@ -30,3 +31,8 @@ telescope.setup{
     -- please take a look at the readme of the extension you want to configure
   }
 }
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })

@@ -18,7 +18,6 @@ conf.header = {
     "                                                       ",
     "                                                       ",
 }
-
 conf.center = {
     {
         icon = "  ",
@@ -29,19 +28,13 @@ conf.center = {
     {
         icon = "  ",
         desc = "Find  File                              ",
-        action = "Leaderf file --popup",
+        action = "Telescope find_files",
         key = "<Leader> f f",
-    },
-    {
-        icon = "  ",
-        desc = "Recently opened files                   ",
-        action = "Leaderf mru --popup",
-        key = "<Leader> f r",
     },
     {
         icon = "  ",
         desc = "Project grep                            ",
-        action = "Leaderf rg --popup",
+        action = "Telescope live_grep",
         key = "<Leader> f g",
     },
     {
