@@ -165,8 +165,8 @@ lspconfig["sourcekit"].setup({
     end,
 })
 
-lspconfig.lua_ls.setup({
-    on_attach = custom_attach,
+lsp.config("lua_ls", {
+   on_attach = custom_attach,
     settings = {
         Lua = {
             runtime = {

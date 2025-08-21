@@ -20,19 +20,19 @@ conf.header = {
 }
 conf.center = {
     {
-        icon = "  ",
+        icon = "  ",
         desc = "Open Workspaces ",
         action = "Telescope workspaces",
         key = "<Leader> w w",
     },
     {
-        icon = "  ",
+        icon = "󰺄  ",
         desc = "Find  File                              ",
         action = "Telescope find_files",
         key = "<Leader> f f",
     },
     {
-        icon = "  ",
+        icon = "󰺄  ",
         desc = "Project grep                            ",
         action = "Telescope live_grep",
         key = "<Leader> f g",
@@ -50,7 +50,7 @@ conf.center = {
         key = "e",
     },
     {
-        icon = "  ",
+        icon = "󰈆  ",
         desc = "Quit Nvim                               ",
         -- desc = "Quit Nvim                               ",
         action = "qa",

@@ -363,28 +363,6 @@ local plugin_specs = {
         end,
     },
 
-    -- Another markdown plugin
-    { "preservim/vim-markdown",           ft = { "markdown" } },
-
-    -- Faster footnote generation
-    { "vim-pandoc/vim-markdownfootnotes", ft = { "markdown" } },
-
-    -- Vim tabular plugin for manipulate tabular, required by markdown plugins
-    { "godlygeek/tabular",                cmd = { "Tabularize" } },
-
-    -- Markdown previewing (only for Mac and Windows)
-    {
-        "iamcco/markdown-preview.nvim",
-        enabled = function()
-            if vim.g.is_win or vim.g.is_mac then
-                return true
-            end
-            return false
-        end,
-        build = "cd app && npm install",
-        ft = { "markdown" },
-    },
-
     {
         "folke/zen-mode.nvim",
         cmd = "ZenMode",
