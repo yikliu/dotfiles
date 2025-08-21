@@ -50,3 +50,4 @@ source ~/amazon
 
 export GOPROXY="direct"
 export NOTES_DIR="~/OneDrive/sync/notes"
+export XDG_DATA_DIRS="/opt/homebrew/share"
