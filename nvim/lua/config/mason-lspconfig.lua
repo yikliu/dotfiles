@@ -128,9 +128,8 @@ require("mason-lspconfig").setup {
 }
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local lspconfig = require("lspconfig")
 
-lspconfig.kotlin_language_server.setup({
+lsp.config("kotlin_language_server", {
     on_attach = custom_attach,
     cmd = {
         -- not using the mason installed language server here, instead this is locally built kotlin language server
@@ -141,7 +140,7 @@ lspconfig.kotlin_language_server.setup({
     capabilities = capabilities
 })
 
-lspconfig.vimls.setup({
+lsp.config("vmls", {
     on_attach = custom_attach,
     flags = {
         debounce_text_changes = 500,
@@ -149,12 +148,12 @@ lspconfig.vimls.setup({
     capabilities = capabilities,
 })
 
-lspconfig.bashls.setup({
+lsp.config("bashls", {
     on_attach = custom_attach,
     capabilities = capabilities,
 })
 
-lspconfig["sourcekit"].setup({
+lsp.config("sourcekit", {
     cmd = { vim.trim(vim.fn.system("xcrun -f sourcekit-lsp")), },
     capabilities = capabilities,
     on_attach = custom_attach,
