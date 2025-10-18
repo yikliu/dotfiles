@@ -142,6 +142,9 @@ map <leader>cc <Action>(HideSideWindows)
 map <leader>en <Action>(ReSharperGotoNextErrorInSolution)
 map <leader>ep <Action>(ReSharperGotoPrevErrorInSolution)
 
+" Q chat
+map <leader>gq <Action>(OpenAmazonQChat)
+
 " Which-key settings
 set which-key
 let g:WhichKey_FontSize = 16

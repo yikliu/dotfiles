@@ -1,5 +1,5 @@
 require("mason").setup({
-  ui = {
+    ui = {
         icons = {
             package_installed = "✓",
             package_pending = "➜",

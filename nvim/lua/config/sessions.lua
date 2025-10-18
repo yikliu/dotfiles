@@ -1,4 +1,5 @@
 require("sessions").setup({
-    events = { "WinEnter" },
+    events = { "BufEnter" },
     session_filepath = ".nvim/session",
+    absolute = false,
 })

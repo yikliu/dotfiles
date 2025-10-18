@@ -5,8 +5,25 @@ local lsp = vim.lsp
 local diagnostic = vim.diagnostic
 local home = os.getenv("HOME")
 
+require("mason-lspconfig").setup {
+    ensure_installed = {
+        "rust_analyzer",
+        "pyright",
+        "ts_ls",
+        "lua_ls",
+        "jdtls",
+        "jsonls",
+        "kotlin_language_server",
+        "html"
+    },
+    automatic_enable = {
+        -- We will enable jdtls ourselves in attach_jdtls()
+        exclude = { "jdtls" }
+    }
+}
+
 local function bemol()
-    local bemol_dir = vim.fs.find({ '.bemol' }, { upward = true, type = 'directory'})[1]
+    local bemol_dir = vim.fs.find({ '.bemol' }, { upward = true, type = 'directory' })[1]
     local ws_folders_lsp = {}
     if bemol_dir then
         local file = io.open(bemol_dir .. '/ws_root_folders', 'r')
@@ -32,27 +49,24 @@ local custom_attach = function(client, bufnr)
         keymap.set(mode, l, r, opts)
     end
 
-    map("n", "gd", vim.lsp.buf.definition, { desc = "go to definition" })
-    map("n", "<C-]>", vim.lsp.buf.definition)
-    map("n", "K", vim.lsp.buf.hover)
-    map("n", "<C-k>", vim.lsp.buf.signature_help)
+    map("n", "<space>dp", diagnostic.goto_prev, { desc = "previous diagnostic" })
+    map("n", "<space>dn", diagnostic.goto_next, { desc = "next diagnostic" })
+    map("n", "<space>sq", diagnostic.setqflist, { desc = "put diagnostic to qf" })
+    map("n", "<space>df", vim.lsp.buf.definition, { desc = "go to definition" })
+    map("n", "<space>dc", vim.lsp.buf.declaration, { desc = "go to declaration" })
+    map("n", "<space>im", vim.lsp.buf.implementation, { desc = "go to implementation" })
+    map("n", "<space>td", vim.lsp.buf.type_definition, { desc = "go to type definition" })
+    map("n", "<space>gr", vim.lsp.buf.references, { desc = "show references" })
+    map("n", "<space>hv", vim.lsp.buf.hover, { desc = "hover on symbol" })
+    map("n", "<space>sg", vim.lsp.buf.signature_help, { desc = "signature help" })
     map("n", "<space>rn", vim.lsp.buf.rename, { desc = "varialbe rename" })
-    map("n", "gr", vim.lsp.buf.references, { desc = "show references" })
-    map("n", "[d", diagnostic.goto_prev, { desc = "previous diagnostic" })
-    map("n", "]d", diagnostic.goto_next, { desc = "next diagnostic" })
-    map("n", "<space>q", diagnostic.setqflist, { desc = "put diagnostic to qf" })
     map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
     map("n", "<space>wa", vim.lsp.buf.add_workspace_folder, { desc = "add workspace folder" })
     map("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, { desc = "remove workspace folder" })
-    map("n", "<space>f", vim.lsp.buf.format, { desc = "format buffer" })
+    map("n", "<space>fm", vim.lsp.buf.format, { desc = "format buffer" })
     map("n", "<space>wl", function()
         inspect(vim.lsp.buf.list_workspace_folders())
     end, { desc = "list workspace folder" })
-
-    -- Set some key bindings conditional on server capabilities
-    if client.server_capabilities.documentFormattingProvider then
-        map("n", "<space>t", vim.lsp.buf.format, { desc = "format code" })
-    end
 
     api.nvim_create_autocmd("CursorHold", {
         buffer = bufnr,
@@ -73,13 +87,13 @@ local custom_attach = function(client, bufnr)
             if
                 (cursor_pos[1] ~= vim.b.diagnostics_pos[1] or cursor_pos[2] ~= vim.b.diagnostics_pos[2])
                 and #diagnostic.get() > 0
-                then
-                    diagnostic.open_float(nil, float_opts)
-                end
+            then
+                diagnostic.open_float(nil, float_opts)
+            end
 
-                vim.b.diagnostics_pos = cursor_pos
-            end,
-        })
+            vim.b.diagnostics_pos = cursor_pos
+        end,
+    })
 
     -- The blow command will highlight the current variable and its usages in the buffer.
     if client.server_capabilities.documentHighlightProvider then
@@ -115,26 +129,13 @@ local custom_attach = function(client, bufnr)
     bemol()
 end
 
-require("mason-lspconfig").setup {
-    ensure_installed = {
-        "rust_analyzer",
-        "pyright",
-        "ts_ls",
-        "lua_ls",
-        "jsonls",
-        "kotlin_language_server",
-        "html"
-    },
-}
-
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 lsp.config("kotlin_language_server", {
     on_attach = custom_attach,
     cmd = {
         -- not using the mason installed language server here, instead this is locally built kotlin language server
         -- see details here: https://github.com/fwcd/kotlin-language-server/issues/600
-        home ..  "/kotlin/kotlin-language-server/server/build/install/server/bin/kotlin-language-server",
+        home .. "/kotlin/kotlin-language-server/server/build/install/server/bin/kotlin-language-server",
     },
     filetypes = { "kotlin" },
     capabilities = capabilities
@@ -158,14 +159,14 @@ lsp.config("sourcekit", {
     capabilities = capabilities,
     on_attach = custom_attach,
     on_init = function(client)
-    -- HACK: to fix some issues with LSP
-    -- more details: https://github.com/neovim/neovim/issues/19237#issuecomment-2237037154
-    client.offset_encoding = "utf-8"
+        -- HACK: to fix some issues with LSP
+        -- more details: https://github.com/neovim/neovim/issues/19237#issuecomment-2237037154
+        client.offset_encoding = "utf-8"
     end,
 })
 
 lsp.config("lua_ls", {
-   on_attach = custom_attach,
+    on_attach = custom_attach,
     settings = {
         Lua = {
             runtime = {

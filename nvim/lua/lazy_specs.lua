@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugin_specs = {
 
+    -- LSP stuff --
     {
         "williamboman/mason.nvim",
         config = function()
@@ -38,6 +39,14 @@ local plugin_specs = {
     },
 
     {
+        "mfussenegger/nvim-jdtls",
+        ft = "java",
+        config = function()
+            require("config.jdtls")
+        end
+    },
+
+    {
         "mfussenegger/nvim-lint",
         event = { "BufRead", "BufNewFile" },
         config = function()
@@ -45,22 +54,15 @@ local plugin_specs = {
         end
     },
 
+
     {
-        "rshkarin/mason-nvim-lint",
-        event = { "BufRead", "BufNewFile" },
+        "awslabs/amazonq.nvim",
         config = function()
-            require("config.mason-nvim-lint")
+           require("config.amazonq")
         end
     },
 
     { "vijaymarupudi/nvim-fzf" },
-
-    {
-        "mfussenegger/nvim-jdtls",
-        config = function()
-            require("config.jdtls")
-        end
-    },
 
     {
         "mikavilpas/yazi.nvim",
@@ -222,7 +224,7 @@ local plugin_specs = {
         config = function()
             require("config.dashboard-nvim")
         end,
-        dependencies = {{'nvim-tree/nvim-web-devicons'}}
+        dependencies = { { 'nvim-tree/nvim-web-devicons' } }
     },
 
     {
@@ -349,7 +351,7 @@ local plugin_specs = {
     },
 
     -- Better git commit experience
-    { "rhysd/committia.vim",              lazy = true },
+    { "rhysd/committia.vim",             lazy = true },
 
     {
         "sindrets/diffview.nvim"
@@ -493,7 +495,7 @@ local plugin_specs = {
         end,
     },
 
-    { "ii14/emmylua-nvim",           ft = "lua" },
+    { "ii14/emmylua-nvim", ft = "lua" },
 
     {
         "sontungexpt/url-open",
@@ -526,7 +528,7 @@ local plugin_specs = {
 
     {
         "2kabhishek/tdo.nvim",
-        dependencies =  '2kabhishek/pickme.nvim',
+        dependencies = '2kabhishek/pickme.nvim',
         cmd = { 'Tdo', 'TdoEntry', 'TdoNote', 'TdoTodos', 'TdoToggle', 'TdoFind', 'TdoFiles' },
         keys = { '[t', ']t' },
     }

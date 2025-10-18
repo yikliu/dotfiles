@@ -31,15 +31,15 @@ require("workspaces").setup {
         add = {},
         remove = {},
         rename = {},
-        open_pre = {-- If recording, save current session state and stop recording
-          "SessionsStop",
+        open_pre = {
+            -- If recording, save current session state and stop recording
+            "SessionsStop",
 
-          -- delete all buffers (does not save changes)
-          "silent %bdelete!"
+            -- delete all buffers (does not save changes)
+            "silent %bdelete!"
         },
         open = function()
-          require("sessions").load(nil, { silent = true })
+            require("sessions").load(nil, { silent = true })
         end,
     },
 }
-

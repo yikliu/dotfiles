@@ -3,7 +3,7 @@ if vim.g.neovide then
     vim.o.guifont = "AurulentSansM Nerd Font:h17:b"
 
     -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
-    vim.g.neovide_transparency = 0.9
+    vim.g.neovide_opacity = 0.8
 
     -- window blurred
     vim.g.neovide_window_blurred = true
