@@ -2,7 +2,7 @@ require("yazi").setup {
     keys = {
         -- 👇 in this section, choose your own keymappings!
         {
-            "<leader>/",
+            "<leader>yy",
             function()
                 require("yazi").yazi()
             end,

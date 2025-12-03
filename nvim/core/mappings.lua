@@ -14,8 +14,8 @@ keymap.set("n", "H", "<cmd>bp<cr>")
 keymap.set("n", "L", "<cmd>bn<cr>")
 
 -- copy/paste clipboard
-keymap.set("n", "<leader>y", "\"*y")
-keymap.set("n", "<leader>p", "\"*p")
+keymap.set("n", "<leader>cy", "\"*y", { desc = "yank to clipboard" })
+keymap.set("n", "<leader>cp", "\"*p", { desc = "paste from clipboard" })
 
 -- Save key strokes (now we do not need to press shift to enter command mode).
 keymap.set({ "n", "x" }, ";", ":")
@@ -31,7 +31,7 @@ keymap.set("n", "<leader>p", "m`o<ESC>p``", { desc = "paste below current line" 
 keymap.set("n", "<leader>P", "m`O<ESC>p``", { desc = "paste above current line" })
 
 -- clear last search highlights --
-keymap.set("n", "<leader>/", "<cmd>noh<cr>", {silent = true, desc = "clear highlights" })
+keymap.set("n", "<leader>nh", "<cmd>noh<cr>", {silent = true, desc = "clear highlights" })
 
 -- Shortcut for faster save and quit
 keymap.set("n", "<leader>ww", "<cmd>Telescope workspaces<cr>", { silent = true, desc = "Select workspaces" })

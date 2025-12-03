@@ -55,10 +55,12 @@ local plugin_specs = {
     },
 
 
+    -- Kiro CLI integration (local plugin)
     {
-        "awslabs/amazonq.nvim",
+        dir = vim.fn.stdpath("config") .. "/lua/config",
+        name = "kiro",
         config = function()
-           require("config.amazonq")
+            require("config.kiro").setup()
         end
     },
 
@@ -142,6 +144,16 @@ local plugin_specs = {
             "nvim-telescope/telescope-symbols.nvim",
             "nvim-lua/plenary.nvim",
         },
+    },
+
+    -- Treesitter for syntax highlighting
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        event = { "BufReadPost", "BufNewFile" },
+        config = function()
+            require("config.treesitter")
+        end,
     },
 
     {
@@ -384,14 +396,6 @@ local plugin_specs = {
         ft = { "markdown" },
     },
 
-    {
-        'MeanderingProgrammer/render-markdown.nvim',
-        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-        ---@module 'render-markdown'
-        ---@type render.md.UserConfig
-        opts = {},
-    },
-
     { "chrisbra/unicode.vim",            event = "VeryLazy" },
 
     -- Additional powerful text object for vim, this plugin should be studied
@@ -507,22 +511,6 @@ local plugin_specs = {
                 return
             end
             url_open.setup({})
-        end,
-    },
-
-    -- xcodebuild for swift
-    {
-        "wojciech-kulik/xcodebuild.nvim",
-        dependencies = {
-            "nvim-telescope/telescope.nvim",
-            "MunifTanjim/nui.nvim",
-            "folke/snacks.nvim",               -- (optional) to show previews
-            "nvim-tree/nvim-tree.lua",         -- (optional) to manage project files
-            "stevearc/oil.nvim",               -- (optional) to manage project files
-            "nvim-treesitter/nvim-treesitter", -- (optional) for Quick tests support (required Swift parser)
-        },
-        config = function()
-            require("config.xcodebuild")
         end,
     },
 

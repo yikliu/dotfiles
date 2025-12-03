@@ -1,6 +1,7 @@
 require("conform").setup({
       formatters_by_ft = {
         swift = { "swiftformat" },
+        python = { "black" },
       },
       format_on_save = function(bufnr)
         local ignore_filetypes = { "oil" }
