@@ -64,6 +64,15 @@ local plugin_specs = {
         end
     },
 
+    -- Gemini CLI integration (local plugin)
+    {
+        dir = vim.fn.stdpath("config") .. "/lua/config",
+        name = "gemini",
+        config = function()
+            require("config.gemini").setup()
+        end
+    },
+
     { "vijaymarupudi/nvim-fzf" },
 
     {
