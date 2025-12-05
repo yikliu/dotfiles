@@ -110,7 +110,7 @@ keymap.set("n", "<leader>sv", function()
   
   -- Clear loaded modules cache
   for name, _ in pairs(package.loaded) do
-    if name:match("^core") or name:match("^lua") then
+    if name:match("^core") or name:match("^config") or name:match("^lsp") or name:match("^utils") then
       package.loaded[name] = nil
     end
   end
