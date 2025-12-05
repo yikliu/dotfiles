@@ -26,15 +26,15 @@ local plugin_specs = {
     -- LSP & Completion
     -----------------------------------------------------------------------
     -- LSP installer
-    { "williamboman/mason.nvim", config = function() require("config.mason") end },
+    { "williamboman/mason.nvim", lazy = false, config = function() require("config.mason") end },
     -- LSP config
-    { "neovim/nvim-lspconfig", event = { "BufRead", "BufNewFile" }, config = function() require("config.nvim-lspconfig") end },
+    { "neovim/nvim-lspconfig", lazy = false, config = function() require("config.nvim-lspconfig") end },
     -- Mason-LSP bridge
-    { "williamboman/mason-lspconfig.nvim", event = { "BufRead", "BufNewFile" }, config = function() require("config.mason-lspconfig") end },
+    { "williamboman/mason-lspconfig.nvim", lazy = false, config = function() require("config.mason-lspconfig") end },
     -- Java LSP
     { "mfussenegger/nvim-jdtls", ft = "java", config = function() require("config.jdtls") end },
     -- Linting
-    { "mfussenegger/nvim-lint", event = { "BufRead", "BufNewFile" }, config = function() require("config.nvim-lint") end },
+    { "mfussenegger/nvim-lint", lazy = false, config = function() require("config.nvim-lint") end },
     -- Auto-completion
     {
         "hrsh7th/nvim-cmp",
@@ -57,9 +57,9 @@ local plugin_specs = {
     -- Treesitter & Syntax
     -----------------------------------------------------------------------
     -- Syntax highlighting
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", event = { "BufReadPost", "BufNewFile" }, config = function() require("config.treesitter") end },
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", lazy = false, config = function() require("config.treesitter") end },
     -- Function argument highlighting
-    { "m-demare/hlargs.nvim", event = { "BufReadPost", "BufNewFile" }, dependencies = { "nvim-treesitter/nvim-treesitter" }, config = function() require("hlargs").setup() end },
+    { "m-demare/hlargs.nvim", lazy = false, dependencies = { "nvim-treesitter/nvim-treesitter" }, config = function() require("hlargs").setup() end },
     -- Markdown headlines
     { "lukas-reineke/headlines.nvim", dependencies = "nvim-treesitter/nvim-treesitter", config = true },
 
@@ -67,7 +67,7 @@ local plugin_specs = {
     -- Formatting & Code Quality
     -----------------------------------------------------------------------
     -- Code formatter
-    { "stevearc/conform.nvim", event = { "BufNewFile" }, config = function() require("config.conform") end },
+    { "stevearc/conform.nvim", lazy = false, config = function() require("config.conform") end },
     -- Auto format (legacy)
     { "sbdchd/neoformat", cmd = { "Neoformat" } },
 
@@ -75,19 +75,7 @@ local plugin_specs = {
     -- AI Assistants
     -----------------------------------------------------------------------
     -- Kiro CLI
-    {
-        dir = vim.fn.stdpath("config") .. "/lua/config",
-        name = "kiro",
-        keys = {
-            { "<leader>kc", desc = "Toggle Kiro chat" },
-            { "<leader>ka", desc = "Ask Kiro" },
-            { "<leader>kb", desc = "Send buffer to Kiro" },
-            { "<leader>ks", mode = "v", desc = "Send selection to Kiro" },
-            { "<leader>ke", mode = "v", desc = "Explain selection" },
-            { "<leader>kr", mode = "v", desc = "Review selection" },
-        },
-        config = function() require("config.kiro").setup() end
-    },
+    { dir = vim.fn.stdpath("config") .. "/lua/config", name = "kiro", lazy = false, config = function() require("config.kiro").setup() end },
     -- Gemini CLI
     { dir = vim.fn.stdpath("config") .. "/lua/config", name = "gemini", config = function() require("config.gemini").setup() end },
 
@@ -95,20 +83,9 @@ local plugin_specs = {
     -- File Navigation & Search
     -----------------------------------------------------------------------
     -- Fuzzy finder
-    {
-        "nvim-telescope/telescope.nvim",
-        cmd = "Telescope",
-        keys = {
-            { "<leader>ff", desc = "Find files" },
-            { "<leader>fg", desc = "Live grep" },
-            { "<leader>fb", desc = "Buffers" },
-            { "<leader>fh", desc = "Help tags" },
-        },
-        config = function() require("config.telescope") end,
-        dependencies = { "nvim-telescope/telescope-symbols.nvim", "nvim-lua/plenary.nvim" },
-    },
+    { "nvim-telescope/telescope.nvim", lazy = false, config = function() require("config.telescope") end, dependencies = { "nvim-telescope/telescope-symbols.nvim", "nvim-lua/plenary.nvim" } },
     -- File explorer
-    { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" }, config = function() require("config.nvim-tree") end },
+    { "nvim-tree/nvim-tree.lua", lazy = false, dependencies = { "nvim-tree/nvim-web-devicons" }, config = function() require("config.nvim-tree") end },
     -- Yazi file manager
     { "mikavilpas/yazi.nvim", dependencies = { "nvim-lua/plenary.nvim" }, event = "VeryLazy", config = function() require("config.yazi") end },
     -- FZF integration
@@ -118,37 +95,25 @@ local plugin_specs = {
     -- Terminal
     -----------------------------------------------------------------------
     -- Custom terminal buffers
-    {
-        dir = vim.fn.stdpath("config") .. "/lua/config",
-        name = "nvim-terminal",
-        keys = {
-            { "<leader>;", desc = "Toggle terminal" },
-            { "<leader>t1", desc = "Terminal 1" },
-            { "<leader>t2", desc = "Terminal 2" },
-            { "<leader>t3", desc = "Terminal 3" },
-            { "<leader>t4", desc = "Terminal 4" },
-            { "<leader>t5", desc = "Terminal 5" },
-        },
-        config = function() vim.o.hidden = true; require("config.nvim-terminal") end
-    },
+    { dir = vim.fn.stdpath("config") .. "/lua/config", name = "nvim-terminal", lazy = false, config = function() vim.o.hidden = true; require("config.nvim-terminal") end },
 
     -----------------------------------------------------------------------
     -- UI Components
     -----------------------------------------------------------------------
     -- Status line
-    { "nvim-lualine/lualine.nvim", event = "VeryLazy", config = function() require("config.statusline") end },
+    { "nvim-lualine/lualine.nvim", lazy = false, config = function() require("config.statusline") end },
     -- Buffer tabs
-    { "akinsho/bufferline.nvim", event = { "BufEnter" }, config = function() require("config.bufferline") end },
+    { "akinsho/bufferline.nvim", lazy = false, config = function() require("config.bufferline") end },
     -- Start screen
-    { "nvimdev/dashboard-nvim", config = function() require("config.dashboard-nvim") end, dependencies = { "nvim-tree/nvim-web-devicons" } },
+    { "nvimdev/dashboard-nvim", lazy = false, config = function() require("config.dashboard-nvim") end, dependencies = { "nvim-tree/nvim-web-devicons" } },
     -- Notifications
-    { "rcarriga/nvim-notify", event = "VeryLazy", config = function() require("config.nvim-notify") end },
+    { "rcarriga/nvim-notify", lazy = false, config = function() require("config.nvim-notify") end },
     -- Indent guides
-    { "lukas-reineke/indent-blankline.nvim", event = "VeryLazy", main = "ibl", config = function() require("config.indent-blankline") end },
+    { "lukas-reineke/indent-blankline.nvim", lazy = false, main = "ibl", config = function() require("config.indent-blankline") end },
     -- Better UI prompts
-    { "stevearc/dressing.nvim" },
+    { "stevearc/dressing.nvim", lazy = false },
     -- Keybinding hints
-    { "folke/which-key.nvim", event = "VeryLazy", config = function() require("config.which-key") end },
+    { "folke/which-key.nvim", lazy = false, config = function() require("config.which-key") end },
     -- Zen mode
     { "folke/zen-mode.nvim", cmd = "ZenMode", config = function() require("config.zen-mode") end },
 
@@ -206,9 +171,9 @@ local plugin_specs = {
     -- Session & Workspace
     -----------------------------------------------------------------------
     -- Workspace manager
-    { "natecraddock/workspaces.nvim", config = function() require("config.workspaces") end },
+    { "natecraddock/workspaces.nvim", lazy = false, config = function() require("config.workspaces") end },
     -- Session manager
-    { "natecraddock/sessions.nvim", config = function() require("config.sessions") end },
+    { "natecraddock/sessions.nvim", lazy = false, config = function() require("config.sessions") end },
     -- Session obsession
     { "tpope/vim-obsession", cmd = "Obsession" },
 
