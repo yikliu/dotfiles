@@ -35,7 +35,4 @@ let g:vim_markdown_toc_autofit = 1
 if g:is_win || g:is_mac
   " Do not close the preview tab when switching to other buffers
   let g:mkdp_auto_close = 0
-
-  " Shortcuts to start and stop markdown previewing
-  nnoremap <silent> <leader>m :<C-U>MarkdownPreviewToggle<CR>
 endif
