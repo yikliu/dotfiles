@@ -326,6 +326,14 @@ local plugin_specs = {
     -----------------------------------------------------------------------
     -- Utilities
     -----------------------------------------------------------------------
+    -- Global note
+    {
+        "backdround/global-note.nvim",
+        lazy = false,
+        config = function()
+            require("config.global-note")
+        end
+    },
     -- Yank history
     {
         "gbprod/yanky.nvim",
