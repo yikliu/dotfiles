@@ -106,10 +106,18 @@ keymap.set("n", "<leader>ev", "<cmd>tabnew $MYVIMRC <bar> tcd %:h<cr>", {
 })
 
 keymap.set("n", "<leader>sv", function()
-  vim.cmd([[
-      update $MYVIMRC
-      source $MYVIMRC
-    ]])
+  vim.cmd("update $MYVIMRC")
+  
+  -- Clear loaded modules cache
+  for name, _ in pairs(package.loaded) do
+    if name:match("^core") or name:match("^lua") then
+      package.loaded[name] = nil
+    end
+  end
+  
+  -- Source init.lua which will reload all core files
+  vim.cmd("source $MYVIMRC")
+  
   vim.notify("Nvim config successfully reloaded!", vim.log.levels.INFO, { title = "nvim-config" })
 end, {
   silent = true,

@@ -55,14 +55,7 @@ local plugin_specs = {
     },
 
 
-    -- Kiro CLI integration (local plugin)
-    {
-        dir = vim.fn.stdpath("config") .. "/lua/config",
-        name = "kiro",
-        config = function()
-            require("config.kiro").setup()
-        end
-    },
+
 
     -- Gemini CLI integration (local plugin)
     {
@@ -86,13 +79,7 @@ local plugin_specs = {
         end
     },
 
-    {
-        's1n7ax/nvim-terminal',
-        config = function()
-            vim.o.hidden = true
-            require('config.nvim-terminal')
-        end
-    },
+
 
     -- auto-completion engine
     {
@@ -162,6 +149,16 @@ local plugin_specs = {
         event = { "BufReadPost", "BufNewFile" },
         config = function()
             require("config.treesitter")
+        end,
+    },
+
+    -- Better function argument highlighting
+    {
+        "m-demare/hlargs.nvim",
+        event = { "BufReadPost", "BufNewFile" },
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        config = function()
+            require("hlargs").setup()
         end,
     },
 
@@ -541,3 +538,8 @@ local lazy_opts = {
 }
 
 require("lazy").setup(plugin_specs, lazy_opts)
+
+-- Load local configs (not managed by lazy.nvim)
+vim.o.hidden = true
+require("config.kiro").setup()
+require("config.nvim-terminal")
