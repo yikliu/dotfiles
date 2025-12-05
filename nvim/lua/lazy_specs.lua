@@ -75,8 +75,17 @@ local plugin_specs = {
             require("hlargs").setup()
         end
     },
-    -- Markdown headlines
-    { "lukas-reineke/headlines.nvim", dependencies = "nvim-treesitter/nvim-treesitter", config = true },
+    -- Markdown live preview
+    {
+        "iamcco/markdown-preview.nvim",
+        ft = "markdown",
+        build = "cd app && npm install",
+        config = function()
+            vim.g.mkdp_auto_close = 0
+            vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Toggle markdown preview" })
+            vim.keymap.set("n", "<leader>ms", "<cmd>MarkdownPreviewStop<cr>", { desc = "Stop markdown preview" })
+        end
+    },
 
     -----------------------------------------------------------------------
     -- Formatting & Code Quality

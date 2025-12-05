@@ -33,6 +33,9 @@ keymap.set("n", "<leader>P", "m`O<ESC>p``", { desc = "paste above current line" 
 -- clear last search highlights --
 keymap.set("n", "<leader>nh", "<cmd>noh<cr>", {silent = true, desc = "clear highlights" })
 
+-- Spell checking toggle
+keymap.set("n", "<leader>sp", "<cmd>set spell!<cr>", { desc = "toggle spell check" })
+
 -- Shortcut for faster save and quit
 keymap.set("n", "<leader>ww", "<cmd>Telescope workspaces<cr>", { silent = true, desc = "Select workspaces" })
 keymap.set("n", "<leader>wa", "<cmd>WorkspacesAdd<cr>", { silent = true, desc = "Add workspaces" })

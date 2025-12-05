@@ -131,6 +131,12 @@ set complete+=kspell complete-=w complete-=b complete-=u complete-=t
 set spelllang=en,cjk  " Spell languages
 set spellsuggest+=9  " show 9 spell suggestions at most
 
+" Auto-enable spell checking for text files
+augroup spell_check
+  autocmd!
+  autocmd FileType markdown,text,gitcommit,plaintex setlocal spell
+augroup END
+
 " Align indent to next multiple value of shiftwidth. For its meaning,
 " see http://vim.1045645.n5.nabble.com/shiftround-option-td5712100.html
 set shiftround
