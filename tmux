@@ -22,6 +22,12 @@ set -g window-status-style bg=colour16,fg=colour15
 set -g window-status-current-style bg=colour16,fg=colour220,bold
 set-window-option -ga window-status-activity-style fg=colour16,bg=colour15
 
+set -g window-style 'bg=black'
+set -g window-active-style 'bg=#001122'
+
+set-option -g pane-active-border-style "fg=cyan,bg=colour236"
+set-option -g pane-border-style "fg=white,bg=colour234"
+
 setw -g mode-keys vi
 
 setw -g monitor-activity on

@@ -36,3 +36,7 @@ if g:is_win || g:is_mac
   " Do not close the preview tab when switching to other buffers
   let g:mkdp_auto_close = 0
 endif
+
+" Load local plugins that lazy.nvim doesn't handle well
+lua require("config.kiro").setup()
+lua require("config.gemini").setup()

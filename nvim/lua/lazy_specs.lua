@@ -102,25 +102,8 @@ local plugin_specs = {
     { "sbdchd/neoformat",             cmd = { "Neoformat" } },
 
     -----------------------------------------------------------------------
-    -- AI Assistants
+    -- AI Assistants (loaded in core/plugins.vim)
     -----------------------------------------------------------------------
-    -- Kiro CLI
-    {
-        dir = vim.fn.stdpath("config") .. "/lua/config",
-        name = "kiro",
-        lazy = false,
-        config = function()
-            require("config.kiro").setup()
-        end
-    },
-    -- Gemini CLI
-    {
-        dir = vim.fn.stdpath("config") .. "/lua/config",
-        name = "gemini",
-        config = function()
-            require("config.gemini").setup()
-        end
-    },
 
     -----------------------------------------------------------------------
     -- File Navigation & Search

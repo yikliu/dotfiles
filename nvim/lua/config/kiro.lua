@@ -198,14 +198,14 @@ function M.setup(opts)
     local keymap = vim.keymap
 
     -- Normal mode mappings
-    keymap.set("n", "<leader>kc", M.toggle_chat, { desc = "Toggle Kiro chat" })
-    keymap.set("n", "<leader>ka", M.ask, { desc = "Ask Kiro" })
-    keymap.set("n", "<leader>kb", M.send_buffer, { desc = "Send buffer to Kiro" })
+    keymap.set("n", "<leader>kc", function() M.toggle_chat() end, { desc = "Toggle Kiro chat" })
+    keymap.set("n", "<leader>ka", function() M.ask() end, { desc = "Ask Kiro" })
+    keymap.set("n", "<leader>kb", function() M.send_buffer() end, { desc = "Send buffer to Kiro" })
 
     -- Visual mode mappings
-    keymap.set("v", "<leader>ks", M.send_selection, { desc = "Send selection to Kiro" })
-    keymap.set("v", "<leader>ke", M.explain_selection, { desc = "Explain selection with Kiro" })
-    keymap.set("v", "<leader>kr", M.review_selection, { desc = "Review selection with Kiro" })
+    keymap.set("v", "<leader>ks", function() M.send_selection() end, { desc = "Send selection to Kiro" })
+    keymap.set("v", "<leader>ke", function() M.explain_selection() end, { desc = "Explain selection with Kiro" })
+    keymap.set("v", "<leader>kr", function() M.review_selection() end, { desc = "Review selection with Kiro" })
 end
 
 return M
