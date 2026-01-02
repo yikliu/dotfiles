@@ -4,6 +4,9 @@ require("conform").setup({
 		black = {
 			prepend_args = { "--line-length", "100" },
 		},
+		prettier = {
+			prepend_args = { "--print-width", "100" },
+		},
 	},
 	formatters_by_ft = {
 		-- Java (disabled - use brazil-build format)
@@ -38,7 +41,19 @@ require("conform").setup({
 		yaml = { "prettier" },
 		markdown = { "prettier" },
 	},
-	-- Disabled: only format manually with <space>fm
-	format_on_save = false,
+	-- Format on save with LSP fallback
+	format_on_save = {
+		timeout_ms = 1000,
+		lsp_fallback = true, -- Use LSP formatter if conform doesn't have a formatter for the filetype
+	},
 	log_level = vim.log.levels.ERROR,
+	-- Set up format-on-type
+	on_attach = function(client, bufnr)
+		if client.server_capabilities.documentFormattingProvider then
+			local format_map = function()
+				require("conform").format({ bufnr = bufnr })
+			end
+			vim.keymap.set("n", "<leader>fm", format_map, { buffer = bufnr, desc = "Format file" })
+		end
+	end,
 })

@@ -13,18 +13,63 @@ local diagnostic = vim.diagnostic
 -- Diagnostic Configuration
 -------------------------------------------------------------------------------
 local function setup_diagnostics()
-    local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+    -- Enhanced diagnostic signs with better icons
+    local signs = {
+        Error = "●",
+        Warn = "●",
+        Hint = "●",
+        Info = "●"
+    }
     for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
-        fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+        fn.sign_define(hl, {
+            text = icon,
+            texthl = hl,
+            numhl = hl,
+            priority = 10
+        })
     end
 
+    -- Enhanced diagnostic configuration
     diagnostic.config({
         underline = true,
-        virtual_text = true,
+        virtual_text = {
+            prefix = '●', -- Show with dots instead of full text
+            spacing = 2,
+            source = 'if_many', -- Show source only if multiple LSPs provide diagnostics
+            max_width = 100,
+            format = function(diagnostic)
+                -- Shorten diagnostic messages for cleaner display
+                local message = diagnostic.message:gsub("\n", " "):gsub("\t", " ")
+                if #message > 80 then
+                    message = message:sub(1, 77) .. "..."
+                end
+                return message
+            end
+        },
         signs = true,
         severity_sort = true,
+        float = {
+            focusable = false,
+            style = "minimal",
+            border = "rounded",
+            source = "if_many", -- Show source only if multiple providers
+            header = { "", "Diagnostic" },
+            prefix = function(diagnostic)
+                -- Different prefixes based on severity
+                local prefix_map = {
+                    [vim.diagnostic.severity.ERROR] = " ",
+                    [vim.diagnostic.severity.WARN] = " ",
+                    [vim.diagnostic.severity.HINT] = "󰌵 ",
+                    [vim.diagnostic.severity.INFO] = " "
+                }
+                return prefix_map[diagnostic.severity] or ""
+            end,
+        },
         update_in_insert = false,
+        severity = {
+            min = vim.diagnostic.severity.HINT,
+        }
     })
 
     lsp.handlers["textDocument/hover"] = lsp.with(vim.lsp.handlers.hover, {
@@ -71,6 +116,38 @@ end
 -------------------------------------------------------------------------------
 function M.get_capabilities()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.completion.completionItem.resolveSupport = {
+        properties = {
+            'documentation',
+            'detail',
+            'additionalTextEdits',
+        }
+    }
+
+    -- Enable more LSP features for better performance
+    capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+    }
+    capabilities.textDocument.codeAction = {
+        dynamicRegistration = false,
+        codeActionLiteralSupport = {
+            codeActionKind = {
+                valueSet = {
+                    "",
+                    "quickfix",
+                    "refactor",
+                    "refactor.extract",
+                    "refactor.inline",
+                    "refactor.rewrite",
+                    "source",
+                    "source.organizeImports",
+                },
+            },
+        },
+    }
+
     local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
     if ok then
         capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
@@ -99,12 +176,13 @@ function M.on_attach(client, bufnr)
         diagnostic.enable(not diagnostic.is_enabled())
     end, { desc = "toggle diagnostics" })
 
-    -- LSP navigation
-    map("n", "<space>df", lsp.buf.definition, { desc = "go to definition" })
-    map("n", "<space>dc", lsp.buf.declaration, { desc = "go to declaration" })
-    map("n", "<space>im", lsp.buf.implementation, { desc = "go to implementation" })
-    map("n", "<space>td", lsp.buf.type_definition, { desc = "go to type definition" })
-    map("n", "<space>gr", lsp.buf.references, { desc = "show references" })
+    -- LSP navigation with improved bindings (standard vim-style mappings)
+    map("n", "gd", lsp.buf.definition, { desc = "go to definition" })
+    map("n", "gD", lsp.buf.declaration, { desc = "go to declaration" })
+    map("n", "gi", lsp.buf.implementation, { desc = "go to implementation" })
+    map("n", "gt", lsp.buf.type_definition, { desc = "go to type definition" })
+    map("n", "gr", lsp.buf.references, { desc = "show references" })
+    map("n", "gy", lsp.buf.type_definition, { desc = "go to type definition (alternative)" })
 
     -- Call hierarchy
     map("n", "<space>ci", lsp.buf.incoming_calls, { desc = "incoming calls" })
@@ -114,12 +192,25 @@ function M.on_attach(client, bufnr)
     map("n", "<space>ds", lsp.buf.document_symbol, { desc = "document symbols" })
     map("n", "<space>ws", lsp.buf.workspace_symbol, { desc = "workspace symbols" })
 
-    -- LSP actions
-    map("n", "<space>hv", lsp.buf.hover, { desc = "hover on symbol" })
-    map("n", "<space>sg", lsp.buf.signature_help, { desc = "signature help" })
-    map("n", "<space>rn", lsp.buf.rename, { desc = "variable rename" })
-    map("n", "<space>ca", lsp.buf.code_action, { desc = "LSP code action" })
-    map("n", "<space>fm", lsp.buf.format, { desc = "format buffer" })
+    -- LSP actions with better keybindings
+    map("n", "K", lsp.buf.hover, { desc = "hover on symbol" })
+    map("n", "gK", lsp.buf.signature_help, { desc = "signature help" })
+    map("n", "<F2>", lsp.buf.rename, { desc = "variable rename" })
+    map("n", "<leader>ca", lsp.buf.code_action, { desc = "LSP code action" })
+    -- Use conform for formatting if available, otherwise fallback to LSP
+    map("n", "<leader>fm", function()
+        local conform = pcall(require, "conform")
+        if conform then
+            require("conform").format({ bufnr = 0 })
+        else
+            vim.lsp.buf.format({ bufnr = 0 })
+        end
+    end, { desc = "format buffer" })
+    map("n", "<leader>wa", lsp.buf.add_workspace_folder, { desc = "add workspace folder" })
+    map("n", "<leader>wr", lsp.buf.remove_workspace_folder, { desc = "remove workspace folder" })
+    map("n", "<leader>wl", function()
+        print(vim.inspect(lsp.buf.list_workspace_folders()))
+    end, { desc = "list workspace folders" })
 
     -- Codelens
     map("n", "<space>cl", lsp.codelens.run, { desc = "run codelens" })
@@ -130,12 +221,13 @@ function M.on_attach(client, bufnr)
         lsp.inlay_hint.enable(not lsp.inlay_hint.is_enabled())
     end, { desc = "toggle inlay hints" })
 
-    -- Workspace management
-    map("n", "<space>wa", lsp.buf.add_workspace_folder, { desc = "add workspace folder" })
-    map("n", "<space>wr", lsp.buf.remove_workspace_folder, { desc = "remove workspace folder" })
-    map("n", "<space>wl", function()
-        print(vim.inspect(lsp.buf.list_workspace_folders()))
-    end, { desc = "list workspace folder" })
+    -- Organize imports (works with TS/JS, and other language servers that support it)
+    map("n", "<leader>oi", function()
+        vim.lsp.buf.execute_command({
+            command = "_typescript.organizeImport",
+            arguments = { vim.uri_from_bufnr(0) }
+        })
+    end, { desc = "organize imports" })
 
     -- Diagnostic float on cursor hold
     api.nvim_create_autocmd("CursorHold", {
@@ -190,6 +282,33 @@ function M.on_attach(client, bufnr)
 
     -- Setup bemol workspace folders
     M.setup_bemol()
+
+    -- Enable semantic highlighting if the server supports it
+    if client.server_capabilities.semanticTokensProvider then
+        -- Check if semantic tokens are supported in this Neovim version
+        if vim.lsp.buf.semantic_tokens and vim.lsp.buf.semantic_tokens.full then
+            local semantic_tokens_augroup = api.nvim_create_augroup("LspSemanticTokens-" .. client.id, { clear = true })
+            api.nvim_create_autocmd("BufEnter", {
+                group = semantic_tokens_augroup,
+                buffer = bufnr,
+                callback = function()
+                    -- Check if buffer is valid before requesting semantic tokens
+                    if api.nvim_buf_is_valid(bufnr) and api.nvim_buf_get_option(bufnr, 'buflisted') then
+                        -- Wrap semantic tokens in pcall to prevent errors
+                        local success, err = pcall(vim.lsp.buf.semantic_tokens.full, bufnr)
+                        if not success then
+                            vim.notify("Semantic tokens error: " .. tostring(err), vim.log.levels.WARN, { title = "LSP" })
+                        end
+                    end
+                end,
+            })
+        end
+    end
+
+    -- Enable inlay hints if available (Neovim 0.10+)
+    if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+        vim.lsp.inlay_hint.enable(bufnr, true)
+    end
 
     if vim.g.logging_level == "debug" then
         vim.notify(string.format("Language server %s started!", client.name), vim.log.levels.DEBUG, { title = "LSP" })
