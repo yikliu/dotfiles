@@ -23,5 +23,6 @@ load_server("json")
 load_server("html")
 load_server("rust")
 load_server("vimls")
+load_server("ruff_lsp")
 
 return servers

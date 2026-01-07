@@ -1,11 +1,14 @@
 require("conform").setup({
-	-- Configure Black for Amazon Python standards (100 char line length)
 	formatters = {
 		black = {
 			prepend_args = { "--line-length", "100" },
 		},
 		prettier = {
 			prepend_args = { "--print-width", "100" },
+		},
+		-- Ruff formatter configuration
+		ruff = {
+			prepend_args = { "format" },
 		},
 	},
 	formatters_by_ft = {
@@ -17,7 +20,7 @@ require("conform").setup({
 		-- Kotlin (ktlint also formats)
 		kotlin = { "ktlint" },
 		-- Python
-		python = { "black" },
+		python = { "ruff" },
 		-- TypeScript/JavaScript
 		typescript = { "prettier" },
 		typescriptreact = { "prettier" },

@@ -1,13 +1,44 @@
 local api = vim.api
 local lint = require('lint')
 
--- Configure flake8 for Amazon Python standards (PEP 8 + Black compatibility)
-lint.linters.flake8.args = {
-    '--max-line-length=100',
-    '--extend-ignore=E501,W503,E203',
-    '--format=%(path)s:%(row)d:%(col)d:%(code)s:%(text)s',
-    '--no-show-source',
-    '-',
+-- Configure ruff for Python linting
+lint.linters.ruff = {
+    cmd = "ruff",
+    args = {
+        "check",
+        "--force-exclude",
+        "--format",
+        "json",
+        "-",
+    },
+    stdin = true,
+    ignore_exitcode = true,
+    parser = function(output)
+        local success, parsed = pcall(vim.json.decode, output, { array = true })
+        if not success then
+            return {}
+        end
+
+        local diagnostics = {}
+        for _, diagnostic in ipairs(parsed) do
+            table.insert(diagnostics, {
+                source = "ruff",
+                row = diagnostic.location.row,
+                col = diagnostic.location.column,
+                end_row = diagnostic.end_location.row,
+                end_col = diagnostic.end_location.column,
+                message = diagnostic.message,
+                severity = lint.severities[({
+                    ["E"] = "error",
+                    ["W"] = "warning",
+                    ["I"] = "info",
+                    ["H"] = "hint",
+                })[diagnostic.kind.code:sub(1, 1)] or "error"],
+                code = diagnostic.kind.code,
+            })
+        end
+        return diagnostics
+    end,
 }
 
 lint.linters_by_ft = {
@@ -19,7 +50,7 @@ lint.linters_by_ft = {
     -- Kotlin
     kotlin = { 'ktlint' },
     -- Python
-    python = { 'flake8' },
+    python = { 'ruff' },
     -- TypeScript/JavaScript
     typescript = { 'eslint_d' },
     typescriptreact = { 'eslint_d' },

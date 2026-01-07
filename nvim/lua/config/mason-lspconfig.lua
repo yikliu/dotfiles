@@ -13,6 +13,7 @@ require("mason-lspconfig").setup {
         "html",
         "bashls",
         "vimls",
+        "ruff_lsp",
     },
     automatic_enable = {
         -- jdtls is handled by nvim-jdtls plugin
