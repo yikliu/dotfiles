@@ -2,7 +2,7 @@
 set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-EXCLUDE=(--exclude='.git' --exclude='.DS_Store' --exclude='.ninja-pkg-info')
+EXCLUDE=(--exclude='.git' --exclude='.DS_Store' --exclude='.ninja-pkg-info' --exclude='zsh/local.zsh')
 HOSTS=("${DEVDSK_ARM:-yikunliu-arm.aka.corp.amazon.com}" "${DEVDSK_X86:-yikunliu-x86.aka.corp.amazon.com}")
 REMOTE_DIR="dotfiles"
 

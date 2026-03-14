@@ -1,4 +1,4 @@
 require("mason-nvim-lint").setup({
-	ensure_installed = { "ktlint", "luacheck" }, -- bacon linter for rust is not available in nvim-lint, so it's specified to be directly installed from the mason's registry
+	ensure_installed = { "ktlint" }, -- luacheck installed via brew
 	ignore_install = { "custom-linter" }, -- avoid trying to install an unknown linter
 })

@@ -73,7 +73,7 @@ install_deps() {
             echo "    Installing Homebrew..."
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         fi
-        brew install neovim tmux fzf ripgrep fd coreutils vivid node python3 git rsync luarocks
+        brew install neovim tmux fzf ripgrep fd coreutils vivid node python3 git rsync luarocks luacheck
 
     elif [ "$OS" = "Linux" ]; then
         if ! has brew; then
@@ -81,7 +81,7 @@ install_deps() {
             NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         fi
         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-        brew install neovim tmux fzf ripgrep fd node git luarocks
+        brew install neovim tmux fzf ripgrep fd node python3 git luarocks luacheck
     fi
 
     # Oh My Zsh
@@ -97,6 +97,12 @@ install_deps() {
     fi
 
     echo "==> Dependencies done. Run 'nvim' and :Lazy sync to install neovim plugins."
+
+    # Apply default theme if none set
+    if [ ! -f "$DOTFILES/themes/.current" ] && [ -x "$DOTFILES/set-theme.sh" ]; then
+        echo "==> Applying default theme..."
+        "$DOTFILES/set-theme.sh" catppuccin-mocha
+    fi
 }
 
 # ── Work config (local.zsh) ─────────────────────────────────────────
@@ -141,6 +147,25 @@ fi
 
 if [ "$PROFILE" = "work" ] && [ ! -f "$DOTFILES/zsh/local.zsh" ]; then
     setup_local
+fi
+
+# ── Work tools (Toolbox + Brazil CLI + CR) ──────────────────────────
+if [ "$PROFILE" = "work" ] && [ "$INSTALL_DEPS" = true ]; then
+    if [ ! -d "$HOME/.toolbox" ]; then
+        echo "==> Installing Builder Toolbox..."
+        curl -fLSs -b ~/.midway/cookie \
+            'https://buildertoolbox-bootstrap.s3-us-west-2.amazonaws.com/toolbox-install.sh' \
+            -o /tmp/toolbox-install.sh && bash /tmp/toolbox-install.sh && rm -f /tmp/toolbox-install.sh
+    fi
+    if [ -d "$HOME/.toolbox/bin" ]; then
+        export PATH="$HOME/.toolbox/bin:$PATH"
+        echo "    Installing toolbox tools..."
+        for tool in brazilcli cr ada pipeline barium bemol aim \
+            builder-mcp amzn-mcp code-search create gordian-knot \
+            hydra kiro-cli brazil-graph; do
+            toolbox install "$tool" 2>/dev/null || true
+        done
+    fi
 fi
 
 echo "==> Done! Restart your shell or run: source ~/.zshrc"
