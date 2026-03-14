@@ -2,3 +2,9 @@ package-lock.json
 .nvim/
 .DS_Store
 zsh/local.zsh
+themes/.current
+themes/.tmux-theme.conf
+themes/.nvim-theme.lua
+themes/.fzf-theme.sh
+themes/.ls-colors-theme.sh
+kitty/current-theme.conf

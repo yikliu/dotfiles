@@ -5,6 +5,9 @@
 # Toolbox
 [ -d "$HOME/.toolbox/bin" ] && export PATH="$HOME/.toolbox/bin:$PATH"
 
+# Linuxbrew
+[ -d "/home/linuxbrew/.linuxbrew" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # AIM MCP servers
 [ -d "$HOME/.aim/mcp-servers" ] && export PATH="$HOME/.aim/mcp-servers:$PATH"
 
@@ -28,7 +31,9 @@ alias bb="brazil-build"
 alias bbr="brazil-build release"
 alias brb="brazil-recursive-cmd --allPackages brazil-build"
 alias bbc="brazil-build clean"
+alias bbb="brazil-build build"
 alias bre="brazil-runtime-exec"
+alias bbdu="brazil-build distribute -u"
 alias mac_yubi="mwinit -s -f"
 alias dsk_yubi="mwinit -o"
 
@@ -41,7 +46,10 @@ alias tm_x86="ssh $DEVDSK_X86 -t /apollo/env/envImprovement/bin/tmux a \;"
 alias tm_arm="ssh $DEVDSK_ARM -t /apollo/env/envImprovement/bin/tmux a \;"
 
 # Android
+alias aik="adb install build/apk-kioskDebug/OrvilleAndroid-kiosk-debug.apk"
+alias gen3_sign_apk="apksigner sign --ks $IGT_APP_SUITE_SIGNING_HOME/igt-appsuite-gen3.jks --ks-key-alias platform build/apk-kioskDebug/OrvilleAndroid-kiosk-debug.apk"
 alias flash='./flashimage.py --toolsdir=$HOME/Library/Android/sdk/platform-tools/'
+alias adb_cloud="adb kill-server;killall adb;adb devices;ssh -R 5037:localhost:5037 $DEVDSK_X86"
 alias scrcpy='scrcpy --video-encoder OMX.google.h264.encoder'
 
 # Isengard credentials — fill in your account IDs

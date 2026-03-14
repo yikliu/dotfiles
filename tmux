@@ -17,16 +17,6 @@ set -g status-keys vi
 set -g history-limit 10000
 
 set -g status-justify centre           # center window list for clarity
-set -g status-style bg=colour16,fg=colour220
-set -g window-status-style bg=colour16,fg=colour15
-set -g window-status-current-style bg=colour16,fg=colour220,bold
-set-window-option -ga window-status-activity-style fg=colour16,bg=colour15
-
-set -g window-style 'bg=black'
-set -g window-active-style 'bg=#001122'
-
-set-option -g pane-active-border-style "fg=cyan,bg=colour236"
-set-option -g pane-border-style "fg=white,bg=colour234"
 
 setw -g mode-keys vi
 
@@ -74,6 +64,33 @@ set -sg escape-time 0
 
 # reload tmux config
 bind r source-file ~/.tmux.conf
+
+# random theme (prefix + T)
+bind T run-shell "~/dotfiles/random-theme.sh"
+
+# ── Nested tmux (F12 to toggle) ────────────────────────────────────
+# F12 disables local keys so all input passes to inner (remote) tmux.
+# Status bar dims to show you're in "pass-through" mode.
+# Press F12 again to return to local tmux.
+bind -T root F12 \
+    set prefix None \;\
+    set key-table off \;\
+    set status-style "bg=#444444,fg=#888888" \;\
+    set window-status-current-style "bg=#444444,fg=#aaaaaa" \;\
+    set status-left "#[bg=#666666,fg=#ffffff] REMOTE #[default] " \;\
+    refresh-client -S
+
+bind -T off F12 \
+    set -u prefix \;\
+    set -u key-table \;\
+    set -u status-style \;\
+    set -u window-status-current-style \;\
+    set -u status-left \;\
+    if-shell "test -f ~/dotfiles/themes/.tmux-theme.conf" "source-file ~/dotfiles/themes/.tmux-theme.conf" \;\
+    refresh-client -S
+
+# theme (managed by set-theme.sh)
+if-shell "test -f ~/dotfiles/themes/.tmux-theme.conf" "source-file ~/dotfiles/themes/.tmux-theme.conf"
 
 # tpm plugins, need prefix + I to install
 set -g @plugin 'tmux-plugins/tpm'

@@ -3,14 +3,32 @@ set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Detect platform
 OS="$(uname -s)"
 ARCH="$(uname -m)"
 
-echo "==> Detected: $OS ($ARCH)"
+# ── Parse args ──────────────────────────────────────────────────────
+PROFILE="work"  # work | home
+INSTALL_DEPS=false
+
+usage() {
+    echo "Usage: $0 [--deps] [--home]"
+    echo "  --deps   Install dependencies (brew, nvim, fzf, etc.)"
+    echo "  --home   Personal setup (skip work-specific config)"
+    exit 0
+}
+
+for arg in "$@"; do
+    case "$arg" in
+        --deps) INSTALL_DEPS=true ;;
+        --home) PROFILE="home" ;;
+        --help|-h) usage ;;
+    esac
+done
+
+echo "==> Detected: $OS ($ARCH) [profile: $PROFILE]"
 echo "==> Dotfiles: $DOTFILES"
 
-# ── Helper ──────────────────────────────────────────────────────────
+# ── Helpers ─────────────────────────────────────────────────────────
 link() {
     local src="$1" dst="$2"
     mkdir -p "$(dirname "$dst")"
@@ -23,6 +41,8 @@ link() {
     ln -s "$src" "$dst"
     echo "    $dst → $src"
 }
+
+has() { command -v "$1" &>/dev/null; }
 
 # ── Symlink ~/dotfiles to this repo ─────────────────────────────────
 if [ "$DOTFILES" != "$HOME/dotfiles" ]; then
@@ -39,7 +59,6 @@ link "$DOTFILES/nvim"          "$HOME/.config/nvim"
 link "$DOTFILES/sf.js"         "$HOME/.sf.js"
 link "$DOTFILES/ideavimrc"     "$HOME/.ideavimrc"
 
-# Mac-only symlinks
 if [ "$OS" = "Darwin" ]; then
     link "$DOTFILES/kitty"         "$HOME/.config/kitty"
     link "$DOTFILES/aerospace.toml" "$HOME/.config/aerospace/aerospace.toml"
@@ -50,18 +69,19 @@ install_deps() {
     echo "==> Installing dependencies..."
 
     if [ "$OS" = "Darwin" ]; then
-        if ! command -v brew &>/dev/null; then
+        if ! has brew; then
             echo "    Installing Homebrew..."
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         fi
-        brew install neovim tmux fzf ripgrep fd coreutils vivid node python3 git
+        brew install neovim tmux fzf ripgrep fd coreutils vivid node python3 git rsync luarocks
+
     elif [ "$OS" = "Linux" ]; then
-        if command -v apt-get &>/dev/null; then
-            sudo apt-get update
-            sudo apt-get install -y neovim tmux fzf ripgrep fd-find nodejs python3 python3-pip git curl
-        elif command -v yum &>/dev/null; then
-            sudo yum install -y neovim tmux fzf ripgrep fd-find nodejs python3 git curl
+        if ! has brew; then
+            echo "    Installing Homebrew..."
+            NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         fi
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        brew install neovim tmux fzf ripgrep fd node git luarocks
     fi
 
     # Oh My Zsh
@@ -95,13 +115,19 @@ setup_local() {
     fi
 
     echo "==> Setting up work config (zsh/local.zsh)..."
+
+    # Non-interactive mode (e.g. remote SSH)
+    if [ ! -t 0 ]; then
+        cp "$template" "$target"
+        echo "    Created $target (edit placeholders manually)"
+        return
+    fi
+
     echo "    Leave blank to keep the placeholder."
     echo
-
     read -rp "    Personal Isengard account ID (12 digits): " personal_acct
 
     cp "$template" "$target"
-
     [ -n "$personal_acct" ] && sed -i.bak "s/<PERSONAL_ACCOUNT_ID>/$personal_acct/g" "$target"
     rm -f "${target}.bak"
 
@@ -109,11 +135,11 @@ setup_local() {
 }
 
 # ── Run ─────────────────────────────────────────────────────────────
-if [[ "${1:-}" == "--deps" ]]; then
+if [ "$INSTALL_DEPS" = true ]; then
     install_deps
 fi
 
-if [ ! -f "$DOTFILES/zsh/local.zsh" ]; then
+if [ "$PROFILE" = "work" ] && [ ! -f "$DOTFILES/zsh/local.zsh" ]; then
     setup_local
 fi
 
