@@ -15,9 +15,9 @@ set sort_aux="reverse-last-date-received"
 unmailboxes *
 set hostname = icloud.com
 set imap_user = "yikliu"
-set imap_pass = "lkwz-ukap-bsge-jngm"
+set imap_pass = "<empty>"
 set smtp_url = "smtp://$imap_user:$smtp_pass@smtp.mail.me.com:587/"
-set smtp_pass = "lkwz-ukap-bsge-jngm"
+set smtp_pass = "<empty>"
 set from = "yikliu@me.com"
 set realname = "Arthur Liu"
 set folder = "imaps://$imap_user:$imap_pass@imap.mail.me.com:993/"
@@ -46,7 +46,7 @@ bind pager \CO sidebar-open
 
 save-hook . /Mail/yikunliu
 
-set postpone=ask-no 
+set postpone=ask-no
 set beep_new=yes
 set confirmappend=no
 set sort=threads
