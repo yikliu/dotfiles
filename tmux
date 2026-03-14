@@ -13,6 +13,7 @@ set-option -g automatic-rename on
 set-option -g automatic-rename-format '#{b:pane_current_path}'
 
 set -g default-terminal "tmux-256color"
+set -g allow-passthrough on
 set -g status-keys vi
 set -g history-limit 10000
 
@@ -20,7 +21,7 @@ set -g status-justify centre           # center window list for clarity
 
 setw -g mode-keys vi
 
-setw -g monitor-activity on
+setw -g monitor-activity off
 
 # divide screen to left and right
 bind-key | split-window -h

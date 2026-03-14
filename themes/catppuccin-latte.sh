@@ -36,13 +36,13 @@ color5  #EA76CB
 color13 #EA76CB
 color6  #179299
 color14 #179299
-color7  #ACB0BE
-color15 #BCC0CC
+color7  #4C4F69
+color15 #5C5F77
 "
 
 TMUX_THEME="
 set -g status-style 'bg=#e6e9ef,fg=#4c4f69'
-set -g window-status-style 'bg=#e6e9ef,fg=#9ca0b0'
+set -g window-status-style 'bg=#e6e9ef,fg=#6c6f85'
 set -g window-status-current-style 'bg=#e6e9ef,fg=#8839ef,bold'
 set -g message-style 'bg=#ccd0da,fg=#4c4f69'
 "

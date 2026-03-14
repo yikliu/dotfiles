@@ -10,7 +10,7 @@ if command -v gls &>/dev/null; then
 elif ls --color=auto / &>/dev/null 2>&1; then
     alias ls="ls --color=auto"
 fi
-command -v vivid &>/dev/null && export LS_COLORS="$(vivid generate catppuccin-mocha)"
+# LS_COLORS managed by set-theme.sh
 
 # git
 alias gs="git status"

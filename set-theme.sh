@@ -41,9 +41,29 @@ apply_theme() {
 
     # ── Kitty ───────────────────────────────────────────────────
     echo "$KITTY_THEME" > "$DOTFILES/kitty/current-theme.conf"
-    # Live reload if kitty is running
-    if command -v kitty &>/dev/null && [ -n "${KITTY_PID:-}" ]; then
-        kitty @ set-colors --all "$DOTFILES/kitty/current-theme.conf" 2>/dev/null || true
+    # Live reload: use OSC escape sequences via tmux passthrough
+    local bg fg
+    bg=$(echo "$KITTY_THEME" | grep -m1 '^background' | awk '{print $2}')
+    fg=$(echo "$KITTY_THEME" | grep -m1 '^foreground' | awk '{print $2}')
+    local cursor
+    cursor=$(echo "$KITTY_THEME" | grep -m1 '^cursor ' | awk '{print $2}')
+    if [ -n "${TMUX:-}" ]; then
+        # Write OSC sequences to each pane's tty directly
+        for pane_tty in $(tmux list-panes -a -F '#{pane_tty}'); do
+            printf '\e]10;%s\e\\' "$fg" > "$pane_tty" 2>/dev/null || true
+            printf '\e]11;%s\e\\' "$bg" > "$pane_tty" 2>/dev/null || true
+            printf '\e]12;%s\e\\' "${cursor:-$fg}" > "$pane_tty" 2>/dev/null || true
+            local i=0
+            while [ $i -le 15 ]; do
+                local c
+                c=$(echo "$KITTY_THEME" | grep -m1 "^color${i} " | awk '{print $2}')
+                [ -n "$c" ] && printf '\e]4;%d;%s\e\\' "$i" "$c" > "$pane_tty" 2>/dev/null || true
+                i=$((i + 1))
+            done
+        done
+    else
+        printf '\e]10;%s\e\\' "$fg" > /dev/tty
+        printf '\e]11;%s\e\\' "$bg" > /dev/tty
     fi
     echo "    kitty ✓"
 
@@ -64,6 +84,10 @@ apply_theme() {
 
     cat > "$DOTFILES/themes/.tmux-theme.conf" <<TMUX
 ${TMUX_THEME}
+# Active window tab highlight (auto-generated)
+set -g window-status-current-format ' #I:#W '
+set -g window-status-format ' #I:#W '
+set -g window-status-current-style 'bg=${active_border},fg=${bg},bold'
 # Active/inactive pane distinction (auto-generated)
 set -g window-style 'bg=${dim_bg}'
 set -g window-active-style 'bg=${bg}'
@@ -102,20 +126,20 @@ EOF
     echo "    fzf ✓"
 
     # ── LS_COLORS ───────────────────────────────────────────────
-    echo "export VIVID_THEME=\"${VIVID_THEME}\"" \
-        > "$DOTFILES/themes/.ls-colors-theme.sh"
+    if command -v vivid &>/dev/null; then
+        echo "export LS_COLORS=\"$(vivid generate "${VIVID_THEME}")\"" \
+            > "$DOTFILES/themes/.ls-colors-theme.sh"
+    else
+        echo "# vivid not installed, LS_COLORS not set" \
+            > "$DOTFILES/themes/.ls-colors-theme.sh"
+    fi
     echo "    ls_colors ✓"
 
     # ── Hot-reload shell env via tmux ───────────────────────────
     if command -v tmux &>/dev/null && tmux list-sessions &>/dev/null; then
-        tmux setenv -g FZF_DEFAULT_OPTS "--color=${FZF_COLORS}"
-        if command -v vivid &>/dev/null; then
-            tmux setenv -g LS_COLORS "$(vivid generate "${VIVID_THEME}")"
-        fi
         # Reload env in all running shell panes
-        local reload_cmd="source ~/dotfiles/themes/.fzf-theme.sh; source ~/dotfiles/themes/.ls-colors-theme.sh 2>/dev/null"
+        local reload_cmd="source ~/dotfiles/themes/.fzf-theme.sh; source ~/dotfiles/themes/.ls-colors-theme.sh"
         for pane in $(tmux list-panes -a -F '#{pane_id}'); do
-            # Only send to panes running a shell (not vim, etc.)
             local cmd
             cmd=$(tmux display-message -p -t "$pane" '#{pane_current_command}')
             case "$cmd" in
