@@ -1,5 +1,6 @@
 # Theme: catppuccin-frappe
 THEME_NAME="catppuccin-frappe"
+KIRO_THEME="catppuccin"
 NVIM_COLORSCHEME="catppuccin"
 NVIM_BACKGROUND="dark"
 NVIM_SETUP='vim.g.catppuccin_flavour = "frappe"; require("catppuccin").setup()'

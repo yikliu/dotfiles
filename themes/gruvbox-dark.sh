@@ -1,5 +1,6 @@
 # Theme: gruvbox-dark
 THEME_NAME="gruvbox-dark"
+KIRO_THEME="gruvbox"
 NVIM_COLORSCHEME="gruvbox"
 NVIM_BACKGROUND="dark"
 NVIM_SETUP=""

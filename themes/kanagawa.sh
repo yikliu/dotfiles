@@ -1,5 +1,6 @@
 # Theme definition: kanagawa
 THEME_NAME="kanagawa"
+KIRO_THEME="poimandres"
 NVIM_COLORSCHEME="kanagawa"
 NVIM_BACKGROUND="dark"
 NVIM_SETUP=""

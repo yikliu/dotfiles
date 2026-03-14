@@ -1,5 +1,6 @@
 # Theme: solarized-dark
 THEME_NAME="solarized-dark"
+KIRO_THEME="solarized-dark"
 NVIM_COLORSCHEME="solarized"
 NVIM_BACKGROUND="dark"
 NVIM_SETUP=""

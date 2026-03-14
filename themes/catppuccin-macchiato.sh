@@ -1,5 +1,6 @@
 # Theme: catppuccin-macchiato
 THEME_NAME="catppuccin-macchiato"
+KIRO_THEME="catppuccin"
 NVIM_COLORSCHEME="catppuccin"
 NVIM_BACKGROUND="dark"
 NVIM_SETUP='vim.g.catppuccin_flavour = "macchiato"; require("catppuccin").setup()'

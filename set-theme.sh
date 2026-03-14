@@ -114,7 +114,9 @@ vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE" })
 EOF
     # Live reload running nvim instances
-    for sock in /tmp/nvim.*/0 "${XDG_RUNTIME_DIR:-/dev/null}"/nvim.*.0; do
+    local socks
+    socks=$(find /tmp /var/folders "${XDG_RUNTIME_DIR:-/dev/null}" -name "nvim.*.0" -type s 2>/dev/null || true)
+    for sock in $socks; do
         [ -S "$sock" ] 2>/dev/null && nvim --server "$sock" --remote-send \
             ":luafile $DOTFILES/themes/.nvim-theme.lua<CR>" 2>/dev/null || true
     done
@@ -134,6 +136,12 @@ EOF
             > "$DOTFILES/themes/.ls-colors-theme.sh"
     fi
     echo "    ls_colors ✓"
+
+    # ── Kiro CLI ────────────────────────────────────────────────
+    if command -v kiro-cli &>/dev/null && [ -n "${KIRO_THEME:-}" ]; then
+        kiro-cli theme "$KIRO_THEME" 2>/dev/null || true
+        echo "    kiro-cli ✓"
+    fi
 
     # ── Hot-reload shell env via tmux ───────────────────────────
     if command -v tmux &>/dev/null && tmux list-sessions &>/dev/null; then

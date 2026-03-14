@@ -1,5 +1,6 @@
 # Theme: dracula
 THEME_NAME="dracula"
+KIRO_THEME="dracula"
 NVIM_COLORSCHEME="dracula"
 NVIM_BACKGROUND="dark"
 NVIM_SETUP=""

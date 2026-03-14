@@ -1,5 +1,6 @@
 # Theme definition: tokyo-night
 THEME_NAME="tokyo-night"
+KIRO_THEME="tokyo-night"
 NVIM_COLORSCHEME="tokyonight"
 NVIM_BACKGROUND="dark"
 NVIM_SETUP='require("tokyonight").setup({ style = "night" })'

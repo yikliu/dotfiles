@@ -1,5 +1,6 @@
 # Theme: papercolor-light
 THEME_NAME="papercolor-light"
+KIRO_THEME="apple-light"
 NVIM_COLORSCHEME="PaperColor"
 NVIM_BACKGROUND="light"
 NVIM_SETUP='vim.cmd("set t_Co=256")'

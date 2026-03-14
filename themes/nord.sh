@@ -1,5 +1,6 @@
 # Theme: nord
 THEME_NAME="nord"
+KIRO_THEME="nord"
 NVIM_COLORSCHEME="nord"
 NVIM_BACKGROUND="dark"
 NVIM_SETUP=""

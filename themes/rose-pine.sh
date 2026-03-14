@@ -1,5 +1,6 @@
 # Theme: rose-pine
 THEME_NAME="rose-pine"
+KIRO_THEME="aura-dark"
 NVIM_COLORSCHEME="rose-pine"
 NVIM_BACKGROUND="dark"
 NVIM_SETUP='require("rose-pine").setup({ variant = "main" })'

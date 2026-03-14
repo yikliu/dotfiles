@@ -1,5 +1,6 @@
 # Theme: catppuccin-latte (light)
 THEME_NAME="catppuccin-latte"
+KIRO_THEME="dubdub-light"
 NVIM_COLORSCHEME="catppuccin"
 NVIM_BACKGROUND="light"
 NVIM_SETUP='vim.g.catppuccin_flavour = "latte"; require("catppuccin").setup()'

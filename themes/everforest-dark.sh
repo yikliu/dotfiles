@@ -1,5 +1,6 @@
 # Theme: everforest-dark
 THEME_NAME="everforest-dark"
+KIRO_THEME="nord"
 NVIM_COLORSCHEME="everforest"
 NVIM_BACKGROUND="dark"
 NVIM_SETUP='vim.g.everforest_enable_italic = 1; vim.g.everforest_better_performance = 1'
