@@ -56,6 +56,15 @@ After loading, `init.lua` applies `themes/.nvim-theme.lua` (via `VeryLazy` autoc
 
 `zsh/local.zsh` is created from `zsh/local.zsh.example` on first `init.sh --work`. It holds work aliases, cloud desktop hostnames, Isengard account IDs, etc. Never commit it.
 
+## Secrets & sensitive data
+
+**All API keys, tokens, and credentials belong in `zsh/local.zsh` (gitignored), never in tracked files.** `zsh/omz_rc` is tracked — do not set `ANTHROPIC_AUTH_TOKEN`, `OPENAI_API_KEY`, or similar there. Before committing, check that tracked files contain no `sk-` keys, `export ..._TOKEN=`, or `export ..._KEY=` assignments.
+
+Other PII to keep out of tracked files and commit messages:
+- Corporate emails (`@amazon.com`) — use local-only addresses for commits
+- Internal hostnames (`.aka.corp.amazon.com`, `dev-dsk-*.amazon.com`)
+- Home directory paths (`/Users/yikliu`) — prefer `~` or `$HOME`
+
 ## Cloud desktop sync
 
 ```bash
