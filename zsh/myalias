@@ -1,0 +1,58 @@
+# general shortcuts
+alias c='cd '
+alias mv='mv -i'
+alias rm='rm -i'
+alias cp='cp -i'
+
+# listing files — use GNU ls on Mac (gls), regular ls on Linux
+if command -v gls &>/dev/null; then
+    alias ls="gls --color"
+elif ls --color=auto / &>/dev/null 2>&1; then
+    alias ls="ls --color=auto"
+fi
+alias l='ls -lah'
+alias la='ls -lAh'
+alias ll='ls -lh'
+# LS_COLORS managed by set-theme.sh
+
+# directory navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# git
+alias gs="git status"
+alias gb="git branch -vv"
+alias gp="git pull --rebase"
+
+# tmux
+alias tm="tmux"
+alias tmls="tmux ls"
+alias tmat="tmux a -t"
+alias tmkill="tmux kill-session -t"
+
+# editing shortcuts
+alias m='vim'
+alias n='nvim'
+alias mf='m $(fzf)'
+alias nf='n $(fzf)'
+
+# make python3 default
+alias python='python3'
+alias pip='pip3'
+
+# use system Kerberos (homebrew's version reads its own config, not /etc/krb5.conf)
+[ -x /usr/bin/kinit ] && alias kinit='/usr/bin/kinit'
+[ -x /usr/bin/klist ] && alias klist='/usr/bin/klist'
+[ -x /usr/bin/kdestroy ] && alias kdestroy='/usr/bin/kdestroy'
+
+# cd into a dir by using fzf
+alias cdf='cd $(find . -type d -print | fzf)'
+
+# search (via q script)
+alias qf='q ff'
+alias qh='q ff'
+alias qn='q notes'
+alias qm='q mail'
+alias qr='q recent'
+alias ql='q local'

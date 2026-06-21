@@ -1,0 +1,55 @@
+# Zsh configuration (no oh-my-zsh)
+
+# Completion
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select
+
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE
+
+# Key bindings (vi mode)
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+
+# Homebrew
+if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [ -f ~/.linuxbrew/bin/brew ]; then
+  eval "$(~/.linuxbrew/bin/brew shellenv)"
+elif [ -f /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Starship prompt
+command -v starship &>/dev/null && eval "$(starship init zsh)"
+
+# Path
+export PATH="$HOME/bin:$PATH"
+
+# User configuration
+source ~/dotfiles/zsh/zshrc
+
+# if you wish to use IMDS set AWS_EC2_METADATA_DISABLED=false
+
+export AWS_EC2_METADATA_DISABLED=true
+
+
+# Fuzzy search git commits and open associated CR
+cro() {
+  local commit=$(git log --oneline -50 | fzf --preview 'git show --stat {1}' | awk '{print $1}')
+  [ -z "$commit" ] && return
+  local cr=$(git log -1 --format=%b "$commit" | grep -oP 'CR-\d+')
+  if [ -n "$cr" ]; then
+    local url="https://code.amazon.com/reviews/$cr"
+    printf '\e]8;;%s\e\\%s\e]8;;\e\\\n' "$url" "$url"
+  else
+    echo "No CR found in commit $commit"
+  fi
+}
+
+# OpenClaw Completion
+source "/Users/yikliu/.openclaw/completions/openclaw.zsh"
