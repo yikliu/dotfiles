@@ -118,4 +118,4 @@ M.rand_colorscheme = function()
 end
 
 -- Colorscheme is managed by set-theme.sh via themes/.nvim-theme.lua
--- M.rand_colorscheme()
+M.rand_colorscheme()

@@ -7,4 +7,12 @@ font-size = 17
 keybind = alt+left=unbind
 keybind = alt+right=unbind
 
+# Cursor visibility — overrides per-theme cursor-color (this loads after the
+# theme include above, so it wins for every theme). invert-fg-bg makes the
+# cursor invert whatever cell it sits on, so it stays high-contrast against
+# both the dark background and light foreground text.
+cursor-invert-fg-bg = true
+cursor-style = block
+cursor-style-blink = true
+
 

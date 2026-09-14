@@ -66,6 +66,9 @@ detect_files = []
 
 
 
+
+
+
 [palettes.theme]
 directory = "#89b4fa"
 purple = "#cba6f7"

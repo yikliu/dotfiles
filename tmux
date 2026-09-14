@@ -68,6 +68,9 @@ set -g mouse on
 # OSC 52 clipboard (works over SSH — sends yanked text to local terminal)
 set -g set-clipboard on
 
+# Yank without line breaks — y in copy mode strips newlines and copies via OSC 52
+bind -T copy-mode-vi Y send-keys -X copy-pipe-and-cancel "tr -d '\n'"
+
 # No delay for escape key press
 set -sg escape-time 0
 
@@ -102,10 +105,19 @@ bind -T off F12 \
     set -u window-status-current-style \;\
     set -u status-left \;\
     if-shell "test -f ~/dotfiles/themes/.tmux-theme.conf" "source-file ~/dotfiles/themes/.tmux-theme.conf" \;\
+    set -g window-style default \;\
+    set -g window-active-style default \;\
     refresh-client -S
 
 # theme (managed by set-theme.sh)
 if-shell "test -f ~/dotfiles/themes/.tmux-theme.conf" "source-file ~/dotfiles/themes/.tmux-theme.conf"
+
+# Disable per-pane bg tint set by the theme — it collides with Ghostty's
+# cursor-invert-fg-bg, hiding the cursor inside TUIs (e.g. kiro-cli) when
+# the pane is active. We keep the active-pane border + status indicators
+# instead.
+set -g window-style default
+set -g window-active-style default
 
 # tpm plugins, need prefix + I to install
 set -g @plugin 'tmux-plugins/tpm'

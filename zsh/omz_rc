@@ -37,7 +37,6 @@ source ~/dotfiles/zsh/zshrc
 
 export AWS_EC2_METADATA_DISABLED=true
 
-
 # Fuzzy search git commits and open associated CR
 cro() {
   local commit=$(git log --oneline -50 | fzf --preview 'git show --stat {1}' | awk '{print $1}')
@@ -51,5 +50,5 @@ cro() {
   fi
 }
 
-# OpenClaw Completion
-source "/Users/yikliu/.openclaw/completions/openclaw.zsh"
+# Added by AIM CLI
+export PATH="$HOME/.aim/mcp-servers:$PATH"
