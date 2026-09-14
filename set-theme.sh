@@ -16,12 +16,56 @@ print('#%02X%02X%02X'%(r,g,b))
 
 list_themes() {
     for f in "$THEMES_DIR"/*.sh; do
-        basename "$f" .sh
+        local name
+        name="$(basename "$f" .sh)"
+        # Skip helper scripts that aren't themes
+        [ "$name" = "preview-theme" ] && continue
+        echo "$name"
     done
 }
 
 current_theme() {
     [ -f "$CURRENT_FILE" ] && cat "$CURRENT_FILE" || echo "(none)"
+}
+
+# True (0) if the given tmux pane is running an AI/agent CLI session
+# (kiro-cli, Amazon Q, Claude Code, ...) rather than a plain interactive
+# shell. These agents run as a *child* of the pane's shell but still report
+# the shell (zsh/bash) as #{pane_current_command}, so the reload allowlist
+# below can't distinguish them. send-keys'ing the source command into one
+# types the command straight into the agent's chat prompt — which is what we
+# want to avoid. A normal shell idling at its prompt has no child process.
+is_agent_pane() {
+    local pane="$1" pid frontier next p name kids depth
+    pid=$(tmux display-message -p -t "$pane" '#{pane_pid}' 2>/dev/null) || return 1
+    [ -n "$pid" ] || return 1
+    frontier="$(pgrep -P "$pid" 2>/dev/null || true)"
+    depth=0
+    while [ -n "${frontier// /}" ] && [ "$depth" -lt 4 ]; do
+        next=""
+        for p in $frontier; do
+            name="$(ps -o comm= -p "$p" 2>/dev/null)"
+            name="${name##*/}"
+            case "$name" in
+                *kiro*|*claude*|*codewhisper*|q|amazon-q) return 0 ;;
+            esac
+            # Session env markers set only inside an agent process subtree
+            # (not in a normally-opened terminal). Best-effort: ps may be
+            # restricted in some environments.
+            if ps eww -p "$p" 2>/dev/null \
+                | grep -qE 'KIRO_SESSION_ID=|CLAUDE_CODE_|CODEWHISPERER_'; then
+                return 0
+            fi
+            # Unidentifiable foreground child on a shell pane: err toward not
+            # disrupting a possible agent session.
+            [ -z "$name" ] && return 0
+            kids="$(pgrep -P "$p" 2>/dev/null || true)"
+            next="$next $kids"
+        done
+        frontier="$next"
+        depth=$((depth + 1))
+    done
+    return 1
 }
 
 apply_theme() {
@@ -208,6 +252,9 @@ print('    claude ✓')
             cmd=$(tmux display-message -p -t "$pane" '#{pane_current_command}')
             case "$cmd" in
                 bash|zsh|sh|fish)
+                    # Skip AI/agent chat panes — send-keys would type the
+                    # source command into the agent's prompt, not a shell.
+                    is_agent_pane "$pane" && continue
                     tmux send-keys -t "$pane" " $reload_cmd" Enter
                     ;;
             esac
@@ -232,8 +279,8 @@ pick_theme() {
     local choice
     choice=$(list_themes | fzf \
         --prompt="Theme (current: $current)> " \
-        --preview="cat $THEMES_DIR/{}.sh | grep -E '^(THEME_NAME|NVIM_|KITTY_THEME|background)' | head -10" \
-        --preview-window=right:40%)
+        --preview="$THEMES_DIR/preview-theme.sh {}" \
+        --preview-window=right:50%:wrap)
 
     [ -n "$choice" ] && apply_theme "$choice"
 }

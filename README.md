@@ -41,8 +41,7 @@ For tmux plugins, press `prefix + I` (capital I) inside tmux.
 ```
 ├── init.sh                 # Bootstrap script
 ├── set-theme.sh            # Unified theme switcher
-├── random-theme.sh         # Random theme picker
-├── sync-dotfiles.sh        # fswatch + rsync to cloud desktops
+├── sync-dsk.sh             # rsync to dev desktop (gitignored; symlinked from a private repo)
 ├── themes/                 # Theme definitions (kitty + tmux + nvim + fzf + ls_colors)
 │   ├── catppuccin-mocha.sh
 │   ├── tokyo-night.sh
@@ -96,9 +95,6 @@ All visual components share a single colorscheme managed by `set-theme.sh`.
 
 # Apply a specific theme
 ./set-theme.sh catppuccin-mocha
-
-# Random theme (never repeats current)
-./random-theme.sh
 
 # List available / check current
 ./set-theme.sh --list
@@ -193,13 +189,18 @@ Install with `prefix + I` after first setup.
 
 ## Cloud Desktop Sync
 
-`sync-dotfiles.sh` watches for local changes and rsyncs to cloud desktops:
+`sync-dsk.sh` rsyncs the repo to a dev desktop. It's a gitignored local helper
+(symlinked from a private repo), so it isn't part of this repo.
 
 ```bash
-./sync-dotfiles.sh
+./sync-dsk.sh            # one-shot sync
+./sync-dsk.sh --watch    # sync, then re-sync on every change (needs fswatch)
+./sync-dsk.sh --dry-run  # preview what would transfer
 ```
 
-Requires `DEVDSK_ARM` and `DEVDSK_X86` env vars (set in `local.zsh`), falls back to hardcoded hostnames.
+Syncs to the `cd1` SSH host by default (override with `DOTFILES_DSK_REMOTE` /
+`DOTFILES_DSK_PATH`). The file set comes from git, so `.gitignore`'d files —
+including `zsh/local.zsh` — are never sent. No deletions are propagated.
 
 After syncing, run on the remote:
 

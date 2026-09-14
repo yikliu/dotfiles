@@ -9,3 +9,4 @@ themes/.fzf-theme.sh
 themes/.ls-colors-theme.sh
 kitty/current-theme.conf
 nvim/lazy-lock.json
+sync-dsk.sh

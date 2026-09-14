@@ -83,9 +83,6 @@ set -g pane-border-lines heavy
 # reload tmux config
 bind r source-file ~/.tmux.conf \; display-message "Config reloaded"
 
-# random theme (prefix + T)
-bind T run-shell "~/dotfiles/random-theme.sh"
-
 # ── Nested tmux (F12 to toggle) ────────────────────────────────────
 # F12 disables local keys so all input passes to inner (remote) tmux.
 # Status bar dims to show you're in "pass-through" mode.

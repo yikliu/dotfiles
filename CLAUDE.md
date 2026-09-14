@@ -22,7 +22,6 @@ All visual components (kitty, tmux, nvim, fzf, LS_COLORS, starship) share a sing
 ./set-theme.sh catppuccin-mocha  # apply by name
 ./set-theme.sh --list            # list themes
 ./set-theme.sh --current         # show active theme
-./random-theme.sh                # pick random (never repeats current)
 ```
 
 `set-theme.sh` hot-reloads running kitty, tmux, and nvim instances without restart. The active theme name is stored in `themes/.current`.
@@ -68,7 +67,11 @@ Other PII to keep out of tracked files and commit messages:
 ## Cloud desktop sync
 
 ```bash
-./sync-dotfiles.sh   # watches local changes, rsyncs to DEVDSK_ARM and DEVDSK_X86
+./sync-dsk.sh            # one-shot rsync of the repo to the dev desktop (cd1)
+./sync-dsk.sh --watch    # re-sync on every change (needs fswatch)
 ```
 
-Requires `DEVDSK_ARM` and `DEVDSK_X86` env vars (set in `local.zsh`); falls back to hardcoded hostnames. After sync, run `bash ~/dotfiles/init.sh --work` on the remote.
+`sync-dsk.sh` is a gitignored local helper (symlinked from a private repo). It
+selects files via git, so `.gitignore`'d files like `zsh/local.zsh` are never
+synced. Target overridable via `DOTFILES_DSK_REMOTE` / `DOTFILES_DSK_PATH`.
+After sync, run `bash ~/dotfiles/init.sh --work` on the remote.
