@@ -41,11 +41,6 @@ alias nf='n $(fzf)'
 alias python='python3'
 alias pip='pip3'
 
-# use system Kerberos (homebrew's version reads its own config, not /etc/krb5.conf)
-[ -x /usr/bin/kinit ] && alias kinit='/usr/bin/kinit'
-[ -x /usr/bin/klist ] && alias klist='/usr/bin/klist'
-[ -x /usr/bin/kdestroy ] && alias kdestroy='/usr/bin/kdestroy'
-
 # cd into a dir by using fzf
 alias cdf='cd $(find . -type d -print | fzf)'
 

@@ -15,18 +15,26 @@ export TERM=xterm-256color
 
 # ── PATH (platform-aware) ──────────────────────────────────────────
 # Common paths
+export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export XDG_CONFIG_HOME="$HOME/.config"
 
+# Homebrew
+if ! command -v brew &>/dev/null; then
+    if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    elif [ -x "$HOME/.linuxbrew/bin/brew" ]; then
+        eval "$("$HOME/.linuxbrew/bin/brew" shellenv)"
+    elif [ -x /opt/homebrew/bin/brew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [ -x /usr/local/Homebrew/bin/brew ]; then
+        eval "$(/usr/local/Homebrew/bin/brew shellenv)"
+    fi
+fi
+
 case "$(uname -s)" in
     Darwin)
-        # Homebrew
-        if [ -d "/opt/homebrew" ]; then
-            eval "$(/opt/homebrew/bin/brew shellenv)"
-        elif [ -d "/usr/local/Homebrew" ]; then
-            eval "$(/usr/local/Homebrew/bin/brew shellenv)"
-        fi
         export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
         export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 
@@ -69,8 +77,17 @@ fpath=($fpath "$HOME/.zfunctions")
 # ── Aliases & extras ────────────────────────────────────────────────
 source ~/dotfiles/zsh/myalias
 
-# Machine-specific overrides (not tracked in git)
-[ -f ~/dotfiles/zsh/local.zsh ] && source ~/dotfiles/zsh/local.zsh
+# Machine-specific configuration
+private_zsh="$HOME/.config/zsh/amazon"
+if [ -f "$private_zsh" ]; then
+    source "$private_zsh"
+elif [ -f ~/dotfiles/zsh/local.zsh ]; then
+    source ~/dotfiles/zsh/local.zsh
+fi
+unset private_zsh
 
 export GOPROXY="direct"
 export NOTES_DIR="$HOME/OneDrive/sync/notes"
+
+# ── Prompt ──────────────────────────────────────────────────────────
+command -v starship &>/dev/null && eval "$(starship init zsh)"

@@ -145,41 +145,62 @@ run_notes() {
 }
 
 # ── Mail ──────────────────────────────────────────────────────────────
-MAIL_CACHE="$HOME/.cache/q/mail_index.tsv"
+MAIL_CACHE="$HOME/.cache/q/mail_index_v2.tsv"
 
 rebuild_mail_cache() {
     mkdir -p "$(dirname "$MAIL_CACHE")"
-    python3 -c "
-import os, re
-mail_dir = os.path.expanduser('~/Library/Mail')
-with open('$MAIL_CACHE', 'w') as out:
-    for root, dirs, files in os.walk(mail_dir):
-        for f in files:
-            if not f.endswith('.emlx'):
-                continue
-            path = os.path.join(root, f)
-            try:
-                with open(path, 'rb') as fp:
-                    content = fp.read(4096)
-                text = content.decode('utf-8', errors='replace')
-                m = re.search(r'\n\n', text)
-                headers = text[m.end():] if m else text
-                from_ = re.search(r'^From:\s*(.+)', headers, re.M | re.I)
-                subj  = re.search(r'^Subject:\s*(.+)', headers, re.M | re.I)
-                date_ = re.search(r'^Date:\s*(.+)', headers, re.M | re.I)
-                out.write(f'{from_.group(1) if from_ else \"\"}\t{subj.group(1) if subj else \"\"}\t{date_.group(1) if date_ else \"\"}\t{path}\n')
-            except:
-                pass
-" 2>/dev/null &
+    python3 - "$MAIL_CACHE" "$HOME/Library/Mail" <<'PY' &
+from email import policy
+from email.parser import BytesHeaderParser
+import os
+import sys
+
+cache_path, mail_dir = sys.argv[1:]
+tmp_path = f"{cache_path}.{os.getpid()}.tmp"
+
+
+def header_value(message, name):
+    value = message.get(name)
+    return " ".join(str(value).split()) if value else ""
+
+
+try:
+    with open(tmp_path, "w", encoding="utf-8") as out:
+        for root, _dirs, files in os.walk(mail_dir):
+            for filename in files:
+                if not filename.endswith(".emlx"):
+                    continue
+                path = os.path.join(root, filename)
+                try:
+                    with open(path, "rb") as mail_file:
+                        content = mail_file.read(65536)
+                    first_line, separator, remainder = content.partition(b"\n")
+                    if separator and first_line.strip().isdigit():
+                        content = remainder
+                    message = BytesHeaderParser(policy=policy.default).parsebytes(content)
+                    fields = (
+                        header_value(message, "From"),
+                        header_value(message, "Subject"),
+                        header_value(message, "Date"),
+                        path,
+                    )
+                    out.write("\t".join(fields) + "\n")
+                except (OSError, UnicodeError, ValueError):
+                    continue
+    os.replace(tmp_path, cache_path)
+finally:
+    try:
+        os.remove(tmp_path)
+    except FileNotFoundError:
+        pass
+PY
 }
 
 run_mail() {
-    local rebuild=0
     if [ ! -f "$MAIL_CACHE" ]; then
         echo "Building mail index (one-time, ~2s)..."
         rebuild_mail_cache
         wait
-        rebuild=1
     elif [ "$(find "$MAIL_CACHE" -mtime +0 2>/dev/null)" ]; then
         rebuild_mail_cache  # background refresh, use old cache for now
     fi

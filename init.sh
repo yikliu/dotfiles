@@ -11,8 +11,8 @@ PROFILE=""
 
 usage() {
     echo "Usage: $0 <--work|--home>"
-    echo "  --work   Work setup (includes cloud desktop, Isengard config)"
-    echo "  --home   Personal setup (skip work-specific config)"
+    echo "  --work   Work setup (includes private shell configuration)"
+    echo "  --home   Personal setup (skip work-specific configuration)"
     exit 0
 }
 
@@ -95,8 +95,10 @@ install_deps() {
         brew_pkgs="$brew_pkgs ruby"
     fi
 
-    # Install missing, upgrade existing
+    # Package names are intentionally expanded as separate brew arguments.
+    # shellcheck disable=SC2086
     brew install $brew_pkgs 2>/dev/null
+    # shellcheck disable=SC2086
     brew upgrade $brew_pkgs 2>/dev/null
 
     # Nvim: pip-based linters (use uv if available, fallback to pip)
@@ -115,6 +117,7 @@ install_deps() {
     if ! has rustup; then
         echo "    Installing Rust toolchain..."
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --quiet
+        # shellcheck source=/dev/null
         . "$HOME/.cargo/env"
     else
         rustup update 2>/dev/null || true
@@ -146,7 +149,7 @@ install_deps() {
     fi
 }
 
-# ── Work config (local.zsh) ─────────────────────────────────────────
+# ── Profile configuration ───────────────────────────────────────────
 setup_local() {
     local target="$DOTFILES/zsh/local.zsh"
     local template="$DOTFILES/zsh/local.zsh.example"
@@ -157,46 +160,77 @@ setup_local() {
     fi
 
     if [ ! -f "$template" ]; then
-        echo "    zsh/local.zsh.example not found, skipping"
-        return
+        echo "Error: local Zsh template not found: $template" >&2
+        return 1
     fi
-
-    echo "==> Setting up work config (zsh/local.zsh)..."
-
-    # Non-interactive mode (e.g. remote SSH)
-    if [ ! -t 0 ]; then
-        cp "$template" "$target"
-        echo "    Created $target (edit placeholders manually)"
-        return
-    fi
-
-    echo "    Leave blank to keep the placeholder."
-    echo
-    read -rp "    Amazon alias (e.g. jdoe): " alias
-    read -rp "    Personal Isengard account ID (12 digits): " personal_acct
-    read -rp "    Ponte Alpha account ID (12 digits): " ponte_alpha
-    read -rp "    Ponte Beta account ID (12 digits): " ponte_beta
 
     cp "$template" "$target"
-    [ -n "$alias" ]         && sed -i.bak "s/<YOUR_ALIAS>/$alias/g" "$target"
-    [ -n "$personal_acct" ] && sed -i.bak "s/<PERSONAL_ACCOUNT_ID>/$personal_acct/g" "$target"
-    [ -n "$ponte_alpha" ]   && sed -i.bak "s/<PONTE_ALPHA_ACCOUNT_ID>/$ponte_alpha/g" "$target"
-    [ -n "$ponte_beta" ]    && sed -i.bak "s/<PONTE_BETA_ACCOUNT_ID>/$ponte_beta/g" "$target"
-    rm -f "${target}.bak"
-
     echo "    Created $target"
+}
+
+fetch_work_config() {
+    local url="${YIKUNLIUFILES_AMAZON_URL:-https://code.amazon.com/packages/YikunliuFiles/blobs/mainline/--/amazon?raw=1}"
+    local destination="$HOME/.config/zsh/amazon"
+    local cookie="$HOME/.midway/cookie"
+    local temp first_line
+
+    if ! has curl || ! has zsh; then
+        echo "Error: curl and zsh are required to install the private shell configuration." >&2
+        return 1
+    fi
+
+    if [ ! -f "$cookie" ]; then
+        echo "Error: Midway cookie not found: $cookie" >&2
+        echo "       Run mwinit, then rerun init.sh --work." >&2
+        return 1
+    fi
+
+    mkdir -p "$(dirname "$destination")"
+    temp=$(mktemp "${destination}.XXXXXX")
+    if ! curl --fail --location --silent --show-error \
+        --cookie "$cookie" \
+        "$url" \
+        --output "$temp"; then
+        rm -f "$temp"
+        if [ -f "$destination" ]; then
+            echo "Warning: refresh failed; keeping existing private Zsh configuration." >&2
+            return
+        fi
+        echo "Error: unable to download the private Zsh configuration." >&2
+        return 1
+    fi
+
+    if [ ! -s "$temp" ]; then
+        rm -f "$temp"
+        echo "Error: downloaded private Zsh configuration was empty." >&2
+        return 1
+    fi
+
+    first_line=$(head -n 1 "$temp")
+    case "$first_line" in
+        '<!DOCTYPE html>'*|'<html'*|'<HTML'*)
+            rm -f "$temp"
+            echo "Error: Code Browser returned HTML instead of raw Zsh." >&2
+            return 1
+            ;;
+    esac
+
+    if ! zsh -n "$temp"; then
+        rm -f "$temp"
+        echo "Error: downloaded private Zsh configuration failed syntax validation." >&2
+        return 1
+    fi
+
+    chmod 600 "$temp"
+    mv "$temp" "$destination"
+    echo "    Private Zsh configuration updated: $destination"
 }
 
 # ── Run ─────────────────────────────────────────────────────────────
 install_deps
 
-if [ ! -f "$DOTFILES/zsh/local.zsh" ]; then
-    if [ "$PROFILE" = "work" ]; then
-        setup_local
-    else
-        echo "# Home profile — add personal overrides here" > "$DOTFILES/zsh/local.zsh"
-        echo "    Created zsh/local.zsh (home)"
-    fi
+if [ "$PROFILE" = "home" ]; then
+    setup_local
 fi
 
 # ── AL2023 Cloud Desktop fixes ──────────────────────────────────────
@@ -231,6 +265,8 @@ if [ "$PROFILE" = "work" ]; then
             toolbox install "$tool" 2>/dev/null || true
         done
     fi
+
+    fetch_work_config
 fi
 
 echo "==> Done! Restart your shell or run: source ~/.zshrc"
